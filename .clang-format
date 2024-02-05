@@ -3,7 +3,7 @@ BasedOnStyle: LLVM
 
 # Set maximum line width to 80 columns.
 # Exceeding lines will be wrapped.
-ColumnLimit: 80
+ColumnLimit: 79
 
 # Always use tabs for indentation instead of spaces.
 UseTab: Always
