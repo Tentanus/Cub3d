@@ -22,9 +22,10 @@ INC_DIR			:=	inc
 LIB_DIR			:=	lib
 
 SRC				:=	\
-					main.c			\
-					error/error.c	\
-					parser/parser.c	\
+					main.c							\
+					error/error.c					\
+					parser/parser.c					\
+					parser/get_next_line.c			\
 
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -91,11 +92,11 @@ $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 
 clean:
 	@echo "$(RED)$(BOLD)CLEANING $(NAME)$(RESET)"
-	$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJ_DIR)
 
 fclean: clean 
-	$(RM) $(NAME)
-	$(RM) $(DIR_MLX)/build
+	@$(RM) $(NAME)
+	@$(RM) $(DIR_MLX)/build
 	@$(MAKE) fclean -C $(DIR_FT)
 
 re: fclean all
