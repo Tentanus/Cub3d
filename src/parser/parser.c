@@ -1,7 +1,7 @@
 #include "Cub3d.h"
 
-bool parser(int fd)
+int parser(int fd)
 {
-	(void)fd;
-	return (true);
+	close(fd);
+	return (SUCCESS);
 }

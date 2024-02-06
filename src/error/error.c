@@ -1,11 +1,18 @@
 
-#include "Cub3d_error.h"
+#include "CBDerror.h"
+#include "libft.h"
 
-#include <unistd.h>
+static const char *g_err_msg[] = {[SUCCESS] = "-",
+								  [ERR_ARGUMENT] = "give 1 argument",
+								  [ERR_SUFFIX] = "argument ends with *.cub",
+								  [ERR_FILE] = "unable to open file",
+								  [ERR_MEMORY] = "unable to allocate memory",
+								  [_SIZE_ERRNUM] = "END ERROR MESSAGES"};
 
-void cbderror(int errnum)
+void cbdError(t_errnum errnum)
 {
 	if (errnum == SUCCESS)
 		return;
-	write(STDOUT_FILENO, "Cub3d: ", 7);
+	ft_putstr_fd("Cub3d: ", STDERR_FILENO);
+	ft_putendl_fd(g_err_msg[errnum], STDERR_FILENO);
 }
