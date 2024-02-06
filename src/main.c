@@ -3,14 +3,23 @@
 #include "Cub3d.h"
 #include "libft.h"
 
+#include "Cub3d_error.h"
+
+bool checkInput(int argc, char **argv)
+{
+	if (argc != 2)
+		return (cbderror(ERR_ARGUMENT), true);
+	(void)argc;
+	(void)argv;
+	return (false);
+}
+
 int main(int argc, char *argv[])
 {
+	if (checkInput(argc, argv))
+		return (1);
+	(void)argc;
+	(void)argv;
 
-	for (size_t i = 0; i <= (size_t)argc; i++)
-	{
-		if (i != (size_t)argc)
-			ft_memmove(argv[i], &argv[i][1], ft_strlen(argv[i]));
-		printf("[%zu] :\t%s\n", i, argv[i]);
-	}
 	return (1);
 }

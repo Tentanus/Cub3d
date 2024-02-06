@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
+#    Makefile                                           :+:      :+:           #
 #                                                      +:+                     #
 #    By: mweverli <mweverli@student.codam.n>          +#+                      #
 #                                                    +#+                       #
 #    Created: 2024/02/05 18:12:58 by mweverli      #+#    #+#                  #
-#    Updated: 2024/02/05 18:29:55 by mweverli      ########   odam.nl          #
+#    Updated: 2024/02/06 11:26:56 by mweverli         ###     odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ LIB_DIR			:=	lib
 
 SRC				:=	\
 					main.c			\
+					error/error.c	\
+					parser/parser.c	\
 
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -43,7 +45,7 @@ INCLUDE			:=	-I $(INC_DIR)					\
 					-I $(DIR_FT)/include			\
 					-I $(DIR_MLX)/include/MLX42
 
-LIB_FLAG		:=	-l
+LIB_FLAG		:=	-lglfw -lm
 
 CC				:=	cc
 CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
@@ -80,11 +82,11 @@ $(DIR_LIST):
 
 $(NAME): $(LIB_MLX) $(LIB_FT) $(OBJ)
 	@echo ""
-	@echo "$(COMPILE) $(GREEN)$(INCLUDE) $(CYAN)$(notdir $(OBJ))$(RESET) $(LIB_MLX) $(LIB_FT) -o $(NAME)"
-	@$(COMPILE) $(INCLUDE) $(OBJ) $(LIB_MLX) $(LIB_FT) -o $(NAME)
+	@echo "$(COMPILE) $(LIB_FLAG) $(GREEN)$(INCLUDE) $(CYAN)$(notdir $(OBJ))$(RESET) $(LIB_MLX) $(LIB_FT) -o $(NAME)"
+	@$(COMPILE) $(LIB_FLAG) $(INCLUDE) $(OBJ) $(LIB_MLX) $(LIB_FT) -o $(NAME)
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
-	@echo "$(CYAN)COMPILE $(INFO_FL) $(notdir $(<:%.c=%))$(RESET)"
+	@echo "$(CYAN)COMPILE $(INFO_FL) $(notdir $<)$(RESET)"
 	@$(COMPILE) $(INCLUDE) -MMD -o $@ -c $< 
 
 clean:
@@ -106,7 +108,7 @@ echo:
 #========================================#
 
 $(LIB_MLX):
-	cmake $(if $(findstring -g,$(CFL)),-DDEBUG=1) $(DIR_MLX) -B $(DIR_MLX)/build
+	cmake $(if DEBUG=1,-DDEBUG=1) $(DIR_MLX) -B $(DIR_MLX)/build
 	cmake --build $(DIR_MLX)/build
 
 $(LIB_FT):

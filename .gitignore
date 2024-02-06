@@ -1,0 +1,6 @@
+#Compiledb json file
+compile_commands.json
+.cache/
+
+#executable
+Cub3d
