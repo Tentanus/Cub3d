@@ -55,7 +55,7 @@ CFL				+=	-g -fstandalone-debug
 endif
 
 ifdef LOG 
-CFL				+=	 -D LOG=Cub3d.log
+CFL				+=	 -D LOG=1
 endif
 
 ifdef FSAN
