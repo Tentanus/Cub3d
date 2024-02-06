@@ -18,13 +18,13 @@
 #define SUCCESS 0
 #define FAILURE 1
 
-/*
 typedef struct s_cub3d
 {
-	// t_map map;
+	char **map;
 	// t_tex tex;
 
 } t_cub3d;
-*/
+
+int parser(int fd, t_cub3d *info);
 
 #endif // !CUB3D_H

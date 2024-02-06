@@ -3,7 +3,7 @@ BasedOnStyle: LLVM
 
 # Set maximum line width to 80 columns.
 # Exceeding lines will be wrapped.
-ColumnLimit: 79
+ColumnLimit: 80
 
 # Always use tabs for indentation instead of spaces.
 UseTab: Always
@@ -51,3 +51,8 @@ BinPackParameters: true
 
 # Don't break template declarations
 AlwaysBreakTemplateDeclarations: "Yes"
+
+
+AlignConsecutiveAssignments:
+  Enabled: true
+

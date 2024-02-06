@@ -1,15 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   error.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mweverli  <mweverli@student.codam.nl>        +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/06 17:36:09 by mweverli      #+#    #+#                 */
+/*   Updated: 2024/01/10 17:37:09 by mweverli      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "CBDerror.h"
 #include "libft.h"
 
-static const char *g_err_msg[] = {[SUCCESS] = "-",
+static const char *g_err_msg[] = {[SUCCESS]		 = "-",
 								  [ERR_ARGUMENT] = "give 1 argument",
-								  [ERR_SUFFIX] = "argument ends with *.cub",
-								  [ERR_FILE] = "unable to open file",
-								  [ERR_MEMORY] = "unable to allocate memory",
+								  [ERR_SUFFIX]	 = "argument ends with *.cub",
+								  [ERR_FILE]	 = "unable to open file",
+								  [ERR_MEMORY]	 = "unable to allocate memory",
 								  [_SIZE_ERRNUM] = "END ERROR MESSAGES"};
 
-void cbdError(t_errnum errnum)
+void cbd_error(t_errnum errnum)
 {
 	if (errnum == SUCCESS)
 		return;
