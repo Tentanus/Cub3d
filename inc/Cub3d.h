@@ -8,6 +8,7 @@
 
 #include <fcntl.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <unistd.h>
 
 #ifndef LOG
@@ -29,8 +30,8 @@ typedef struct s_cub3d
 	char *text_so;
 	char *text_we;
 	char *text_ea;
-	int col_fl;
-	int col_ce;
+	int32_t col_fl;
+	int32_t col_ce;
 	// t_tex tex;
 
 } t_cub3d;

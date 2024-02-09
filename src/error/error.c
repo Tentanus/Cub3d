@@ -13,12 +13,15 @@
 #include "CBDerror.h"
 #include "libft.h"
 
-static const char *g_err_msg[] = {[SUCCESS]		 = "-",
-								  [ERR_ARGUMENT] = "give 1 argument",
-								  [ERR_SUFFIX]	 = "argument ends with *.cub",
-								  [ERR_FILE]	 = "unable to open file",
-								  [ERR_MEMORY]	 = "unable to allocate memory",
-								  [_SIZE_ERRNUM] = "END ERROR MESSAGES"};
+static const char *g_err_msg[_SIZE_ERRNUM + 1] = {
+	[SUCCESS]		   = "-",
+	[ERR_ARGUMENT]	   = "give 1 argument",
+	[ERR_SUFFIX]	   = "argument ends with *.cub",
+	[ERR_FILE]		   = "unable to open file",
+	[ERR_MEMORY]	   = "unable to allocate memory",
+	[ERR_PARSE_FORMAT] = "unkown format in file",
+	[ERR_PARSE_ID]	   = "unknown type_id in file [NO, SO, WE, EA, C, F]",
+	[_SIZE_ERRNUM]	   = "END ERROR MESSAGES"};
 
 void cbd_error(t_errnum errnum)
 {

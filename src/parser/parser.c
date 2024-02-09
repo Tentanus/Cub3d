@@ -52,13 +52,12 @@ int parser(int fd, t_cub3d *info)
 
 #ifdef LOG
 	ft_printf("LOG:\tREAD FILE:\n%s\n\n", fileline);
-#endif /* ifdef LOG                                                            \
-		ft_printf("LOG:\tREAD FILE:\n%s\n\n", fileline);                       \
-	*/
+#endif // ifdef LOG
 
 	ft_bzero(info, sizeof(t_cub3d));
-	if (line_to_info(ft_split(fileline), info) || set_default(info))
-		return (cbd_error(ERR_MEMORY), FAILURE);
+	if (line_to_info(ft_split(fileline, '\n'), info))
+		return (FAILURE);
+	set_default(info);
 	free(fileline);
 
 #ifdef LOG

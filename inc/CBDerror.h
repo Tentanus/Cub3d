@@ -8,6 +8,8 @@ typedef enum e_errnum
 	ERR_SUFFIX,
 	ERR_FILE,
 	ERR_MEMORY,
+	ERR_PARSE_FORMAT,
+	ERR_PARSE_ID,
 	_SIZE_ERRNUM
 
 } t_errnum;
