@@ -67,6 +67,7 @@ COMPILE			:=	$(CC) $(CFL)
 
 INFO_FL			:=											\
 $(if $(findstring -g,$(CFL)),-g)							\
+$(if $(findstring LOG,$(CFL)),LOG)							\
 $(if $(findstring address,$(CFL)),addr)						\
 $(if $(findstring undefined,$(CFL)),undef)					\
 
