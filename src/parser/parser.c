@@ -6,7 +6,7 @@
 
 #include <unistd.h>
 
-static char *read_fd(int fd)
+static char **read_fd(int fd)
 {
 	char *res;
 	char *line;
@@ -20,7 +20,12 @@ static char *read_fd(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	return (res);
+
+#ifdef LOG
+	ft_printf("LOG:\tREAD FILE:\n%s\n\n", res);
+#endif // ifdef LOG
+
+	return (ft_split(res, '\n'));
 }
 
 static bool set_default(t_cub3d *info)
@@ -41,24 +46,23 @@ static bool set_default(t_cub3d *info)
 
 int parser(int fd, t_cub3d *info)
 {
-	char *fileline;
+	char **filelines;
+	ssize_t idx;
 
+	idx = 0;
 	if (fd == -1)
 		return (FAILURE);
-	fileline = read_fd(fd);
+	filelines = read_fd(fd);
 	close(fd);
-	if (fileline == NULL)
+	if (filelines == NULL)
 		return (cbd_error(ERR_MEMORY), FAILURE);
 
-#ifdef LOG
-	ft_printf("LOG:\tREAD FILE:\n%s\n\n", fileline);
-#endif // ifdef LOG
-
 	ft_bzero(info, sizeof(t_cub3d));
-	if (line_to_info(ft_split(fileline, '\n'), info))
+	if (!get_data(info, filelines, &idx))
 		return (FAILURE);
-	set_default(info);
-	free(fileline);
+	if (!get_map(info, filelines, &idx))
+		return (FAILURE);
+	set_default(info); // this is a temporary fucntion;
 
 #ifdef LOG
 	show_info(info);

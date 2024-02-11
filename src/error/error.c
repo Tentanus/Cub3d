@@ -14,14 +14,13 @@
 #include "libft.h"
 
 static const char *g_err_msg[_SIZE_ERRNUM + 1] = {
-	[SUCCESS]		   = "-",
-	[ERR_ARGUMENT]	   = "give 1 argument",
-	[ERR_SUFFIX]	   = "argument ends with *.cub",
-	[ERR_FILE]		   = "unable to open file",
-	[ERR_MEMORY]	   = "unable to allocate memory",
-	[ERR_PARSE_FORMAT] = "unkown format in file",
-	[ERR_PARSE_ID]	   = "unknown type_id in file [NO, SO, WE, EA, C, F]",
-	[_SIZE_ERRNUM]	   = "END ERROR MESSAGES"};
+	[SUCCESS]	   = "-",
+	[ERR_ARGUMENT] = "usage: ./Cub3d <filename>.cub",
+	[ERR_FILE]	   = "unable to open file",
+	[ERR_READ]	   = "unable to read file",
+	[ERR_MEMORY]   = "unable to allocate memory",
+	[ERR_PARSE_ID] = "unknown identifier in file [NO, SO, WE, EA, C, F]",
+	[_SIZE_ERRNUM] = "END ERROR MESSAGES"};
 
 void cbd_error(t_errnum errnum)
 {

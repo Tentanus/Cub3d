@@ -25,7 +25,7 @@ static int validateinput(int argc, char **argv)
 	filename_length = ft_strlen(argv[1]);
 	if (filename_length <= 4 ||
 		ft_strncmp(&argv[1][filename_length - 4], ".cub", 5))
-		return (cbd_error(ERR_SUFFIX), -1);
+		return (cbd_error(ERR_ARGUMENT), -1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (cbd_error(ERR_FILE), -1);

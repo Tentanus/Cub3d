@@ -24,7 +24,8 @@ LIB_DIR			:=	lib
 SRC				:=	\
 					main.c							\
 					error/error.c					\
-					parser/line_to_info.c			\
+					parser/get_data.c				\
+					parser/get_map.c				\
 					parser/parser.c					\
 					parser/get_next_line.c			\
 					utils/logprinter.c				\

@@ -9,11 +9,8 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <unistd.h>
-
-#ifndef LOG
-#define LOG 0
-#endif // !LOG
 
 #define DEF_TEXT_NO "./img/default/bloody_wall_01.png"
 #define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
@@ -38,5 +35,9 @@ typedef struct s_cub3d
 
 int parser(int fd, t_cub3d *info);
 void show_info(t_cub3d *info);
+
+#ifndef LOG
+#define LOG 0
+#endif // !LOG
 
 #endif // !CUB3D_H
