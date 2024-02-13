@@ -7,11 +7,17 @@ static void print_map(char **map)
 {
 	size_t i = 0;
 
-	while (map[i])
+	if (!map)
+		ft_printf("| NO MAP: \n|\n");
+	else
 	{
-		ft_putendl_fd(map[i], STDOUT_FILENO);
-		ft_printf("%d\t|\t%s\n", i, map[i]);
-		i++;
+		ft_printf("| MAP: \n|\n");
+		while (map[i])
+		{
+			ft_putendl_fd(map[i], STDOUT_FILENO);
+			ft_printf("|\t%u\t|\t%s\n", i, map[i]);
+			i++;
+		}
 	}
 }
 
@@ -24,13 +30,15 @@ void show_info(t_cub3d *info)
 		return;
 	}
 
-	if (info->map != NULL)
-		print_map(info->map);
+	print_map(info->map);
 
-	ft_printf("TEXTURE NORTH:\t%s\n", info->text_no);
-	ft_printf("TEXTURE SOUTH:\t%s\n", info->text_so);
-	ft_printf("TEXTURE  WEST:\t%s\n", info->text_we);
-	ft_printf("TEXTURE  EAST:\t%s\n", info->text_ea);
+	ft_printf("| TEXTURE & COLLOUR: \n|\n");
+	ft_printf("|\tTEXTURE  NORTH:  \t%s\n", info->text_no);
+	ft_printf("|\tTEXTURE  SOUTH:  \t%s\n", info->text_so);
+	ft_printf("|\tTEXTURE  WEST:   \t%s\n", info->text_we);
+	ft_printf("|\tTEXTURE  EAST:   \t%s\n", info->text_ea);
+	ft_printf("|\tCOLOUR   FLOOR:  \t%X\t%b\n", info->col_fl);
+	ft_printf("|\tCOLOUR   CEILING:\t%X\t%b\n", info->col_ce);
 
 	ft_printf("\n\t-=- FINISHED -=-\n\n");
 }
