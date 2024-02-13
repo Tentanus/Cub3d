@@ -1,3 +1,6 @@
+# Project needs to follow 42's' Norminette so formatting will be disabled
+DisableFormat: true
+
 # Use the LLVM coding style as the base for this configuration.
 BasedOnStyle: LLVM
 

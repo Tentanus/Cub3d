@@ -24,25 +24,7 @@ static const char *g_id_str[TYPE_ID_MAX] = {
  */
 // clang-format on
 
-void get_error(char err)
-{
-	if (err == 0)
-		return;
-	if (err == '0')
-		cbd_error(ERR_MEMORY);
-	else if (err == '!')
-		cbd_error(ERR_PARSE_PATH);
-	else if (err == ' ')
-		cbd_error(ERR_PARSE_FORMAT);
-	else if (err == 'i')
-		cbd_error(ERR_PARSE_RGB);
-	else if (err == ',')
-		cbd_error(ERR_PARSE_FORMAT);
-	else if (err == 'F')
-		cbd_error(ERR_PARSE_FILLED);
-}
-
-uint32_t get_colour(char *str, char *err)
+static uint32_t get_colour(char *str, int *err)
 {
 	size_t start;
 	int i;
@@ -52,15 +34,15 @@ uint32_t get_colour(char *str, char *err)
 	start = ft_strskipis(str, ft_isspace);
 	i	  = 2;
 	ret	  = 255;
-	while (i >= 0 && *err == '\0')
+	while (i >= 0 && *err == SUCCESS)
 	{
 		val = ft_atoi(&str[start]);
 		if (val < 0 || val > 255)
-			*err = 'i';
+			*err = ERR_PARSE_RGB;
 		ret += (val << (8 * (i + 1)));
 		start += ft_strskipis(&str[start], ft_isdigit);
 		if (i != 0 && str[start] != ',')
-			*err = ',';
+			*err = ERR_PARSE_FORMAT;
 		start++;
 		i--;
 	}
@@ -70,7 +52,7 @@ uint32_t get_colour(char *str, char *err)
 	return (ret);
 }
 
-char *get_texture(char *str, char *err)
+static char *get_texture(char *str, int *err)
 {
 	size_t start;
 	size_t end;
@@ -80,18 +62,18 @@ char *get_texture(char *str, char *err)
 	end	  = ft_strskipis(&str[start], ft_ispath) + 1;
 	ret	  = ft_substr(str, start, end - start);
 	if (!ret)
-		*err = '0';
+		*err = ERR_MEMORY;
 	else if (!ft_stris(ret, ft_ispath))
-		*err = '!';
+		*err = ERR_PARSE_PATH;
 	else if (!ft_stris(&str[end], ft_isspace))
-		*err = ' ';
+		*err = ERR_PARSE_FORMAT;
 #ifdef LOG
 	ft_printf("get_colour: %s\n", ret);
 #endif /* ifdef LOG */
 	return (ret);
 }
 
-bool check_filled(t_cub3d *info, t_type_id id)
+static bool check_filled(t_cub3d *info, t_type_id id)
 {
 	if (id == TYPE_ID_NORTH)
 		return (ft_ternary(info->text_no != NULL, FAILURE, SUCCESS));
@@ -108,13 +90,13 @@ bool check_filled(t_cub3d *info, t_type_id id)
 	return (FAILURE);
 }
 
-bool set_infovalue(t_cub3d *info, t_type_id id, char *str)
+static bool set_infovalue(t_cub3d *info, t_type_id id, char *str)
 {
-	char err;
+	int err;
 
-	err = '\0';
+	err = SUCCESS;
 	if (check_filled(info, id))
-		err = 'F';
+		err = ERR_PARSE_FILLED;
 	else
 	{
 		if (id == TYPE_ID_NORTH)
@@ -130,11 +112,11 @@ bool set_infovalue(t_cub3d *info, t_type_id id, char *str)
 		else if (id == TYPE_ID_CEILING)
 			info->col_ce = get_colour(str, &err);
 	}
-	get_error(err);
+	cbd_error(err);
 	return (ft_ternary(err != '\0', FAILURE, SUCCESS));
 }
 
-t_type_id get_identifier(char *str)
+static t_type_id get_identifier(char *str)
 {
 	ssize_t idx;
 	ssize_t id_idx;

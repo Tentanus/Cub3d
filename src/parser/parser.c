@@ -20,14 +20,16 @@ static char **read_fd(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-
 #ifdef LOG
-	ft_printf("LOG:\tREAD FILE:\n%s\n\n", res);
+	ft_printf("-=- START LOG:\tREAD FILE -=-\n|--------------\n");
+	ft_printf("%s\n\n", res);
+	ft_printf("-=- END LOG:\tREAD FILE -=-\n|--------------\n", res);
 #endif // ifdef LOG
-
 	return (ft_split(res, '\n'));
 }
 
+// this is a temporary fucntion; could set it up so it checks
+// if all values have been filled after get_data & get_map
 static bool set_default(t_cub3d *info)
 {
 	if (!info->text_no)
@@ -50,8 +52,8 @@ static bool set_default(t_cub3d *info)
 
 int parser(int fd, t_cub3d *info)
 {
-	char **filelines;
-	ssize_t idx;
+	char	**filelines;
+	ssize_t	idx;
 
 	idx = 0;
 	if (fd == -1)
@@ -60,14 +62,12 @@ int parser(int fd, t_cub3d *info)
 	close(fd);
 	if (filelines == NULL)
 		return (cbd_error(ERR_MEMORY), FAILURE);
-
 	ft_bzero(info, sizeof(t_cub3d));
 	if (get_data(info, filelines, &idx))
 		return (cbd_free_info(info), FAILURE);
 	if (get_map(info, filelines, &idx))
 		return (cbd_free_info(info), FAILURE);
-	set_default(info); // this is a temporary fucntion;
-
+	set_default(info);
 	show_info(info);
 
 	return (SUCCESS);
