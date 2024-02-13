@@ -38,9 +38,13 @@ static bool set_default(t_cub3d *info)
 		info->text_we = ft_strdup(DEF_TEXT_WE);
 	if (!info->text_ea)
 		info->text_ea = ft_strdup(DEF_TEXT_EA);
-	if (!info->text_no || !info->text_so || !info->text_we || !info->text_ea)
+	if (!info->col_fl)
+		info->col_fl = DEF_COL_FL;
+	if (!info->col_ce)
+		info->col_ce = DEF_COL_CE;
+	if (!info->text_no || !info->text_so || !info->text_we || !info->text_ea ||
+		!info->col_fl || !info->col_ce)
 		return (FAILURE);
-
 	return (SUCCESS);
 }
 
@@ -58,15 +62,13 @@ int parser(int fd, t_cub3d *info)
 		return (cbd_error(ERR_MEMORY), FAILURE);
 
 	ft_bzero(info, sizeof(t_cub3d));
-	if (!get_data(info, filelines, &idx))
+	if (get_data(info, filelines, &idx))
 		return (FAILURE);
-	if (!get_map(info, filelines, &idx))
+	if (get_map(info, filelines, &idx))
 		return (FAILURE);
 	set_default(info); // this is a temporary fucntion;
 
-#ifdef LOG
 	show_info(info);
-#endif /* ifdef LOG */
 
 	return (SUCCESS);
 }

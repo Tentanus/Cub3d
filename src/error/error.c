@@ -20,9 +20,10 @@ static const char *g_err_msg[_SIZE_ERRNUM + 1] = {
 	[ERR_READ]		   = "unable to read file",
 	[ERR_MEMORY]	   = "unable to allocate memory",
 	[ERR_PARSE_ID]	   = "unknown identifier in file [NO, SO, WE, EA, C, F]",
-	[ERR_PARSE_FORMAT] = "unknown parsing format in file",
+	[ERR_PARSE_FORMAT] = "unable to parse due to unknown format in file",
 	[ERR_PARSE_RGB]	   = "unable to parse colour value [ 0 - 255]",
 	[ERR_PARSE_PATH]   = "unable to parse path",
+	[ERR_PARSE_FILLED] = "unable to parse due to multiple similar identifier",
 	[_SIZE_ERRNUM]	   = "END ERROR MESSAGES"};
 
 void cbd_error(t_errnum errnum)

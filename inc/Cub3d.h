@@ -16,6 +16,8 @@
 #define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
 #define DEF_TEXT_WE "./img/default/brown_wall.png"
 #define DEF_TEXT_EA "./img/default/brown_wall_light_cropped.png"
+#define DEF_COL_FL 0xFF8C3B0C
+#define DEF_COL_CE 0xFF5BACF5
 
 #define SUCCESS 0
 #define FAILURE 1
@@ -35,9 +37,5 @@ typedef struct s_cub3d
 
 int parser(int fd, t_cub3d *info);
 void show_info(t_cub3d *info);
-
-#ifndef LOG
-#define LOG 0
-#endif // !LOG
 
 #endif // !CUB3D_H

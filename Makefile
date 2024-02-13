@@ -58,7 +58,7 @@ ifdef DEBUG
 CFL				+=	-g -fstandalone-debug
 endif
 
-ifdef LOG 
+ifndef NOLOG
 CFL				+=	 -D LOG=1
 endif
 
