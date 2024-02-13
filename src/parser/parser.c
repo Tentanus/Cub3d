@@ -63,9 +63,9 @@ int parser(int fd, t_cub3d *info)
 
 	ft_bzero(info, sizeof(t_cub3d));
 	if (get_data(info, filelines, &idx))
-		return (FAILURE);
+		return (cbd_free_info(info), FAILURE);
 	if (get_map(info, filelines, &idx))
-		return (FAILURE);
+		return (cbd_free_info(info), FAILURE);
 	set_default(info); // this is a temporary fucntion;
 
 	show_info(info);

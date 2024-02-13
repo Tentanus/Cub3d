@@ -36,6 +36,7 @@ typedef struct s_cub3d
 } t_cub3d;
 
 int parser(int fd, t_cub3d *info);
+void cbd_free_info(t_cub3d *info);
 void show_info(t_cub3d *info);
 
 #endif // !CUB3D_H

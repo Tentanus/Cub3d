@@ -14,10 +14,10 @@ static void print_map(char **map)
 		ft_printf("| MAP: \n|\n");
 		while (map[i])
 		{
-			ft_putendl_fd(map[i], STDOUT_FILENO);
 			ft_printf("|\t%u\t|\t%s\n", i, map[i]);
 			i++;
 		}
+		ft_printf("|\n");
 	}
 }
 

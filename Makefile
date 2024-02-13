@@ -29,6 +29,7 @@ SRC				:=	\
 					parser/parser.c					\
 					parser/get_next_line.c			\
 					utils/logprinter.c				\
+					utils/free_info.c				\
 
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
