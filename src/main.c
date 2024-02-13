@@ -11,20 +11,19 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-
 #include "Cub3d.h"
 #include "libft.h"
 
-static int validateinput(int argc, char **argv)
+static int	validateinput(int argc, char **argv)
 {
-	int fd;
-	size_t filename_length;
+	int		fd;
+	size_t	filename_length;
 
 	if (argc != 2)
 		return (cbd_error(ERR_ARGUMENT), -1);
 	filename_length = ft_strlen(argv[1]);
-	if (filename_length <= 4 ||
-		ft_strncmp(&argv[1][filename_length - 4], ".cub", 5))
+	if (filename_length <= 4
+		|| ft_strncmp(&argv[1][filename_length - 4], ".cub", 5))
 		return (cbd_error(ERR_ARGUMENT), -1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
@@ -32,9 +31,9 @@ static int validateinput(int argc, char **argv)
 	return (fd);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_cub3d info;
+	t_cub3d	info;
 
 	if (parser(validateinput(argc, argv), &info))
 		return (FAILURE);

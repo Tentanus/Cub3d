@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   logprinter.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mweverli <mweverli@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/13 19:43:39 by mweverli          #+#    #+#             */
+/*   Updated: 2024/02/13 19:43:40 by mweverli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "Cub3d.h"
 #include "libft.h"
 #include <unistd.h>
 
-static void print_map(char **map)
+static void	print_map(char **map)
 {
-	size_t i = 0;
+	size_t	i;
 
+	i = 0;
 	if (!map)
 		ft_printf("| NO MAP: \n|\n");
 	else
@@ -21,17 +33,15 @@ static void print_map(char **map)
 	}
 }
 
-void show_info(t_cub3d *info)
+void	print_info(t_cub3d *info)
 {
 	ft_printf("\t-=- PRINTING INFO -=-\n\n");
 	if (info == NULL)
 	{
 		ft_putendl_fd("\n -=- NO INFO FOUND -=-\n", STDERR_FILENO);
-		return;
+		return ;
 	}
-
 	print_map(info->map);
-
 	ft_printf("| TEXTURE & COLLOUR: \n|\n");
 	ft_printf("|\tTEXTURE  NORTH:  \t%s\n", info->text_no);
 	ft_printf("|\tTEXTURE  SOUTH:  \t%s\n", info->text_so);
@@ -39,6 +49,5 @@ void show_info(t_cub3d *info)
 	ft_printf("|\tTEXTURE  EAST:   \t%s\n", info->text_ea);
 	ft_printf("|\tCOLOUR   FLOOR:  \t%X\t%b\n", info->col_fl);
 	ft_printf("|\tCOLOUR   CEILING:\t%X\t%b\n", info->col_ce);
-
 	ft_printf("\n\t-=- FINISHED -=-\n\n");
 }

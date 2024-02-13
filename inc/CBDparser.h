@@ -1,11 +1,23 @@
-#ifndef CBD_PARSER_H
-#define CBD_PARSER_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   CBDparser.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mweverli <mweverli@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/13 19:46:23 by mweverli          #+#    #+#             */
+/*   Updated: 2024/02/13 19:46:24 by mweverli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "get_next_line.h"
+#ifndef CBDPARSER_H
+# define CBDPARSER_H
 
-#include <stdbool.h>
+# include "get_next_line.h"
 
-#define MAP_CHARACTER " 01NSWE"
+# include <stdbool.h>
+
+# define MAP_CHARACTER " 01NSWE"
 // maps can only contain spaces, meaning no other whitespace
 // characters;
 
@@ -18,13 +30,13 @@ typedef enum e_type_id
 	TYPE_ID_FLOOR,
 	TYPE_ID_CEILING,
 	TYPE_ID_MAX
-} t_type_id;
+}	t_type_id;
 
-typedef struct s_cub3d t_cub3d;
+typedef struct s_cub3d	t_cub3d;
 
-int parser(int fd, t_cub3d *info);
+int		parser(int fd, t_cub3d *info);
 
-bool get_data(t_cub3d *, char **, ssize_t *);
-bool get_map(t_cub3d *, char **, ssize_t *);
+bool	get_data(t_cub3d *info, char **lines, ssize_t *idx);
+bool	get_map(t_cub3d *info, char **lines, ssize_t *idx);
 
-#endif // !CBD_PARSER_H
+#endif // !CBDPARSER_H

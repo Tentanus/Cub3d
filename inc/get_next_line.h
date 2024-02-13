@@ -11,27 +11,27 @@
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
-#define GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#include "libft.h"
+# include "libft.h"
 
-#include <limits.h>
-#include <stdlib.h>
-#include <unistd.h>
+# include <limits.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-#if BUFFER_SIZE < 1
-#undef BUFFER_SIZE
-#endif
+# if BUFFER_SIZE < 1
+#  undef BUFFER_SIZE
+# endif
 
-#ifndef OPEN_MAX
-#define OPEN_MAX 255
-#endif
+# ifndef OPEN_MAX
+#  define OPEN_MAX 255
+# endif
 
-#ifndef BUFFER_SIZE
-#define BUFFER_SIZE 100
-#endif
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 100
+# endif
 
 // FUNCTIONS
-char *get_next_line(int fd);
+char	*get_next_line(int fd);
 
 #endif

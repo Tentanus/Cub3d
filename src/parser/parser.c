@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mweverli <mweverli@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/13 19:30:46 by mweverli          #+#    #+#             */
+/*   Updated: 2024/02/13 19:30:49 by mweverli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "CBDerror.h"
 #include "CBDparser.h"
 #include "Cub3d.h"
@@ -6,12 +16,12 @@
 
 #include <unistd.h>
 
-static char **read_fd(int fd)
+static char	**read_fd(int fd)
 {
-	char *res;
-	char *line;
+	char	*res;
+	char	*line;
 
-	res	 = ft_calloc(1, sizeof(char));
+	res = ft_calloc(1, sizeof(char));
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
@@ -24,13 +34,13 @@ static char **read_fd(int fd)
 	ft_printf("-=- START LOG:\tREAD FILE -=-\n|--------------\n");
 	ft_printf("%s\n\n", res);
 	ft_printf("-=- END LOG:\tREAD FILE -=-\n|--------------\n", res);
-#endif // ifdef LOG
+#endif
 	return (ft_split(res, '\n'));
 }
 
 // this is a temporary fucntion; could set it up so it checks
 // if all values have been filled after get_data & get_map
-static bool set_default(t_cub3d *info)
+static bool	set_default(t_cub3d *info)
 {
 	if (!info->text_no)
 		info->text_no = ft_strdup(DEF_TEXT_NO);
@@ -44,13 +54,13 @@ static bool set_default(t_cub3d *info)
 		info->col_fl = DEF_COL_FL;
 	if (!info->col_ce)
 		info->col_ce = DEF_COL_CE;
-	if (!info->text_no || !info->text_so || !info->text_we || !info->text_ea ||
-		!info->col_fl || !info->col_ce)
+	if (!info->text_no || !info->text_so || !info->text_we || !info->text_ea
+		|| !info->col_fl || !info->col_ce)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
-int parser(int fd, t_cub3d *info)
+int	parser(int fd, t_cub3d *info)
 {
 	char	**filelines;
 	ssize_t	idx;
@@ -69,6 +79,5 @@ int parser(int fd, t_cub3d *info)
 		return (cbd_free_info(info), FAILURE);
 	set_default(info);
 	show_info(info);
-
 	return (SUCCESS);
 }

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_data.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mweverli <mweverli@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/13 19:31:00 by mweverli          #+#    #+#             */
+/*   Updated: 2024/02/13 19:31:03 by mweverli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "CBDerror.h"
 #include "CBDparser.h"
@@ -6,34 +17,24 @@
 #include "libft.h"
 #include <sys/types.h>
 
-static const char *g_id_str[TYPE_ID_MAX] = {
-	[TYPE_ID_NORTH] = "NO", [TYPE_ID_SOUTH] = "SO", [TYPE_ID_WEST] = "WE",
-	[TYPE_ID_EAST] = "EA",	[TYPE_ID_FLOOR] = "F",	[TYPE_ID_CEILING] = "C"};
+static const char	*g_id_str[TYPE_ID_MAX] = {
+[TYPE_ID_NORTH] = "NO",
+[TYPE_ID_SOUTH] = "SO",
+[TYPE_ID_WEST] = "WE",
+[TYPE_ID_EAST] = "EA",
+[TYPE_ID_FLOOR] = "F",
+[TYPE_ID_CEILING] = "C"};
 
-// clang-format off
-/*
- *		char err codes;
- *			0		get_texture:	can't allocate memory [ERR_MEMORY]
- *			!		get_texture:	path isn't a 'valid' path [ERR_PARSE_PATH]
- *			 		get_texture:	after path line isn't empty [ERR_PARSE_FORMAT]
- *
- *			i		get_colour:		colour value exceeds limits [ERR_PARSE_RGB]
- *			,		get_colour:		formatting error (255,255,255) [ERR_PARSE_FORMAT]
- *
- *			F		check_filled:	Checks if a value has allready been set [ERR_PARSE_FILLED]
- */
-// clang-format on
-
-static uint32_t get_colour(char *str, int *err)
+static uint32_t	get_colour(char *str, int *err)
 {
-	size_t start;
-	int i;
-	uint32_t val;
-	uint32_t ret;
+	size_t		start;
+	int			i;
+	uint32_t	val;
+	uint32_t	ret;
 
 	start = ft_strskipis(str, ft_isspace);
-	i	  = 2;
-	ret	  = 255;
+	i = 2;
+	ret = 255;
 	while (i >= 0 && *err == SUCCESS)
 	{
 		val = ft_atoi(&str[start]);
@@ -48,19 +49,19 @@ static uint32_t get_colour(char *str, int *err)
 	}
 #ifdef LOG
 	ft_printf("get_colour: %X\n", ret);
-#endif /* ifdef LOG */
+#endif
 	return (ret);
 }
 
-static char *get_texture(char *str, int *err)
+static char	*get_texture(char *str, int *err)
 {
-	size_t start;
-	size_t end;
-	char *ret;
+	size_t	start;
+	size_t	end;
+	char	*ret;
 
 	start = ft_strskipis(str, ft_isspace);
-	end	  = ft_strskipis(&str[start], ft_ispath) + 1;
-	ret	  = ft_substr(str, start, end - start);
+	end = ft_strskipis(&str[start], ft_ispath) + 1;
+	ret = ft_substr(str, start, end - start);
 	if (!ret)
 		*err = ERR_MEMORY;
 	else if (!ft_stris(ret, ft_ispath))
@@ -69,11 +70,11 @@ static char *get_texture(char *str, int *err)
 		*err = ERR_PARSE_FORMAT;
 #ifdef LOG
 	ft_printf("get_colour: %s\n", ret);
-#endif /* ifdef LOG */
+#endif
 	return (ret);
 }
 
-static bool check_filled(t_cub3d *info, t_type_id id)
+static bool	check_filled(t_cub3d *info, t_type_id id)
 {
 	if (id == TYPE_ID_NORTH)
 		return (ft_ternary(info->text_no != NULL, FAILURE, SUCCESS));
@@ -90,9 +91,9 @@ static bool check_filled(t_cub3d *info, t_type_id id)
 	return (FAILURE);
 }
 
-static bool set_infovalue(t_cub3d *info, t_type_id id, char *str)
+static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str)
 {
-	int err;
+	int	err;
 
 	err = SUCCESS;
 	if (check_filled(info, id))
@@ -116,18 +117,18 @@ static bool set_infovalue(t_cub3d *info, t_type_id id, char *str)
 	return (ft_ternary(err != '\0', FAILURE, SUCCESS));
 }
 
-static t_type_id get_identifier(char *str)
+static t_type_id	get_identifier(char *str)
 {
-	ssize_t idx;
-	ssize_t id_idx;
+	ssize_t	idx;
+	ssize_t	id_idx;
 
-	idx	   = ft_strskipis(str, ft_isspace);
+	idx = ft_strskipis(str, ft_isspace);
 	id_idx = TYPE_ID_NORTH;
 	while (id_idx != TYPE_ID_MAX)
 	{
 		if (!ft_strncmp(&str[idx], g_id_str[id_idx],
-						ft_strlen(g_id_str[id_idx])))
-			break;
+				ft_strlen(g_id_str[id_idx])))
+			break ;
 		id_idx++;
 	}
 	if (id_idx != TYPE_ID_MAX && !ft_isspace(str[ft_strlen(g_id_str[id_idx])]))
@@ -135,10 +136,10 @@ static t_type_id get_identifier(char *str)
 	return (id_idx);
 }
 
-bool get_data(t_cub3d *info, char **lines, ssize_t *idx)
+bool	get_data(t_cub3d *info, char **lines, ssize_t *idx)
 {
-	ssize_t line_idx;
-	t_type_id id;
+	ssize_t		line_idx;
+	t_type_id	id;
 
 	line_idx = 0;
 	while (lines[*idx] && (*idx) < TYPE_ID_MAX)
@@ -146,8 +147,8 @@ bool get_data(t_cub3d *info, char **lines, ssize_t *idx)
 		id = get_identifier(lines[*idx]);
 		if (id == TYPE_ID_MAX)
 			return (cbd_error(ERR_PARSE_ID), FAILURE);
-		line_idx =
-			ft_strskipis(lines[*idx], ft_isspace) + ft_strlen(g_id_str[id]);
+		line_idx = ft_strskipis(lines[*idx],
+				ft_isspace) + ft_strlen(g_id_str[id]);
 		if (set_infovalue(info, id, &lines[*idx][line_idx]))
 			return (FAILURE);
 		(*idx)++;

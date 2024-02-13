@@ -1,5 +1,17 @@
-#ifndef CBD_ERROR_H
-#define CBD_ERROR_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   CBDerror.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mweverli <mweverli@student.codam.nl>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/06 19:30:03 by mweverli          #+#    #+#             */
+/*   Updated: 2024/02/13 19:30:13 by mweverli         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef CBDERROR_H
+# define CBDERROR_H
 
 typedef enum e_errnum
 {
@@ -14,9 +26,8 @@ typedef enum e_errnum
 	ERR_PARSE_PATH,
 	ERR_PARSE_FILLED,
 	_SIZE_ERRNUM
+}	t_errnum;
 
-} t_errnum;
+void	cbd_error(t_errnum id);
 
-void cbd_error(t_errnum);
-
-#endif // !CBD_ERROR_H
+#endif // !CBDERROR_H
