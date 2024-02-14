@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   CBDerror.h                                         :+:      :+:    :+:   */
+/*   free_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mweverli <mweverli@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 19:30:03 by mweverli          #+#    #+#             */
-/*   Updated: 2024/02/13 19:30:13 by mweverli         ###   ########.fr       */
+/*   Created: 2024/02/13 19:43:47 by mweverli          #+#    #+#             */
+/*   Updated: 2024/02/13 19:43:48 by mweverli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CBDERROR_H
-# define CBDERROR_H
+#include "Cub3d.h"
+#include "libft.h"
 
-typedef enum e_errnum
+void	cbd_free_info(t_cub3d *info)
 {
-	SUCCESS,
-	ERR_ARGUMENT,
-	ERR_FILE,
-	ERR_READ,
-	ERR_MEMORY,
-	ERR_PARSE_ID,
-	ERR_PARSE_FORMAT,
-	ERR_PARSE_RGB,
-	ERR_PARSE_PATH,
-	ERR_PARSE_FILLED,
-	_SIZE_ERRNUM
-}	t_errnum;
-
-void	cbd_error(t_errnum id);
-
-#endif // !CBDERROR_H
+	if (info->map)
+		ft_split_free(info->map);
+	if (info->text_no)
+		free(info->text_no);
+	if (info->text_so)
+		free(info->text_so);
+	if (info->text_we)
+		free(info->text_we);
+	if (info->text_ea)
+		free(info->text_ea);
+}

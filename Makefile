@@ -22,9 +22,14 @@ INC_DIR			:=	inc
 LIB_DIR			:=	lib
 
 SRC				:=	\
-					main.c			\
-					error/error.c	\
-					parser/parser.c	\
+					main.c							\
+					error/error.c					\
+					parser/get_data.c				\
+					parser/get_map.c				\
+					parser/parser.c					\
+					parser/get_next_line.c			\
+					utils/logprinter.c				\
+					utils/free_info.c				\
 
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -54,7 +59,7 @@ ifdef DEBUG
 CFL				+=	-g -fstandalone-debug
 endif
 
-ifdef LOG 
+ifndef NOLOG
 CFL				+=	 -D LOG=1
 endif
 
@@ -66,6 +71,7 @@ COMPILE			:=	$(CC) $(CFL)
 
 INFO_FL			:=											\
 $(if $(findstring -g,$(CFL)),-g)							\
+$(if $(findstring LOG,$(CFL)),LOG)							\
 $(if $(findstring address,$(CFL)),addr)						\
 $(if $(findstring undefined,$(CFL)),undef)					\
 
@@ -91,11 +97,11 @@ $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 
 clean:
 	@echo "$(RED)$(BOLD)CLEANING $(NAME)$(RESET)"
-	$(RM) $(OBJ_DIR)
+	@$(RM) $(OBJ_DIR)
 
 fclean: clean 
-	$(RM) $(NAME)
-	$(RM) $(DIR_MLX)/build
+	@$(RM) $(NAME)
+	@$(RM) $(DIR_MLX)/build
 	@$(MAKE) fclean -C $(DIR_FT)
 
 re: fclean all

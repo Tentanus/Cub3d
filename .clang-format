@@ -1,9 +1,12 @@
+# Project needs to follow 42's' Norminette so formatting will be disabled
+DisableFormat: true
+
 # Use the LLVM coding style as the base for this configuration.
 BasedOnStyle: LLVM
 
 # Set maximum line width to 80 columns.
 # Exceeding lines will be wrapped.
-ColumnLimit: 79
+ColumnLimit: 80
 
 # Always use tabs for indentation instead of spaces.
 UseTab: Always
@@ -51,3 +54,8 @@ BinPackParameters: true
 
 # Don't break template declarations
 AlwaysBreakTemplateDeclarations: "Yes"
+
+
+AlignConsecutiveAssignments:
+  Enabled: true
+

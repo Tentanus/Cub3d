@@ -1,29 +1,41 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: mweverli  <mweverli@student.codam.nl>        +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/02/06 17:36:09 by mweverli      #+#    #+#                 */
+/*   Updated: 2024/01/10 17:37:09 by mweverli      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include <stdio.h>
 #include "Cub3d.h"
 #include "libft.h"
 
-int checkInput(int argc, char **argv)
+static int	validateinput(int argc, char **argv)
 {
-	int fd;
-	size_t filenameLength;
+	int		fd;
+	size_t	filename_length;
 
 	if (argc != 2)
-		return (cbdError(ERR_ARGUMENT), -1);
-	filenameLength = ft_strlen(argv[1]);
-	if (filenameLength <= 4 ||
-		ft_strncmp(&argv[1][filenameLength - 4], ".cub", 5))
-		return (cbdError(ERR_SUFFIX), -1);
+		return (cbd_error(ERR_ARGUMENT), -1);
+	filename_length = ft_strlen(argv[1]);
+	if (filename_length <= 4
+		|| ft_strncmp(&argv[1][filename_length - 4], ".cub", 5))
+		return (cbd_error(ERR_ARGUMENT), -1);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		return (cbdError(ERR_FILE), -1);
+		return (cbd_error(ERR_FILE), -1);
 	return (fd);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	if (parser(checkInput(argc, argv)))
-		return (FAILURE);
+	t_cub3d	info;
 
+	if (parser(validateinput(argc, argv), &info))
+		return (FAILURE);
 	return (SUCCESS);
 }
