@@ -14,9 +14,7 @@
 #include "Cub3d.h"
 #include "libft.h"
 
-#include <unistd.h>
-
-static char	**read_fd(int fd)
+static char	**read_fd(int fd) //change to ditch the GNL
 {
 	char	*res;
 	char	*line;
@@ -78,6 +76,9 @@ int	parser(int fd, t_cub3d *info)
 	if (get_map(info, filelines, &idx))
 		return (cbd_free_info(info), FAILURE);
 	set_default(info);
+	if (check_path(info))
+		return (cbd_free_info(info), FAILURE);
+	// write(1, "SEGGY?\n", 7);
 	print_info(info);
 	return (SUCCESS);
 }

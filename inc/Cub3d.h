@@ -36,9 +36,22 @@
 # define SUCCESS 0
 # define FAILURE 1
 
+typedef struct s_map
+{
+	char	**map;
+	int		px;					// the 'x' of the player spawn
+	int		py;					// the 'y' of the player spawn
+	int		max_x;				// the length of the longest line in the map
+	int		max_y;				// the number of lines in the map
+	char	player_direction;	// the direction the player faces in at spawn
+	bool	flood_valid;		// set to false after floodfill confirms the map is not (fully) enclosed by walls
+}	t_map;
+
+
 typedef struct s_cub3d
 {
 	char	**map;
+	// t_map	map;
 	char	*text_no;
 	char	*text_so;
 	char	*text_we;
@@ -52,5 +65,6 @@ int		parser(int fd, t_cub3d *info);
 
 void	cbd_free_info(t_cub3d *info);
 void	print_info(t_cub3d *info);
+bool	check_path(t_cub3d *info);
 
 #endif // !CUB3D_H

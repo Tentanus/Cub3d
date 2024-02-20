@@ -28,6 +28,7 @@ SRC				:=	\
 					parser/get_map.c				\
 					parser/parser.c					\
 					parser/get_next_line.c			\
+					parser/check_path.c				\
 					utils/logprinter.c				\
 					utils/free_info.c				\
 
@@ -44,6 +45,9 @@ LIB_FT			:=	$(DIR_FT)/libft.a
 DIR_MLX			:=	$(LIB_DIR)/MLX42
 LIB_MLX			:=	$(DIR_MLX)/build/libmlx42.a
 
+# DEFAULT_MAP := map/6x6.cub
+DEFAULT_MAP := map/err_test.cub
+
 #============= COMPILATION ==============#
 
 INCLUDE			:=	-I $(INC_DIR)					\
@@ -54,6 +58,7 @@ LIB_FLAG		:=	-ldl -lglfw -pthread -lm
 
 CC				:=	cc
 CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
+# CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors
 
 ifdef DEBUG
 CFL				+=	-g -fstandalone-debug
@@ -109,6 +114,8 @@ re: fclean all
 echo:
 	@echo $(SRC) "\n"
 
+run: all
+	./$(NAME) $(DEFAULT_MAP)
 #========================================#
 #============== LIBRARIES ===============#
 #========================================#
