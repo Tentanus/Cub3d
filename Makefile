@@ -50,7 +50,7 @@ INCLUDE			:=	-I $(INC_DIR)					\
 					-I $(DIR_FT)/include			\
 					-I $(DIR_MLX)/include/MLX42
 
-LIB_FLAG		:=	-lglfw -lm
+LIB_FLAG		:=	-ldl -lglfw -pthread -lm
 
 CC				:=	cc
 CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
