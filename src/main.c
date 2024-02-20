@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Cub3d.h"
+#include "MLX42.h"
 #include "libft.h"
 
 static int	validateinput(int argc, char **argv)
