@@ -77,6 +77,8 @@ int	parser(int fd, t_cub3d *info)
 		return (cbd_free_info(info), FAILURE);
 	if (get_map(info, filelines, &idx))
 		return (cbd_free_info(info), FAILURE);
+	if (get_mlx(info))
+		return (cbd_free_info(info), FAILURE);
 	set_default(info);
 	print_info(info);
 	return (SUCCESS);

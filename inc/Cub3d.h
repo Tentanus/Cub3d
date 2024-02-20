@@ -26,6 +26,9 @@
 
 # include "CBDerror.h"
 
+# define WINDOW_HEIGHT 720
+# define WINDOW_WIDTH 1280
+
 # define DEF_TEXT_NO "./img/default/bloody_wall_01.png"
 # define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
 # define DEF_TEXT_WE "./img/default/brown_wall.png"
@@ -38,14 +41,15 @@
 
 typedef struct s_cub3d
 {
-	char	**map;
-	char	*text_no;
-	char	*text_so;
-	char	*text_we;
-	char	*text_ea;
-	int32_t	col_fl;
-	int32_t	col_ce;
-	// t_tex tex;
+	char		**map;
+	char		*text_no;
+	char		*text_so;
+	char		*text_we;
+	char		*text_ea;
+	int32_t		col_fl;
+	int32_t		col_ce;
+	mlx_t		*mlx;
+	mlx_image_t	*image;
 }	t_cub3d;
 
 int		parser(int fd, t_cub3d *info);

@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "CBDerror.h"
+#include "MLX42.h"
 #include "libft.h"
 
-static const char	*g_err_msg[_SIZE_ERRNUM + 1] = {
+static const char	*g_err_msg[ERR_SIZE + 1] = {
 [SUCCESS] = "-",
 [ERR_ARGUMENT] = "usage: ./Cub3d <filename>.cub",
 [ERR_FILE] = "unable to open file",
@@ -24,7 +25,7 @@ static const char	*g_err_msg[_SIZE_ERRNUM + 1] = {
 [ERR_PARSE_RGB] = "unable to parse colour value [ 0 - 255]",
 [ERR_PARSE_PATH] = "unable to parse path",
 [ERR_PARSE_FILLED] = "unable to parse due to multiple similar identifier",
-[_SIZE_ERRNUM] = "END ERROR MESSAGES"};
+[ERR_SIZE] = "END ERROR MESSAGES"};
 
 void	cbd_error(t_errnum errnum)
 {
@@ -32,4 +33,10 @@ void	cbd_error(t_errnum errnum)
 		return ;
 	ft_putstr_fd("Cub3d: ", STDERR_FILENO);
 	ft_putendl_fd(g_err_msg[errnum], STDERR_FILENO);
+}
+
+void cbd_mlx_error(void)
+{
+	ft_putstr_fd("Cub3d: ", STDERR_FILENO);
+	ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO);
 }
