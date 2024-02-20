@@ -35,6 +35,7 @@ static char	**read_fd(int fd)
 	ft_printf("%s\n\n", res);
 	ft_printf("-=- END LOG:\tREAD FILE -=-\n|--------------\n", res);
 #endif
+	close(fd);
 	return (ft_split(res, '\n'));
 }
 
@@ -69,7 +70,6 @@ int	parser(int fd, t_cub3d *info)
 	if (fd == -1)
 		return (FAILURE);
 	filelines = read_fd(fd);
-	close(fd);
 	if (filelines == NULL)
 		return (cbd_error(ERR_MEMORY), FAILURE);
 	ft_bzero(info, sizeof(t_cub3d));
@@ -78,6 +78,6 @@ int	parser(int fd, t_cub3d *info)
 	if (get_map(info, filelines, &idx))
 		return (cbd_free_info(info), FAILURE);
 	set_default(info);
-	show_info(info);
+	print_info(info);
 	return (SUCCESS);
 }

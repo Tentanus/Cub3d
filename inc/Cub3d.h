@@ -13,23 +13,25 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <stdbool.h>
+# include <stdint.h>
+# include <fcntl.h>				//	open
+# include <stdio.h>				//	printf
+# include <stdlib.h>			//	malloc, free, exit
+# include <unistd.h>			//	close, read, write
+# include <math.h>
+
 # include "MLX42.h"
 # include "libft.h"
 
 # include "CBDerror.h"
 
-# include <fcntl.h>
-# include <stdbool.h>
-# include <stdint.h>
-# include <stdio.h>
-# include <unistd.h>
-
 # define DEF_TEXT_NO "./img/default/bloody_wall_01.png"
 # define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
 # define DEF_TEXT_WE "./img/default/brown_wall.png"
 # define DEF_TEXT_EA "./img/default/brown_wall_light_cropped.png"
-# define DEF_COL_FL 0xFF8C3B0C
-# define DEF_COL_CE 0xFF5BACF5
+# define DEF_COL_FL 0x8C3B0CFF
+# define DEF_COL_CE 0x5BACF5FF
 
 # define SUCCESS 0
 # define FAILURE 1
