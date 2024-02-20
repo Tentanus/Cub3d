@@ -36,5 +36,7 @@ int	main(int argc, char *argv[])
 
 	if (parser(validateinput(argc, argv), &info))
 		return (FAILURE);
+
+	mlx_terminate(info.mlx);
 	return (SUCCESS);
 }

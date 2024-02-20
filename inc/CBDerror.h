@@ -29,5 +29,6 @@ typedef enum e_errnum
 }	t_errnum;
 
 void	cbd_error(t_errnum id);
+void	cbd_mlx_error(void);
 
 #endif // !CBDERROR_H

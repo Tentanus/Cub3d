@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "CBDerror.h"
+#include "MLX42.h"
 #include "libft.h"
 
 static const char	*g_err_msg[_SIZE_ERRNUM + 1] = {
@@ -32,4 +33,10 @@ void	cbd_error(t_errnum errnum)
 		return ;
 	ft_putstr_fd("Cub3d: ", STDERR_FILENO);
 	ft_putendl_fd(g_err_msg[errnum], STDERR_FILENO);
+}
+
+void cbd_mlx_error(void)
+{
+	ft_putstr_fd("Cub3d: ", STDERR_FILENO);
+	ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO);
 }
