@@ -25,7 +25,7 @@ typedef enum e_errnum
 	ERR_PARSE_RGB,
 	ERR_PARSE_PATH,
 	ERR_PARSE_FILLED,
-	_SIZE_ERRNUM
+	ERR_SIZE
 }	t_errnum;
 
 void	cbd_error(t_errnum id);
