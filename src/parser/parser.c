@@ -30,11 +30,6 @@ static char	**read_fd(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-#ifdef LOG
-	ft_printf("-=- START LOG:\tREAD FILE -=-\n|--------------\n");
-	ft_printf("%s\n\n", res);
-	ft_printf("-=- END LOG:\tREAD FILE -=-\n|--------------\n", res);
-#endif
 	close(fd);
 	return (ft_split(res, '\n'));
 }

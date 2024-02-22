@@ -47,9 +47,6 @@ static uint32_t	get_colour(char *str, int *err)
 		start++;
 		i--;
 	}
-#ifdef LOG
-	ft_printf("get_colour: %X\n", ret);
-#endif
 	return (ret);
 }
 
@@ -68,9 +65,6 @@ static char	*get_texture(char *str, int *err)
 		*err = ERR_PARSE_PATH;
 	else if (!ft_stris(&str[end], ft_isspace))
 		*err = ERR_PARSE_FORMAT;
-#ifdef LOG
-	ft_printf("get_colour: %s\n", ret);
-#endif
 	return (ret);
 }
 
