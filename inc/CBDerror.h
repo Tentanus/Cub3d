@@ -15,7 +15,7 @@
 
 typedef enum e_errnum
 {
-	SUCCESS,
+	ERR_SUCCESS,
 	ERR_ARGUMENT,
 	ERR_FILE,
 	ERR_READ,
