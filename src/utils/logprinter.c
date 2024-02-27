@@ -41,7 +41,7 @@ void	print_info(t_cub3d *info)
 		ft_putendl_fd("\n -=- NO INFO FOUND -=-\n", STDERR_FILENO);
 		return ;
 	}
-	print_map(info->map);
+	print_map(info->chart->map);
 	ft_printf("| TEXTURE & COLLOUR: \n|\n");
 	ft_printf("|\tTEXTURE  NORTH:  \t%s\n", info->text_no);
 	ft_printf("|\tTEXTURE  SOUTH:  \t%s\n", info->text_so);
