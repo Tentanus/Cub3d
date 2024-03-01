@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Cub3d.h"
+#include "MLX42.h"
 #include "libft.h"
 
 static int	validateinput(int argc, char **argv)
@@ -36,5 +37,7 @@ int	main(int argc, char *argv[])
 
 	if (parser(validateinput(argc, argv), &info))
 		return (FAILURE);
+
+	mlx_terminate(info.mlx);
 	return (SUCCESS);
 }

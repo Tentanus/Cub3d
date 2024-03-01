@@ -26,6 +26,7 @@ SRC				:=	\
 					error/error.c					\
 					parser/get_data.c				\
 					parser/get_map.c				\
+					parser/get_mlx.c				\
 					parser/parser.c					\
 					parser/get_next_line.c			\
 					parser/parse_map.c				\
@@ -54,7 +55,8 @@ DEFAULT_MAP := map/6x6.cub
 
 INCLUDE			:=	-I $(INC_DIR)					\
 					-I $(DIR_FT)/include			\
-					-I $(DIR_MLX)/include/MLX42
+					-I $(DIR_MLX)/include/MLX42		\
+					-I $(DIR_MLX)/include
 
 LIB_FLAG		:=	-ldl -lglfw -pthread -lm
 
@@ -95,7 +97,7 @@ $(DIR_LIST):
 
 $(NAME): $(LIB_MLX) $(LIB_FT) $(OBJ)
 	@echo ""
-	@echo "$(COMPILE) $(LIB_FLAG) $(GREEN)$(INCLUDE) $(CYAN)$(notdir $(OBJ))$(RESET) $(LIB_MLX) $(LIB_FT) -o $(NAME)"
+	@echo "$(COMPILE) $(LIB_FLAG) $(GREEN)$(INCLUDE) $(CYAN)$(notdir $(OBJ)) $(BLUE)$(LIB_MLX) $(LIB_FT) $(ORANGE)-o $(NAME)$(RESET)"
 	@$(COMPILE) $(LIB_FLAG) $(INCLUDE) $(OBJ) $(LIB_MLX) $(LIB_FT) -o $(NAME)
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
@@ -145,6 +147,8 @@ ifneq ($(OS), 6.3.6-arch1-1)
 	BOLD	:= \033[1m
 	RED		:= \033[31;1m
 	GREEN	:= \033[32;1m
+	ORANGE	:= \033[33;1m
+	BLUE	:= \033[34;1m
 	CYAN	:= \033[36;1m
 	RESET	:= \033[0m
 endif

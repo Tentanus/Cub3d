@@ -53,6 +53,7 @@ int		parser(int fd, t_cub3d *info);
 
 bool	get_data(t_cub3d *info, char **lines, ssize_t *idx);
 bool	get_map(t_cub3d *info, char **lines, ssize_t *idx);
+bool	get_mlx(t_cub3d *info);
 
 bool	parse_map(t_map *chart);
 bool	check_path(t_map *chart);
