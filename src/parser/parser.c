@@ -115,7 +115,7 @@ static bool	get_mappi(t_cub3d *info, char **line, ssize_t *idx)
 
 int	parser(int fd, t_cub3d *info)
 {
-char	**filelines;
+	char	**filelines;
 	char	*fileline;
 	ssize_t	idx;
 
@@ -123,16 +123,16 @@ char	**filelines;
 	if (fd == -1)
 		return (FAILURE);
 	fileline = read_fd(fd);
-filelines = ft_split(fileline, '\n');
+	filelines = ft_split(fileline, '\n');
 	if (filelines == NULL)
 		return (cbd_error(ERR_MEMORY), FAILURE);
 	ft_bzero(info, sizeof(t_cub3d));
-	if (get_data(info, filelines, &idx))
+	if (get_data(info, fileline, &idx))
 		return (cbd_free_info(info), FAILURE);
 	if (get_mappi(info, filelines, &idx))
 		return (cbd_free_info(info), FAILURE);
 // set_default(info);
-free(filelines);
+	free(filelines);
 	free(fileline);
 	if (parse_map(info->chart) == FAILURE)
 		return (print_info(info), cbd_free_info(info), FAILURE);

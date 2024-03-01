@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CBDerror.h"
-#include "CBDparser.h"
 #include "Cub3d.h"
+#include "CBDparser.h"
 
 #include "libft.h"
+
 #include <sys/types.h>
 
 static const char	*g_id_str[TYPE_ID_MAX] = {
@@ -117,16 +117,14 @@ static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str)
 	return (ft_ternary(err != '\0', FAILURE, SUCCESS));
 }
 
-static t_type_id	get_identifier(char *str)
+static t_type_id	get_identifier(char *str, ssize_t *idx)
 {
-	ssize_t	idx;
 	ssize_t	id_idx;
 
-	idx = ft_strskipis(str, ft_isspace);
 	id_idx = TYPE_ID_NORTH;
 	while (id_idx != TYPE_ID_MAX)
 	{
-		if (!ft_strncmp(&str[idx], g_id_str[id_idx],
+		if (!ft_strncmp(&str[*idx], g_id_str[id_idx],
 				ft_strlen(g_id_str[id_idx])))
 			break ;
 		id_idx++;
@@ -136,22 +134,20 @@ static t_type_id	get_identifier(char *str)
 	return (id_idx);
 }
 
-bool	get_data(t_cub3d *info, char **lines, ssize_t *idx)
+bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 {
-	ssize_t		line_idx;
-	t_type_id	id;
+	t_type_id	type_id;
 
-	line_idx = 0;
-	while (lines[*idx] && (*idx) < TYPE_ID_MAX)
+	while (lines[*idx])
 	{
-		id = get_identifier(lines[*idx]);
-		if (id == TYPE_ID_MAX)
+		*idx += ft_strskipis(&lines[*idx], ft_isspace);
+		type_id = get_identifier(lines, idx);
+		if (type_id == TYPE_ID_MAX)
 			return (cbd_error(ERR_PARSE_ID), FAILURE);
-		line_idx = ft_strskipis(lines[*idx],
-				ft_isspace) + ft_strlen(g_id_str[id]);
-		if (set_infovalue(info, id, &lines[*idx][line_idx]))
+		*idx += ft_strskipis(&lines[*idx], ft_isspace);
+		if (set_infovalue(info, type_id, &lines[*idx]))
 			return (FAILURE);
-		(*idx)++;
+		*idx += ft_strfindis(&lines[*idx], ft_isspace);
 	}
 	return (SUCCESS);
 }
