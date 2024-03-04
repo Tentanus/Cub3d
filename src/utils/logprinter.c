@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <unistd.h>
 
-static void	print_map(char **map)
+void	print_map(char **map)
 {
 	size_t	i;
 

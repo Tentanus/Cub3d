@@ -42,7 +42,7 @@
 
 typedef struct s_cub3d
 {
-	char		**map;
+	char		**map; //get rid of this
 	t_map		*chart;
 	char		*text_no;
 	char		*text_so;
@@ -58,5 +58,6 @@ int		parser(int fd, t_cub3d *info);
 
 void	cbd_free_info(t_cub3d *info);
 void	print_info(t_cub3d *info);
+void	print_map(char **map);
 
 #endif // !CUB3D_H

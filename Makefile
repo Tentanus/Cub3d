@@ -135,7 +135,7 @@ $(LIB_FT):
 #============ MISCELLANEOUS =============#
 #========================================#
 
-.PHONY: all clean fclean re echo 
+.PHONY: all clean fclean re echo run 
 
 .DEFAULT_GOAL := all
 
