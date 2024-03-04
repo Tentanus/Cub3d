@@ -68,6 +68,7 @@ static char	*read_fd(int fd)
 
 // this is a temporary fucntion; could set it up so it checks
 // if all values have been filled after get_data & get_map
+/*
 static bool	set_default(t_cub3d *info)
 {
 	if (!info->text_no)
@@ -87,7 +88,7 @@ static bool	set_default(t_cub3d *info)
 		return (FAILURE);
 	return (SUCCESS);
 }
-
+*/
 static bool	get_mappi(t_cub3d *info, char **line, ssize_t *idx)
 {
 	ssize_t	i;
@@ -124,6 +125,7 @@ int	parser(int fd, t_cub3d *info)
 		return (FAILURE);
 	fileline = read_fd(fd);
 	filelines = ft_split(fileline, '\n');
+	free(filelines);
 	if (filelines == NULL)
 		return (cbd_error(ERR_MEMORY), FAILURE);
 	ft_bzero(info, sizeof(t_cub3d));
@@ -131,15 +133,14 @@ int	parser(int fd, t_cub3d *info)
 		return (cbd_free_info(info), FAILURE);
 	if (get_mappi(info, filelines, &idx))
 		return (cbd_free_info(info), FAILURE);
-// set_default(info);
-	free(filelines);
 	free(fileline);
-	if (parse_map(info->chart) == FAILURE)
-		return (print_info(info), cbd_free_info(info), FAILURE);
-	if (check_path(info->chart) == FAILURE)
-		return (print_info(info), cbd_free_info(info), FAILURE);
-	if (get_mlx(info))
-		return (cbd_free_info(info), FAILURE);
+//	if (parse_map(info->chart) == FAILURE)
+//		return (print_info(info), cbd_free_info(info), FAILURE);
+// set_default(info);
+//	if (check_path(info->chart) == FAILURE)
+//		return (print_info(info), cbd_free_info(info), FAILURE);
+//	if (get_mlx(info))
+//		return (cbd_free_info(info), FAILURE);
 	print_info(info);
 	return (SUCCESS);
 }
