@@ -151,6 +151,5 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 														//!	also pointer arithmatic bad?
 		data_idx++;
 	}
-		ft_printf("\t-=- FILE -=-\n%s\n\t-=- END FILE -=-\n", &lines[*idx]);
 	return (SUCCESS);
 }

@@ -43,29 +43,6 @@ static char	*read_fd(int fd)
 	return (line);
 }
 
-// static char	**read_fd(int fd) //change to ditch the GNL
-// {
-// 	char	*res;
-// 	char	*line;
-
-// 	res = ft_calloc(1, sizeof(char));
-// 	line = get_next_line(fd);
-// 	while (line != NULL)
-// 	{
-// 		if (!ft_stris(line, ft_isspace))
-// 			res = ft_strjoin_fs1(res, line);
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// #ifdef LOG
-// 	ft_printf("-=- START LOG:\tREAD FILE -=-\n|--------------\n");
-// 	ft_printf("%s\n\n", res);
-// 	ft_printf("-=- END LOG:\tREAD FILE -=-\n|--------------\n", res);
-// #endif
-// 	close(fd);
-// 	return (ft_split(res, '\n'));
-// }
-
 // this is a temporary fucntion; could set it up so it checks
 // if all values have been filled after get_data & get_map
 /*
@@ -89,30 +66,6 @@ static bool	set_default(t_cub3d *info)
 	return (SUCCESS);
 }
 */
-static bool	get_mappi(t_cub3d *info, char **line, ssize_t *idx)
-{
-	ssize_t	i;
-
-	info->chart = ft_calloc(1, sizeof(t_map));
-	if (!info->chart)
-		return (cbd_error(ERR_MEMORY), FAILURE);
-	i = *idx;
-	while (line[i])
-		i++;
-	info->chart->map = ft_calloc((i - *idx) + 1, sizeof(char *));
-	if (!info->chart->map)
-		return (cbd_error(ERR_MEMORY), FAILURE);
-	i = 0;
-	while (line[*idx])
-	{
-		info->chart->map[i] = ft_strdup(line[*idx]);
-		if (info->chart->map[i] == NULL)
-			return (cbd_error(ERR_MEMORY), FAILURE);
-		i++;
-		(*idx)++;
-	}
-	return (SUCCESS);
-}
 
 int	parser(int fd, t_cub3d *info)
 {
@@ -131,7 +84,7 @@ int	parser(int fd, t_cub3d *info)
 	ft_bzero(info, sizeof(t_cub3d));
 	if (get_data(info, fileline, &idx))
 		return (cbd_free_info(info), FAILURE);
-	if (get_mappi(info, filelines, &idx))
+	if (get_map(info, fileline, &idx))
 		return (cbd_free_info(info), FAILURE);
 	free(fileline);
 //	if (parse_map(info->chart) == FAILURE)

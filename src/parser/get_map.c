@@ -17,31 +17,13 @@
 
 #include <sys/types.h>
 
-bool	get_map(t_map *chart, char *line, ssize_t *idx)
+bool	get_map(t_cub3d *info, char *line, ssize_t *idx)
 {
-	ssize_t	i;
-	ssize_t	line_count;
-
-	*idx = ft_strskipis(&line[*idx], ft_isspace);
-	line_count= 0;
-	i = *idx;
-	while (line[i])
-	{
-		if (line[i] == '\n')
-			line_count++;
-		i++;
-	}
-	chart->map = ft_calloc(line_count + 1, sizeof(char *));
-	if (!chart->map)
+	info->chart = ft_calloc(1, sizeof(t_map));
+	if (!info->chart)
 		return (cbd_error(ERR_MEMORY), FAILURE);
-	i = 0;
-	while (line[*idx]) // && i < line_count)
-	{
-		chart->map[i] = ft_strdup(line[*idx]);
-		if (chart->map[i] == NULL)
-			return (cbd_error(ERR_MEMORY), FAILURE);
-		i++;
-		// (*idx)++;
-	}
+	info->chart->map = ft_split(&line[*idx], '\n');
+	if (info->chart->map == NULL)
+		return (FAILURE);	
 	return (SUCCESS);
 }
