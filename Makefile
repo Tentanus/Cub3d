@@ -28,7 +28,6 @@ SRC				:=	\
 					parser/get_map.c				\
 					parser/get_mlx.c				\
 					parser/parser.c					\
-					parser/get_next_line.c			\
 					parser/parse_map.c				\
 					parser/check_path.c				\
 					utils/logprinter.c				\

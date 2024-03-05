@@ -34,11 +34,6 @@ static size_t	get_line_amount(char *line, ssize_t *idx)
 	return (line_count);
 }
 
-/*
- * "\n\nhey\n\n"
- * "\nhey\n"
- * "\n"
-*/
 static char	*extract_line(char *line, ssize_t *idx)
 {
 	char	*ret;
@@ -69,6 +64,7 @@ static char	**get_map_line(char *line, ssize_t *idx)
 		ret[i] = extract_line(line, idx);
 		if (ret[i] == NULL)
 			return (ft_split_free(ret), NULL);
+		ret[i][ft_strlen(ret[i]) - 1] = '\0';
 		i++;
 	}
 	return (ret);
@@ -82,6 +78,6 @@ bool	get_map(t_cub3d *info, char *line, ssize_t *idx)
 	*idx += ft_strskipchar(&line[*idx], '\n');
 	info->chart->map = get_map_line(line, idx);
 	if (info->chart->map == NULL)
-		return (FAILURE);
+		return (cbd_error(ERR_MEMORY), FAILURE);
 	return (SUCCESS);
 }

@@ -13,9 +13,8 @@
 #ifndef CBDPARSER_H
 # define CBDPARSER_H
 
-# include "get_next_line.h"
-
 # include <stdbool.h>
+#include <sys/types.h>
 
 # define MAP_CHARACTER " 01NSWE"
 // maps can only contain spaces, meaning no other whitespace characters;

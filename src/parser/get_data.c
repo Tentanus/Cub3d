@@ -135,7 +135,7 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 {
 	t_type_id	type_id;
 	size_t		data_idx;
-	
+
 	data_idx = 0;
 	while (lines[*idx] && data_idx < 6)
 	{
@@ -146,9 +146,7 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 		*idx += ft_strskipis(&lines[*idx], ft_isspace);
 		if (set_infovalue(info, type_id, &lines[*idx]))
 			return (FAILURE);
-		*idx = ft_strchr(&lines[*idx], '\n') - lines;	//	rn it just ignores anything after 
-														//	the first two tokens. 
-														//!	also pointer arithmatic bad?
+		*idx = ft_strchr(&lines[*idx], '\n') - lines;
 		data_idx++;
 	}
 	return (SUCCESS);
