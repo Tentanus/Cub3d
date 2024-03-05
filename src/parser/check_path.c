@@ -71,14 +71,38 @@ static bool	flood_loop(t_map *chart, char **map)
 	return (SUCCESS);
 }
 
+char	**copy_array(char **map)
+{
+	char	**copy;
+	int	i;
+
+	if (map == NULL)
+		return (NULL);
+	i = 0;
+	while (map[i])
+		i++;
+	copy = ft_calloc(i + 1, sizeof(char *));
+	if (copy == NULL)
+		return (cbd_error(ERR_MEMORY), NULL);
+	i = 0;
+	while (map[i])
+	{
+		copy[i] = ft_strdup(map[i]);
+		i++;
+	}
+	return (copy);
+}
+
 bool	check_path(t_map *chart)
 {
 	char	**map;
 
-	map = chart->map; //change to copy map
-printf("Player starts at (index) x=%d/y=%d\n", chart->px, chart->py);
-printf("Map edges are at (index) x=%d/y=%d.\n", chart->max_x, chart->max_y);
+// printf("Player starts at (index) x=%d/y=%d\n", chart->px, chart->py);
+// printf("Map edges are at (index) x=%d/y=%d.\n", chart->max_x, chart->max_y);
 // write(1, "SEGGY?\n", 7);
+	map = copy_array(chart->map);
+	if (map == NULL)
+		return (cbd_error(ERR_MEMORY), FAILURE);
 	map[chart->py][chart->px] = '0';
 	if (floodfill(chart, map, chart->px, chart->py) == FAILURE || chart->map_invalid)
 		return (FAILURE);
