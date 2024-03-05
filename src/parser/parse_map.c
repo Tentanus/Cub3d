@@ -64,6 +64,8 @@ static bool	set_map_values(t_map *chart)
 		j = 0;
 		while (chart->map[i][j])
 			j++;
+		if (j == 0)
+			return (FAILURE);
 		if (j > max_x)
 			max_x = j;
 		i++;
