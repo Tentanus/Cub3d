@@ -24,11 +24,9 @@ static bool	is_player_spawn(char point)
 
 static bool	set_player_values(t_map *chart)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
-	if (!chart->map)
-		return (FAILURE);
 	i = 0;
 	while (chart->map[i])
 	{
@@ -37,16 +35,19 @@ static bool	set_player_values(t_map *chart)
 		{
 			if (is_player_spawn(chart->map[i][j]) == true)
 			{
+				if (chart->player_direction)
+					return (FAILURE);
 				chart->py = i;
 				chart->px = j;
 				chart->player_direction = chart->map[i][j];
-				return (SUCCESS);
 			}
 			j++;
 		}
 		i++;
 	}
-	return (FAILURE);
+	if (!chart->player_direction)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 static bool	set_map_values(t_map *chart)

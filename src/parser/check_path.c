@@ -26,7 +26,7 @@ static bool	floodfill(t_map *chart, char **map, int x, int y)
 		return (SUCCESS);
 	if (map[y][x] == ' ' || x + 1 > chart->max_x || y + 1 > chart->max_y || x == 0 || y == 0)
 	{
-printf("map be failed\n");
+printf("\tMap Is Not Enclosed By Walls\n");
 		chart->map_invalid = true;
 		return (FAILURE);
 	}
@@ -88,6 +88,11 @@ char	**copy_array(char **map)
 	while (map[i])
 	{
 		copy[i] = ft_strdup(map[i]);
+		if (copy[i] == NULL)
+		{
+			ft_split_free(copy);
+			return (cbd_error(ERR_MEMORY), NULL);
+		}
 		i++;
 	}
 	return (copy);
@@ -102,7 +107,7 @@ bool	check_path(t_map *chart)
 // write(1, "SEGGY?\n", 7);
 	map = copy_array(chart->map);
 	if (map == NULL)
-		return (cbd_error(ERR_MEMORY), FAILURE);
+		return (FAILURE);
 	map[chart->py][chart->px] = '0';
 	if (floodfill(chart, map, chart->px, chart->py) == FAILURE || chart->map_invalid)
 		return (FAILURE);
