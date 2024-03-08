@@ -18,7 +18,7 @@
 
 #include <sys/types.h>
 
-static size_t	get_line_amount(char *line, ssize_t *idx)
+static size_t	get_map_count_lines(char *line, ssize_t *idx)
 {
 	size_t	line_count;
 	size_t	i;
@@ -31,20 +31,23 @@ static size_t	get_line_amount(char *line, ssize_t *idx)
 			line_count++;
 		i++;
 	}
+	if (line[i] && i > 0 && line[i - 1] != '\n')
+		line_count++;
 	return (line_count);
 }
 
-static char	*extract_line(char *line, ssize_t *idx)
+static char	*get_map_extract_line(char *line, ssize_t *idx)
 {
 	char	*ret;
-	size_t	len;
+	ssize_t	len;
 
 	len = *idx;
-	while (line[len] && line[len++] != '\n')
-		;
-	len -= *idx;
-	ret = ft_substr(line, *idx, len);
-	*idx += len;
+	while (line[len] && line[len] != '\n')
+		len++;
+	ret = ft_substr(line, *idx, len - *idx + 1);
+	if (ret[len - *idx] == '\n')
+		ret[len - *idx] = '\0';
+	*idx = len + 1;
 	return (ret);
 }
 
@@ -54,17 +57,16 @@ static char	**get_map_line(char *line, ssize_t *idx)
 	size_t	i;
 	char	**ret;
 
-	line_count = get_line_amount(line, idx);
+	line_count = get_map_count_lines(line, idx);
 	ret = ft_calloc(line_count + 1, sizeof (char *));
 	if (!ret)
 		return (NULL);
 	i = 0;
-	while (i <= line_count)
+	while (i < line_count)
 	{
-		ret[i] = extract_line(line, idx);
+		ret[i] = get_map_extract_line(line, idx);
 		if (ret[i] == NULL)
 			return (ft_split_free(ret), NULL);
-		ret[i][ft_strlen(ret[i]) - 1] = '\0';
 		i++;
 	}
 	return (ret);

@@ -26,7 +26,7 @@ void	print_map(char **map)
 		ft_printf("| MAP: \n|\n");
 		while (map[i])
 		{
-			ft_printf("|\t%u |\t%s\n", i, map[i]);
+			ft_printf("|\t%u |\t%s|\n", i, map[i]);
 			i++;
 		}
 		ft_printf("|\n");
