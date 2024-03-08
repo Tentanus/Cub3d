@@ -45,6 +45,8 @@ static char	*get_map_extract_line(char *line, ssize_t *idx)
 	while (line[len] && line[len] != '\n')
 		len++;
 	ret = ft_substr(line, *idx, len - *idx + 1);
+	if (ret == NULL)
+		return (NULL);
 	if (ret[len - *idx] == '\n')
 		ret[len - *idx] = '\0';
 	*idx = len + 1;
