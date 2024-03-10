@@ -14,7 +14,7 @@
 #include "libft.h"
 #include <unistd.h>
 
-static void	print_map(char **map)
+void	print_map(char **map)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ static void	print_map(char **map)
 		ft_printf("| MAP: \n|\n");
 		while (map[i])
 		{
-			ft_printf("|\t%u\t|\t%s\n", i, map[i]);
+			ft_printf("|\t%u |\t%s|\n", i, map[i]);
 			i++;
 		}
 		ft_printf("|\n");
@@ -41,13 +41,14 @@ void	print_info(t_cub3d *info)
 		ft_putendl_fd("\n -=- NO INFO FOUND -=-\n", STDERR_FILENO);
 		return ;
 	}
-	print_map(info->map);
-	ft_printf("| TEXTURE & COLLOUR: \n|\n");
+	print_map(info->chart->map);
+
+	ft_printf("| TEXTURE & COLLOUR:\n");
 	ft_printf("|\tTEXTURE  NORTH:  \t%s\n", info->text_no);
 	ft_printf("|\tTEXTURE  SOUTH:  \t%s\n", info->text_so);
 	ft_printf("|\tTEXTURE  WEST:   \t%s\n", info->text_we);
 	ft_printf("|\tTEXTURE  EAST:   \t%s\n", info->text_ea);
-	ft_printf("|\tCOLOUR   FLOOR:  \t%X\t%b\n", info->col_fl);
-	ft_printf("|\tCOLOUR   CEILING:\t%X\t%b\n", info->col_ce);
+	ft_printf("|\tCOLOUR   FLOOR:  \t%X\t\t%b\n", info->col_fl, info->col_fl);
+	ft_printf("|\tCOLOUR   CEILING:\t%X\t\t%b\n", info->col_ce, info->col_ce);
 	ft_printf("\n\t-=- FINISHED -=-\n\n");
 }

@@ -9,38 +9,43 @@
 /*   Updated: 2024/02/13 19:30:49 by mweverli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "CBDerror.h"
 #include "CBDparser.h"
 #include "Cub3d.h"
 #include "libft.h"
 
-#include <unistd.h>
+// read the info file
+// load the elements into the struct (fail if an element is either missing or misformatted)
+// check the path
 
-static char	**read_fd(int fd)
+// mlx
+// read the texture files given (fail if a texture cannot be read) move to later?
+
+static char	*read_fd(int fd)
 {
-	char	*res;
 	char	*line;
+	char	*tmp;
 
-	res = ft_calloc(1, sizeof(char));
-	line = get_next_line(fd);
-	while (line != NULL)
+	line = ft_calloc(READ_CHUNK, sizeof(char));
+	if (read(fd, line, READ_CHUNK) != READ_CHUNK)
 	{
-		if (!ft_stris(line, ft_isspace))
-			res = ft_strjoin_fs1(res, line);
-		free(line);
-		line = get_next_line(fd);
+		close(fd);
+		return (line);
 	}
-#ifdef LOG
-	ft_printf("-=- START LOG:\tREAD FILE -=-\n|--------------\n");
-	ft_printf("%s\n\n", res);
-	ft_printf("-=- END LOG:\tREAD FILE -=-\n|--------------\n", res);
-#endif
+	tmp = ft_calloc(READ_CHUNK, sizeof(char));
+	while (read(fd, tmp, READ_CHUNK) == READ_CHUNK)
+	{
+		line = ft_strjoin_fs1(line, tmp);
+	}
 	close(fd);
-	return (ft_split(res, '\n'));
+	free(tmp);
+	return (line);
 }
 
 // this is a temporary fucntion; could set it up so it checks
 // if all values have been filled after get_data & get_map
+/*
 static bool	set_default(t_cub3d *info)
 {
 	if (!info->text_no)
@@ -60,26 +65,33 @@ static bool	set_default(t_cub3d *info)
 		return (FAILURE);
 	return (SUCCESS);
 }
+*/
 
 int	parser(int fd, t_cub3d *info)
 {
-	char	**filelines;
+	char	*fileline;
 	ssize_t	idx;
 
 	idx = 0;
 	if (fd == -1)
 		return (FAILURE);
-	filelines = read_fd(fd);
-	if (filelines == NULL)
+	fileline = read_fd(fd);
+	if (fileline == NULL)
 		return (cbd_error(ERR_MEMORY), FAILURE);
 	ft_bzero(info, sizeof(t_cub3d));
-	if (get_data(info, filelines, &idx))
+	if (get_data(info, fileline, &idx))
 		return (cbd_free_info(info), FAILURE);
-	if (get_map(info, filelines, &idx))
+	if (get_map(info, fileline, &idx))
 		return (cbd_free_info(info), FAILURE);
+	free(fileline);
+	if (parse_map(info->chart) == FAILURE)
+		return (print_info(info), cbd_free_info(info), FAILURE);
+// set_default(info);
+	if (check_path(info->chart) == FAILURE)
+		return (print_info(info), cbd_free_info(info), FAILURE);
 	if (get_mlx(info))
 		return (cbd_free_info(info), FAILURE);
-	set_default(info);
-	print_info(info);
+// print_info(info);
+print_map(info->chart->map);
 	return (SUCCESS);
 }

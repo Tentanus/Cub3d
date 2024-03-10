@@ -25,6 +25,7 @@
 # include "libft.h"
 
 # include "CBDerror.h"
+# include "CBDparser.h"
 
 # define WINDOW_HEIGHT 720
 # define WINDOW_WIDTH 1280
@@ -41,7 +42,8 @@
 
 typedef struct s_cub3d
 {
-	char		**map;
+	char		**map; //get rid of this
+	t_map		*chart;
 	char		*text_no;
 	char		*text_so;
 	char		*text_we;
@@ -56,5 +58,6 @@ int		parser(int fd, t_cub3d *info);
 
 void	cbd_free_info(t_cub3d *info);
 void	print_info(t_cub3d *info);
+void	print_map(char **map);
 
 #endif // !CUB3D_H
