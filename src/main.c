@@ -35,7 +35,7 @@ int	main(int argc, char *argv[])
 {
 	t_cub3d	info;
 
-	if (parser(validateinput(argc, argv), &info))
+	if (parser(validateinput(argc, argv), &info) == FAILURE)
 		return (FAILURE);
 	mlx_terminate(info.mlx);
 	return (SUCCESS);

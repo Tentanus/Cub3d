@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CBDerror.h"
-#include "CBDparser.h"
 #include "Cub3d.h"
+#include "CBDparser.h"
 
 #include "libft.h"
+
 #include <sys/types.h>
 
 static const char	*g_id_str[TYPE_ID_MAX] = {
@@ -57,14 +57,15 @@ static char	*get_texture(char *str, int *err)
 	char	*ret;
 
 	start = ft_strskipis(str, ft_isspace);
-	end = ft_strskipis(&str[start], ft_ispath) + 1;
+	end = ft_strskipis(&str[start], ft_ispath);
 	ret = ft_substr(str, start, end - start);
 	if (!ret)
 		*err = ERR_MEMORY;
 	else if (!ft_stris(ret, ft_ispath))
 		*err = ERR_PARSE_PATH;
-	else if (!ft_stris(&str[end], ft_isspace))
-		*err = ERR_PARSE_FORMAT;
+#ifdef LOG
+	ft_printf("get_texture: %s\n", ret);
+#endif
 	return (ret);
 }
 
@@ -108,44 +109,42 @@ static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str)
 			info->col_ce = get_colour(str, &err);
 	}
 	cbd_error(err);
-	return (ft_ternary(err != '\0', FAILURE, SUCCESS));
+	return (err);
 }
 
-static t_type_id	get_identifier(char *str)
+static t_type_id	get_identifier(char *str, ssize_t *idx)
 {
-	ssize_t	idx;
 	ssize_t	id_idx;
 
-	idx = ft_strskipis(str, ft_isspace);
 	id_idx = TYPE_ID_NORTH;
 	while (id_idx != TYPE_ID_MAX)
 	{
-		if (!ft_strncmp(&str[idx], g_id_str[id_idx],
+		if (!ft_strncmp(&str[*idx], g_id_str[id_idx],
 				ft_strlen(g_id_str[id_idx])))
 			break ;
 		id_idx++;
 	}
-	if (id_idx != TYPE_ID_MAX && !ft_isspace(str[ft_strlen(g_id_str[id_idx])]))
-		return (TYPE_ID_MAX);
+	*idx += ft_strlen(g_id_str[id_idx]);
 	return (id_idx);
 }
 
-bool	get_data(t_cub3d *info, char **lines, ssize_t *idx)
+bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 {
-	ssize_t		line_idx;
-	t_type_id	id;
+	t_type_id	type_id;
+	size_t		data_idx;
 
-	line_idx = 0;
-	while (lines[*idx] && (*idx) < TYPE_ID_MAX)
+	data_idx = 0;
+	while (lines[*idx] && data_idx < 6)
 	{
-		id = get_identifier(lines[*idx]);
-		if (id == TYPE_ID_MAX)
+		*idx += ft_strskipis(&lines[*idx], ft_isspace);
+		type_id = get_identifier(lines, idx);
+		if (type_id == TYPE_ID_MAX)
 			return (cbd_error(ERR_PARSE_ID), FAILURE);
-		line_idx = ft_strskipis(lines[*idx],
-				ft_isspace) + ft_strlen(g_id_str[id]);
-		if (set_infovalue(info, id, &lines[*idx][line_idx]))
+		*idx += ft_strskipis(&lines[*idx], ft_isspace);
+		if (set_infovalue(info, type_id, &lines[*idx]))
 			return (FAILURE);
-		(*idx)++;
+		*idx = ft_strchr(&lines[*idx], '\n') - lines;
+		data_idx++;
 	}
 	return (SUCCESS);
 }
