@@ -72,13 +72,13 @@ int	parser(int fd, t_cub3d *info)
 	char	*fileline;
 	ssize_t	idx;
 
-	idx = 0;
 	if (fd == -1)
 		return (FAILURE);
 	fileline = read_fd(fd);
 	if (fileline == NULL)
 		return (cbd_error(ERR_MEMORY), FAILURE);
 	ft_bzero(info, sizeof(t_cub3d));
+	idx = 0;
 	if (get_data(info, fileline, &idx))
 		return (cbd_free_info(info), FAILURE);
 	if (get_map(info, fileline, &idx))
@@ -91,7 +91,6 @@ int	parser(int fd, t_cub3d *info)
 		return (print_info(info), cbd_free_info(info), FAILURE);
 	if (get_mlx(info))
 		return (cbd_free_info(info), FAILURE);
-// print_info(info);
-print_map(info->chart->map);
+	print_info(info);	// TODO: remove PRINT
 	return (SUCCESS);
 }

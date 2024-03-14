@@ -42,7 +42,6 @@
 
 typedef struct s_cub3d
 {
-	char		**map; //get rid of this
 	t_map		*chart;
 	char		*text_no;
 	char		*text_so;
@@ -52,11 +51,16 @@ typedef struct s_cub3d
 	int32_t		col_ce;
 	mlx_t		*mlx;
 	mlx_image_t	*image;
+	int32_t		draw_x;
+	int32_t		draw_y;
 }	t_cub3d;
 
 int		parser(int fd, t_cub3d *info);
 
 void	cbd_free_info(t_cub3d *info);
+
+// Functions to be removed:  TODO:
+
 void	print_info(t_cub3d *info);
 void	print_map(char **map);
 
