@@ -31,7 +31,7 @@ static size_t	get_map_count_lines(char *line, ssize_t *idx)
 			line_count++;
 		i++;
 	}
-	if (line[i] && i > 0 && line[i - 1] != '\n')
+	if (i > 0 && line[i - 1] != '\n')
 		line_count++;
 	return (line_count);
 }
