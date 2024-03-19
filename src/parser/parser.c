@@ -67,7 +67,7 @@ static bool	set_default(t_cub3d *info)
 }
 */
 
-int	parser(int fd, t_cub3d *info)
+bool	parser(int fd, t_cub3d *info)
 {
 	char	*fileline;
 	ssize_t	idx;
@@ -79,7 +79,7 @@ int	parser(int fd, t_cub3d *info)
 	if (fileline == NULL)
 		return (cbd_error(ERR_MEMORY), FAILURE);
 	ft_bzero(info, sizeof(t_cub3d));
-	if (get_data(info, fileline, &idx))
+	if (get_data(info, fileline, &idx)) //there is a segfault somehwere here and there needs to be an error for non empty lines in between elements
 		return (cbd_free_info(info), FAILURE);
 	if (get_map(info, fileline, &idx))
 		return (cbd_free_info(info), FAILURE);
