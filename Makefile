@@ -14,7 +14,7 @@
 #=========  GENERAL VARIABLES:  =========#
 #========================================#
 
-NAME			:=	Cub3d
+NAME			:=	cub3D
 
 OBJ_DIR			:=	OBJ
 SRC_DIR			:=	src
@@ -32,6 +32,7 @@ SRC				:=	\
 					parser/check_path.c				\
 					utils/logprinter.c				\
 					utils/free_info.c				\
+					raycaster/raycaster.c
 
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -46,9 +47,10 @@ LIB_FT			:=	$(DIR_FT)/libft.a
 DIR_MLX			:=	$(LIB_DIR)/MLX42
 LIB_MLX			:=	$(DIR_MLX)/build/libmlx42.a
 
-DEFAULT_MAP := map/6x6.cub
+# DEFAULT_MAP := map/empty.cub
 # DEFAULT_MAP := map/3x3.cub
-# DEFAULT_MAP := map/err_test.cub
+# DEFAULT_MAP := map/6x6.cub
+DEFAULT_MAP := map/err_test.cub
 
 #============= COMPILATION ==============#
 
