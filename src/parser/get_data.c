@@ -127,7 +127,8 @@ static t_type_id	get_identifier(char *str, ssize_t *idx)
 			break ;
 		id_idx++;
 	}
-	*idx += ft_strlen(g_id_str[id_idx]);
+	if (g_id_str[id_idx] != NULL)
+		*idx += ft_strlen(g_id_str[id_idx]);
 	return (id_idx);
 }
 
