@@ -54,10 +54,12 @@ typedef struct s_cub3d
 	mlx_image_t	*image;
 }	t_cub3d;
 
-int		parser(int fd, t_cub3d *info);
+bool	parser(int fd, t_cub3d *info);
 
 void	cbd_free_info(t_cub3d *info);
 void	print_info(t_cub3d *info);
 void	print_map(char **map);
+
+bool	raycaster(t_cub3d *info);
 
 #endif // !CUB3D_H

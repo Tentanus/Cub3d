@@ -48,7 +48,7 @@ typedef enum e_type_id
 
 typedef struct s_cub3d	t_cub3d;
 
-int		parser(int fd, t_cub3d *info);
+bool	parser(int fd, t_cub3d *info); //does this belong here? (its also in Cub3d.h)
 
 bool	get_data(t_cub3d *info, char *lines, ssize_t *idx);
 bool	get_map(t_cub3d *info, char *line, ssize_t *idx);
