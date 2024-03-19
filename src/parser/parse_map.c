@@ -85,6 +85,8 @@ bool	parse_map(t_map *chart)
 	i = 0;
 	while (chart->map[i])
 	{
+		if (ft_strskipchar(chart->map[i], ' ') == ft_strlen(chart->map[i]))
+			return (FAILURE);
 		if (ft_strsubset(chart->map[i], MAP_CHARACTER))
 			return (FAILURE);
 		i++;
