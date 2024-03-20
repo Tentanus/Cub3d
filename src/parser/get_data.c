@@ -75,17 +75,17 @@ static char	*get_texture(char *str, int *err)
 static bool	check_filled(t_cub3d *info, t_type_id id)
 {
 	if (id == TYPE_ID_NORTH)
-		return (ft_ternary(info->text_no != NULL, FAILURE, SUCCESS));
+		return (ft_ternary(info->par->text_no != NULL, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_SOUTH)
-		return (ft_ternary(info->text_so != NULL, FAILURE, SUCCESS));
+		return (ft_ternary(info->par->text_so != NULL, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_WEST)
-		return (ft_ternary(info->text_we != NULL, FAILURE, SUCCESS));
+		return (ft_ternary(info->par->text_we != NULL, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_EAST)
-		return (ft_ternary(info->text_ea != NULL, FAILURE, SUCCESS));
+		return (ft_ternary(info->par->text_ea != NULL, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_FLOOR)
-		return (ft_ternary(info->col_fl != 0, FAILURE, SUCCESS));
+		return (ft_ternary(info->par->col_fl != 0, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_CEILING)
-		return (ft_ternary(info->col_ce != 0, FAILURE, SUCCESS));
+		return (ft_ternary(info->par->col_ce != 0, FAILURE, SUCCESS));
 	return (FAILURE);
 }
 
@@ -99,17 +99,17 @@ static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str)
 	else
 	{
 		if (id == TYPE_ID_NORTH)
-			info->text_no = get_texture(str, &err);
+			info->par->text_no = get_texture(str, &err);
 		else if (id == TYPE_ID_SOUTH)
-			info->text_so = get_texture(str, &err);
+			info->par->text_so = get_texture(str, &err);
 		else if (id == TYPE_ID_WEST)
-			info->text_we = get_texture(str, &err);
+			info->par->text_we = get_texture(str, &err);
 		else if (id == TYPE_ID_EAST)
-			info->text_ea = get_texture(str, &err);
+			info->par->text_ea = get_texture(str, &err);
 		else if (id == TYPE_ID_FLOOR)
-			info->col_fl = get_colour(str, &err);
+			info->par->col_fl = get_colour(str, &err);
 		else if (id == TYPE_ID_CEILING)
-			info->col_ce = get_colour(str, &err);
+			info->par->col_ce = get_colour(str, &err);
 	}
 	cbd_error(err);
 	return (err);
@@ -137,6 +137,9 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 	t_type_id	type_id;
 	size_t		data_idx;
 
+	info->par = ft_calloc(1, sizeof(t_param));
+	if (info->par == NULL)
+		return (cbd_error(ERR_MEMORY), NULL);
 	data_idx = 0;
 	while (lines[*idx] && data_idx < 6)
 	{
