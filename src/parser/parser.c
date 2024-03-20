@@ -91,7 +91,6 @@ bool	parser(int fd, t_cub3d *info)
 		return (print_info(info), cbd_free_info(info), FAILURE);
 	if (get_mlx(info))
 		return (cbd_free_info(info), FAILURE);
-// print_info(info);
-print_map(info->chart->map);
+	print_info(info);
 	return (SUCCESS);
 }
