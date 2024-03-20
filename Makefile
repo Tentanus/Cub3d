@@ -24,15 +24,15 @@ LIB_DIR			:=	lib
 SRC				:=	\
 					main.c							\
 					error/error.c					\
+					parser/check_path.c				\
 					parser/get_data.c				\
 					parser/get_map.c				\
-					parser/get_mlx.c				\
 					parser/parser.c					\
 					parser/parse_map.c				\
-					parser/check_path.c				\
+					raycaster/get_mlx.c				\
+					raycaster/raycaster.c			\
 					utils/logprinter.c				\
 					utils/free_info.c				\
-					raycaster/raycaster.c
 
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -91,7 +91,8 @@ RM				:= rm -rf
 #============== RECIPIES  ===============#
 #========================================#
 
-all: $(DIR_LIST) $(NAME)
+all: $(DIR_LIST)
+	$(MAKE) $(NAME) -j4
 
 $(DIR_LIST):
 	@mkdir -p $@
