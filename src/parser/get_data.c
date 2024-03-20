@@ -25,47 +25,47 @@ static const char	*g_id_str[TYPE_ID_MAX] = {
 [TYPE_ID_FLOOR] = "F",
 [TYPE_ID_CEILING] = "C"};
 
-static uint32_t	get_colour(char *str, int *err)
+static uint32_t	get_colour(char *str, ssize_t *idx, int *err)
 {
 	size_t		start;
 	int			i;
 	uint32_t	val;
 	uint32_t	ret;
 
-	start = ft_strskipis(str, ft_isspace);
+	start = ft_strskipis(&str[*idx], ft_isspace);
 	i = 2;
 	ret = 255;
 	while (i >= 0 && *err == SUCCESS)
 	{
-		val = ft_atoi(&str[start]);
+		val = ft_atoi(&str[*idx + start]);
 		if (val < 0 || val > 255)
 			*err = ERR_PARSE_RGB;
 		ret += (val << (8 * (i + 1)));
-		start += ft_strskipis(&str[start], ft_isdigit);
-		if (i != 0 && str[start] != ',')
+		start += ft_strskipis(&str[*idx + start], ft_isdigit);
+		if (i != 0 && str[*idx + start] != ',')
 			*err = ERR_PARSE_FORMAT;
 		start++;
 		i--;
 	}
+	*idx = ft_strskipset(&str[*idx], "1234567890,") - str;
 #ifdef LOG
 	ft_printf("get_colour: %X\n", ret);
 #endif
 	return (ret);
 }
 
-static char	*get_texture(char *str, int *err)
+static char	*get_texture(char *str, ssize_t *idx, int *err)
 {
 	size_t	start;
 	size_t	end;
 	char	*ret;
 
-	start = ft_strskipis(str, ft_isspace);
-	end = ft_strskipis(&str[start], ft_ispath);
-	ret = ft_substr(str, start, end - start);
+	start = ft_strskipis(&str[*idx], ft_isspace);
+	end = ft_strskipis(&str[*idx + start], ft_ispath);
+	ret = ft_substr(&str[*idx], start, end - start);
 	if (!ret)
 		*err = ERR_MEMORY;
-	else if (!ft_stris(ret, ft_ispath))
-		*err = ERR_PARSE_PATH;
+	*idx += ft_strskipis(&str[*idx], ft_ispath);
 #ifdef LOG
 	ft_printf("get_texture: %s\n", ret);
 #endif
@@ -89,7 +89,7 @@ static bool	check_filled(t_cub3d *info, t_type_id id)
 	return (FAILURE);
 }
 
-static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str)
+static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str, ssize_t *idx)
 {
 	int	err;
 
@@ -99,17 +99,17 @@ static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str)
 	else
 	{
 		if (id == TYPE_ID_NORTH)
-			info->par->text_no = get_texture(str, &err);
+			info->par->text_no = get_texture(str, idx, &err);
 		else if (id == TYPE_ID_SOUTH)
-			info->par->text_so = get_texture(str, &err);
+			info->par->text_so = get_texture(str, idx, &err);
 		else if (id == TYPE_ID_WEST)
-			info->par->text_we = get_texture(str, &err);
+			info->par->text_we = get_texture(str, idx, &err);
 		else if (id == TYPE_ID_EAST)
-			info->par->text_ea = get_texture(str, &err);
+			info->par->text_ea = get_texture(str, idx, &err);
 		else if (id == TYPE_ID_FLOOR)
-			info->par->col_fl = get_colour(str, &err);
+			info->par->col_fl = get_colour(str, idx, &err);
 		else if (id == TYPE_ID_CEILING)
-			info->par->col_ce = get_colour(str, &err);
+			info->par->col_ce = get_colour(str, idx, &err);
 	}
 	cbd_error(err);
 	return (err);
@@ -148,8 +148,10 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 		if (type_id == TYPE_ID_MAX)
 			return (cbd_error(ERR_PARSE_ID), FAILURE);
 		*idx += ft_strskipis(&lines[*idx], ft_isspace);
-		if (set_infovalue(info, type_id, &lines[*idx]))
+		if (set_infovalue(info, type_id, lines, idx))
 			return (FAILURE);
+		if (lines[*idx] != '\n')
+			return (cbd_error(ERR_PARSE_TRAIL), FAILURE);
 		*idx = ft_strchr(&lines[*idx], '\n') - lines;
 		data_idx++;
 	}
