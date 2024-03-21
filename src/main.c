@@ -88,11 +88,14 @@ int	main(int argc, char *argv[])
 
 	info.draw_x = 10;
 	info.draw_y = 10;
+
 	mlx_image_to_window(info.mlx, info.image, 10, 10);
 	mlx_loop_hook(info.mlx, info_hook, (void *) info.mlx);
 	mlx_loop_hook(info.mlx, exit_hook, (void *) info.mlx);
 	mlx_loop_hook(info.mlx, draw_hook, (void *) &info);
 	mlx_loop(info.mlx);
 	mlx_terminate(info.mlx);
+
+	cbd_free_info(&info);
 	return (SUCCESS);
 }
