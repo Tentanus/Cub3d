@@ -10,25 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42.h"
 #include "Cub3d.h"
 
-bool	get_mlx(t_cub3d *info)
+void minimap_hook(t_cub3d *info)
 {
-	t_raycast	*ray;
-	size_t		size_mm;
+	t_raycast *ray;
+	const size_t tile;
+	const size_t mapsize;
 
 	ray = info->ray;
-	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	ray->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", false);
-	if (!ray->mlx)
-		return (cbd_mlx_error(), FAILURE);
-	ray->screen = mlx_new_image(ray->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!ray->screen)
-		return (cbd_mlx_error(), mlx_terminate(ray->mlx), FAILURE);
-	size_mm = ((WINDOW_WIDTH >> 3) + (WINDOW_HEIGHT >> 3)) >> 1;
-	ray->minimap = mlx_new_image(ray->mlx, size_mm, size_mm);
-	if (!ray->minimap)
-		return (cbd_mlx_error(), mlx_delete_image(ray->mlx, ray->screen), \
-			mlx_terminate(ray->mlx), FAILURE);
-	return (SUCCESS);
+	mapsize = ray->minimap->width;
+	tile = 32;
+	fill_background(ray->minimap);
+	fill_map()
+	fill_player();
 }
