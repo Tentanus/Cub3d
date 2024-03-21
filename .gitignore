@@ -6,4 +6,7 @@ compile_commands.json
 OBJ/
 
 #executable
-Cub3d
+cub3D
+
+#external files
+raycaster_textured.cpp

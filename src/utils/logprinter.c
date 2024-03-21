@@ -44,11 +44,11 @@ void	print_info(t_cub3d *info)
 	print_map(info->chart->map);
 
 	ft_printf("| TEXTURE & COLLOUR:\n");
-	ft_printf("|\tTEXTURE  NORTH:  \t%s\n", info->text_no);
-	ft_printf("|\tTEXTURE  SOUTH:  \t%s\n", info->text_so);
-	ft_printf("|\tTEXTURE  WEST:   \t%s\n", info->text_we);
-	ft_printf("|\tTEXTURE  EAST:   \t%s\n", info->text_ea);
-	ft_printf("|\tCOLOUR   FLOOR:  \t%X\t\t%b\n", info->col_fl, info->col_fl);
-	ft_printf("|\tCOLOUR   CEILING:\t%X\t\t%b\n", info->col_ce, info->col_ce);
+	ft_printf("|\tTEXTURE  NORTH:  \t%s\n", info->par->text_no);
+	ft_printf("|\tTEXTURE  SOUTH:  \t%s\n", info->par->text_so);
+	ft_printf("|\tTEXTURE  WEST:   \t%s\n", info->par->text_we);
+	ft_printf("|\tTEXTURE  EAST:   \t%s\n", info->par->text_ea);
+	ft_printf("|\tCOLOUR   FLOOR:  \t%X\t\t%b\n", info->par->col_fl, info->par->col_fl);
+	ft_printf("|\tCOLOUR   CEILING:\t%X\t\t%b\n", info->par->col_ce, info->par->col_ce);
 	ft_printf("\n\t-=- FINISHED -=-\n\n");
 }

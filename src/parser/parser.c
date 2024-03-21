@@ -28,46 +28,28 @@ static char	*read_fd(int fd)
 	char	*tmp;
 
 	line = ft_calloc(READ_CHUNK, sizeof(char));
+	if (line == NULL)
+		return (cbd_error(ERR_MEMORY), NULL);
 	if (read(fd, line, READ_CHUNK) != READ_CHUNK)
 	{
 		close(fd);
 		return (line);
 	}
 	tmp = ft_calloc(READ_CHUNK, sizeof(char));
+	if (tmp == NULL)
+		return (cbd_error(ERR_MEMORY), NULL);
 	while (read(fd, tmp, READ_CHUNK) == READ_CHUNK)
 	{
 		line = ft_strjoin_fs1(line, tmp);
+		if (line == NULL)
+			return (cbd_error(ERR_MEMORY), NULL);
 	}
 	close(fd);
 	free(tmp);
 	return (line);
 }
 
-// this is a temporary fucntion; could set it up so it checks
-// if all values have been filled after get_data & get_map
-/*
-static bool	set_default(t_cub3d *info)
-{
-	if (!info->text_no)
-		info->text_no = ft_strdup(DEF_TEXT_NO);
-	if (!info->text_so)
-		info->text_so = ft_strdup(DEF_TEXT_SO);
-	if (!info->text_we)
-		info->text_we = ft_strdup(DEF_TEXT_WE);
-	if (!info->text_ea)
-		info->text_ea = ft_strdup(DEF_TEXT_EA);
-	if (!info->col_fl)
-		info->col_fl = DEF_COL_FL;
-	if (!info->col_ce)
-		info->col_ce = DEF_COL_CE;
-	if (!info->text_no || !info->text_so || !info->text_we || !info->text_ea
-		|| !info->col_fl || !info->col_ce)
-		return (FAILURE);
-	return (SUCCESS);
-}
-*/
-
-int	parser(int fd, t_cub3d *info)
+bool	parser(int fd, t_cub3d *info)
 {
 	char	*fileline;
 	ssize_t	idx;
@@ -79,7 +61,7 @@ int	parser(int fd, t_cub3d *info)
 	if (fileline == NULL)
 		return (cbd_error(ERR_MEMORY), FAILURE);
 	ft_bzero(info, sizeof(t_cub3d));
-	if (get_data(info, fileline, &idx))
+	if (get_data(info, fileline, &idx)) //there is a segfault somehwere here and there needs to be an error for non empty lines in between elements
 		return (cbd_free_info(info), FAILURE);
 	if (get_map(info, fileline, &idx))
 		return (cbd_free_info(info), FAILURE);
@@ -89,8 +71,6 @@ int	parser(int fd, t_cub3d *info)
 // set_default(info);
 	if (check_path(info->chart) == FAILURE)
 		return (print_info(info), cbd_free_info(info), FAILURE);
-	if (get_mlx(info))
-		return (cbd_free_info(info), FAILURE);
 // print_info(info);
 print_map(info->chart->map);
 	return (SUCCESS);
