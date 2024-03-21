@@ -110,10 +110,12 @@ clean:
 	@echo "$(RED)$(BOLD)CLEANING $(NAME)$(RESET)"
 	@$(RM) $(OBJ_DIR)
 
-fclean: clean 
-	@$(RM) $(NAME)
+lclean:
 	@$(RM) $(DIR_MLX)/build
 	@$(MAKE) fclean -C $(DIR_FT)
+
+fclean: clean
+	@$(RM) $(NAME)
 
 re: fclean all
 

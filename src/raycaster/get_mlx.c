@@ -16,12 +16,19 @@
 
 bool	get_mlx(t_cub3d *info)
 {
+	t_raycast	*ray;
+
+	ray = info->ray;
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	info->ray->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", false);
-	if (!info->ray->mlx)
+	ray->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", false);
+	if (!ray->mlx)
 		return (cbd_mlx_error(), FAILURE);
-	info->ray->image = mlx_new_image(info->ray->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!info->ray->image)
-		return (cbd_mlx_error(), mlx_terminate(info->ray->mlx), FAILURE);
+	ray->screen = mlx_new_image(ray->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!ray->screen)
+		return (cbd_mlx_error(), mlx_terminate(ray->mlx), FAILURE);
+	ray->minimap = mlx_new_image(ray->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!ray->minimap)
+		return (cbd_mlx_error(), mlx_delete_image(ray->mlx, ray->screen), \
+			mlx_terminate(ray->mlx), FAILURE);
 	return (SUCCESS);
 }

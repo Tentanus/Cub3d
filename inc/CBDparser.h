@@ -36,7 +36,6 @@ typedef struct s_map	t_map;
 
 bool	get_data(t_cub3d *info, char *lines, ssize_t *idx);
 bool	get_map(t_cub3d *info, char *line, ssize_t *idx);
-bool	get_mlx(t_cub3d *info); // move to raycaster struct
 
 bool	parse_map(t_map *chart);
 bool	check_path(t_map *chart);

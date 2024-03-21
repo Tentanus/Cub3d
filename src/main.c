@@ -31,54 +31,6 @@ static int	validateinput(int argc, char **argv)
 	return (fd);
 }
 
-static void exit_hook(void *param)
-{
-	mlx_t* mlx = param;
-
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE) == true)
-		mlx_close_window(mlx);
-}
-
-static void draw_size_square(mlx_image_t *image, int32_t x, int32_t y, size_t size)
-{
-	uint32_t col = 0xFF000000 | rand();
-
-	for (size_t i = 0; i < size ; i++)
-	{
-		for (size_t j = 0; j < size; j++)
-		{
-			mlx_put_pixel(image, x + i, y + j, col);
-		}
-	}
-}
-
-static void draw_hook(void *param)
-{
-	t_cub3d *info = param;
-	mlx_t *mlx = info->mlx;
-
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		info->draw_y -= 2;
-	else if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		info->draw_y += 2;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		info->draw_x += 2;
-	else if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		info->draw_x -= 2;
-
-	if (!mlx_is_key_down(mlx, MLX_KEY_SPACE))
-		return ;
-	else
-		draw_size_square(info->image, info->draw_x, info->draw_y, 10);
-}
-
-static void info_hook(void* param)
-{
-	const mlx_t* mlx = param;
-
-	ft_printf("fps: %d\n", (int) 1 / mlx->delta_time);
-}
-
 int	main(int argc, char *argv[])
 {
 // All errors must be formatted as Error\n + explicit error message
@@ -86,7 +38,6 @@ int	main(int argc, char *argv[])
 
 	if (parser(validateinput(argc, argv), &info) == FAILURE)
 		return (FAILURE);
-
 	raycaster(&info);
 	mlx_terminate(info.ray->mlx);
 	cbd_free_info(&info);
