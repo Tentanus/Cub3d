@@ -40,22 +40,52 @@
 # define SUCCESS 0
 # define FAILURE 1
 
-typedef struct s_cub3d
+typedef struct s_map
 {
-	t_map		*chart;
+	char	**map;				// lines are filled with ' ' to make the map rectangular
+	int		px;					// index, the 'x' of the player spawn
+	int		py;					// index, the 'y' of the player spawn
+	char	player_direction;	// the direction the player faces in at spawn
+	int		max_x;				// index, the length of the longest line in the map
+	int		max_y;				// index, the number of lines in the map
+	bool	map_invalid;		// set to true after floodfill confirms the map is not (fully) enclosed by walls
+	bool	map_complete;		// set to true when the map is fully floodfilled
+}	t_map;
+
+typedef struct s_parameters
+{
 	char		*text_no;
 	char		*text_so;
 	char		*text_we;
 	char		*text_ea;
 	int32_t		col_fl;
 	int32_t		col_ce;
+}	t_param;
+
+typedef struct s_raycaster
+{
 	mlx_t		*mlx;
 	mlx_image_t	*image;
-	int32_t		draw_x;
-	int32_t		draw_y;
+	int32_t		col_fl;
+	int32_t		col_ce;
+
+	double		px;
+	double		py;
+	// double		
+	// double		
+	// double		
+	// double		
+	
+}	t_raycast;
+
+typedef struct s_cub3d
+{
+	t_map		*chart;
+	t_param		*par;
+	t_raycast	*ray;
 }	t_cub3d;
 
-int		parser(int fd, t_cub3d *info);
+bool	parser(int fd, t_cub3d *info);
 
 void	cbd_free_info(t_cub3d *info);
 
@@ -63,5 +93,7 @@ void	cbd_free_info(t_cub3d *info);
 
 void	print_info(t_cub3d *info);
 void	print_map(char **map);
+
+bool	raycaster(t_cub3d *info);
 
 #endif // !CUB3D_H

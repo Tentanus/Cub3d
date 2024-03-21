@@ -81,21 +81,14 @@ static void info_hook(void* param)
 
 int	main(int argc, char *argv[])
 {
+// All errors must be formatted as Error\n + explicit error message
 	t_cub3d	info;
 
 	if (parser(validateinput(argc, argv), &info) == FAILURE)
 		return (FAILURE);
 
-	info.draw_x = 10;
-	info.draw_y = 10;
-
-	mlx_image_to_window(info.mlx, info.image, 10, 10);
-	mlx_loop_hook(info.mlx, info_hook, (void *) info.mlx);
-	mlx_loop_hook(info.mlx, exit_hook, (void *) info.mlx);
-	mlx_loop_hook(info.mlx, draw_hook, (void *) &info);
-	mlx_loop(info.mlx);
-	mlx_terminate(info.mlx);
-
+	raycaster(&info);
+	mlx_terminate(info.ray->mlx);
 	cbd_free_info(&info);
 	return (SUCCESS);
 }

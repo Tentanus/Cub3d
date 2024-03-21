@@ -4,9 +4,8 @@ NO ./img/text_NO.png
 SO ./img/text_SO.png
 WE ./img/text_WE.png
 EA ./img/text_EA.png
-
-F 128,128,128 done
-C 255,255,255 dont be ignoring me
+F 128,128,128
+C 255,255,255
 
 
     1
@@ -19,5 +18,3 @@ C 255,255,255 dont be ignoring me
  10101                              11
  1010111111111111111111111       111  1
   111                               11
-
-Above Line Shouldn't Be Deleted

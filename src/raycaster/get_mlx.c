@@ -17,11 +17,11 @@
 bool	get_mlx(t_cub3d *info)
 {
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	info->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", false);
-	if (!info->mlx)
+	info->ray->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3d", false);
+	if (!info->ray->mlx)
 		return (cbd_mlx_error(), FAILURE);
-	info->image = mlx_new_image(info->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!info->image)
-		return (cbd_mlx_error(), mlx_terminate(info->mlx), FAILURE);
+	info->ray->image = mlx_new_image(info->ray->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!info->ray->image)
+		return (cbd_mlx_error(), mlx_terminate(info->ray->mlx), FAILURE);
 	return (SUCCESS);
 }
