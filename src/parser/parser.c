@@ -15,13 +15,6 @@
 #include "Cub3d.h"
 #include "libft.h"
 
-// read the info file
-// load the elements into the struct (fail if an element is either missing or misformatted)
-// check the path
-
-// mlx
-// read the texture files given (fail if a texture cannot be read) move to later?
-
 static char	*read_fd(int fd)
 {
 	char	*line;
@@ -68,10 +61,9 @@ bool	parser(int fd, t_cub3d *info)
 	free(fileline);
 	if (parse_map(info->chart) == FAILURE)
 		return (print_info(info), cbd_free_info(info), FAILURE);
-	// set_default(info);
 	if (check_path(info->chart) == FAILURE)
 		return (print_info(info), cbd_free_info(info), FAILURE);
-	print_info(info);
-	//print_map(info->chart->map);
+// print_info(info);
+// print_map(info->chart->map);
 	return (SUCCESS);
 }

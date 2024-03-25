@@ -13,6 +13,7 @@
 #ifndef CBDPARSER_H
 # define CBDPARSER_H
 
+# include "Cub3d.h"
 # include <stdbool.h>
 # include <sys/types.h>
 
@@ -39,5 +40,6 @@ bool	get_map(t_cub3d *info, char *line, ssize_t *idx);
 
 bool	parse_map(t_map *chart);
 bool	check_path(t_map *chart);
+char	**copy_array(char **arr);
 
 #endif // !CBDPARSER_H

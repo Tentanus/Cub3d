@@ -27,14 +27,14 @@ void fill_background(mlx_image_t *minimap)
 
 void minimap_hook(void *param)
 {
-	const t_raycast *ray = ((t_cub3d *)param)->ray;
+	const t_raycaster *raycaster = ((t_cub3d *)param)->raycaster;
 	const size_t tile = 32;
-	const size_t mapsize = ray->minimap->width;
+	const size_t mapsize = raycaster->minimap->width;
 
-	fill_background(ray->minimap);
-	fill_map(ray->minimap,)
+	fill_background(raycaster->minimap);
+	//fill_map(ray->minimap,)
 	(void) tile;
-	mlx_image_to_window(ray->mlx, ray->minimap, 0, 0);
+	mlx_image_to_window(raycaster->mlx, raycaster->minimap, 0, 0);
 	(void) mapsize;
 //	fill_player();
 }

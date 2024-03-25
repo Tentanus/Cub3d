@@ -75,17 +75,17 @@ static char	*get_texture(char *str, ssize_t *idx, int *err)
 static bool	check_filled(t_cub3d *info, t_type_id id)
 {
 	if (id == TYPE_ID_NORTH)
-		return (ft_ternary(info->par->text_no != NULL, FAILURE, SUCCESS));
+		return (ft_ternary(info->param->text_no != NULL, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_SOUTH)
-		return (ft_ternary(info->par->text_so != NULL, FAILURE, SUCCESS));
+		return (ft_ternary(info->param->text_so != NULL, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_WEST)
-		return (ft_ternary(info->par->text_we != NULL, FAILURE, SUCCESS));
+		return (ft_ternary(info->param->text_we != NULL, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_EAST)
-		return (ft_ternary(info->par->text_ea != NULL, FAILURE, SUCCESS));
+		return (ft_ternary(info->param->text_ea != NULL, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_FLOOR)
-		return (ft_ternary(info->par->col_fl != 0, FAILURE, SUCCESS));
+		return (ft_ternary(info->param->col_fl != 0, FAILURE, SUCCESS));
 	else if (id == TYPE_ID_CEILING)
-		return (ft_ternary(info->par->col_ce != 0, FAILURE, SUCCESS));
+		return (ft_ternary(info->param->col_ce != 0, FAILURE, SUCCESS));
 	return (FAILURE);
 }
 
@@ -99,17 +99,17 @@ static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str, ssize_t *idx)
 	else
 	{
 		if (id == TYPE_ID_NORTH)
-			info->par->text_no = get_texture(str, idx, &err);
+			info->param->text_no = get_texture(str, idx, &err);
 		else if (id == TYPE_ID_SOUTH)
-			info->par->text_so = get_texture(str, idx, &err);
+			info->param->text_so = get_texture(str, idx, &err);
 		else if (id == TYPE_ID_WEST)
-			info->par->text_we = get_texture(str, idx, &err);
+			info->param->text_we = get_texture(str, idx, &err);
 		else if (id == TYPE_ID_EAST)
-			info->par->text_ea = get_texture(str, idx, &err);
+			info->param->text_ea = get_texture(str, idx, &err);
 		else if (id == TYPE_ID_FLOOR)
-			info->par->col_fl = get_colour(str, idx, &err);
+			info->param->col_fl = get_colour(str, idx, &err);
 		else if (id == TYPE_ID_CEILING)
-			info->par->col_ce = get_colour(str, idx, &err);
+			info->param->col_ce = get_colour(str, idx, &err);
 	}
 	cbd_error(err);
 	return (err);
@@ -137,8 +137,8 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 	t_type_id	type_id;
 	size_t		data_idx;
 
-	info->par = ft_calloc(1, sizeof(t_param));
-	if (info->par == NULL)
+	info->param = ft_calloc(1, sizeof(t_param));
+	if (info->param == NULL)
 		return (cbd_error(ERR_MEMORY), NULL);
 	data_idx = 0;
 	while (lines[*idx] && data_idx < 6)
