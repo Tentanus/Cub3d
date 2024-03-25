@@ -21,12 +21,12 @@ void	cbd_free_info(t_cub3d *info)
 			ft_split_free(info->chart->map);
 		free(info->chart);
 	}
-	if (info->par->text_no)
-		free(info->par->text_no);
-	if (info->par->text_so)
-		free(info->par->text_so);
-	if (info->par->text_we)
-		free(info->par->text_we);
-	if (info->par->text_ea)
-		free(info->par->text_ea);
+	if (info->param->text_no)
+		free(info->param->text_no);
+	if (info->param->text_so)
+		free(info->param->text_so);
+	if (info->param->text_we)
+		free(info->param->text_we);
+	if (info->param->text_ea)
+		free(info->param->text_ea);
 }
