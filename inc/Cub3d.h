@@ -30,7 +30,9 @@
 
 # define WINDOW_HEIGHT 720
 # define WINDOW_WIDTH 1280
+
 # define MINIMAP_SIZE 2
+# define MINIMAP_BORDER 2
 
 # define DEF_TEXT_NO "./img/default/bloody_wall_01.png"
 # define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
