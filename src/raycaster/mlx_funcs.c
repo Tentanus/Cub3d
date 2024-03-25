@@ -35,12 +35,6 @@ bool	load_textures(t_raycaster *raycaster, const t_param param)
 
 bool	get_image(t_raycaster *raycaster)
 {
-	const size_t size_mm = \
-		((WINDOW_WIDTH >> MINIMAP_SIZE) + (WINDOW_HEIGHT >> MINIMAP_SIZE)) >> 1;
-		// TODO: MINIMAP_SIZE DEFAULT SHOULD BE SET TO 3
-	raycaster->minimap= mlx_new_image(raycaster->mlx, size_mm, size_mm);
-	if (!raycaster->minimap)
-		return (cbd_mlx_error(), mlx_terminate(raycaster->mlx), FAILURE);
 	raycaster->screen= mlx_new_image(raycaster->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!raycaster->screen)
 		return (cbd_mlx_error(), mlx_terminate(raycaster->mlx), FAILURE);
