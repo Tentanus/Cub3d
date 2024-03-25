@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:46:31 by mweverli          #+#    #+#             */
-/*   Updated: 2024/02/13 19:46:33 by mweverli         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:48:34 by mweverli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 # define WINDOW_HEIGHT 720
 # define WINDOW_WIDTH 1280
+# define MINIMAP_SIZE 1
 
 # define DEF_TEXT_NO "./img/default/bloody_wall_01.png"
 # define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
@@ -93,6 +94,7 @@ void	cbd_free_info(t_cub3d *info);
 // Functions to be Put in different Headers
 
 bool	get_mlx(t_cub3d *info); // move to raycaster struct
+void	minimap_hook(void *param);
 
 // Functions to be removed:  TODO:
 

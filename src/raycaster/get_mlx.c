@@ -25,7 +25,9 @@ bool	get_mlx(t_cub3d *info)
 	ray->screen = mlx_new_image(ray->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!ray->screen)
 		return (cbd_mlx_error(), mlx_terminate(ray->mlx), FAILURE);
-	size_mm = ((WINDOW_WIDTH >> 3) + (WINDOW_HEIGHT >> 3)) >> 1;
+	size_mm = \
+		((WINDOW_WIDTH >> MINIMAP_SIZE) + (WINDOW_HEIGHT >> MINIMAP_SIZE)) >> 1;
+		// MINIMAP_SIZE DEFAULT SHOULD BE SET TO 3
 	ray->minimap = mlx_new_image(ray->mlx, size_mm, size_mm);
 	if (!ray->minimap)
 		return (cbd_mlx_error(), mlx_delete_image(ray->mlx, ray->screen), \

@@ -47,6 +47,7 @@ bool	raycaster(t_cub3d *info)
 	if (get_mlx(info))
 		return (cbd_free_info(info), FAILURE);
 	mlx_key_hook(info->ray->mlx, &cub3d_hooks, info->ray);
+	mlx_loop_hook(info->ray->mlx, &minimap_hook, info);
 	mlx_loop(info->ray->mlx);
 	return (SUCCESS);
 }
