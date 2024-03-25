@@ -15,7 +15,7 @@
 #include "libft.h"
 
 static const char	*g_err_msg[ERR_SIZE + 1] = {
-[SUCCESS] = "-",
+[ERR_SUCCESS] = "-",
 [ERR_ARGUMENT] = "usage: ./Cub3d <filename>.cub",
 [ERR_FILE] = "unable to open file",
 [ERR_READ] = "unable to read file",
@@ -29,13 +29,13 @@ static const char	*g_err_msg[ERR_SIZE + 1] = {
 
 void	cbd_error(t_errnum errnum)
 {
-	if (errnum == SUCCESS)
+	if (errnum == ERR_SUCCESS)
 		return ;
 	ft_putstr_fd("cub3D: ", STDERR_FILENO);
 	ft_putendl_fd(g_err_msg[errnum], STDERR_FILENO);
 }
 
-void cbd_mlx_error(void)
+void	cbd_mlx_error(void)
 {
 	ft_putstr_fd("cub3D: ", STDERR_FILENO);
 	ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO);

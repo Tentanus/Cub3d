@@ -24,6 +24,7 @@ LIB_DIR			:=	lib
 SRC				:=	\
 					main.c							\
 					error/error.c					\
+					minimap/minimap.c				\
 					parser/check_path.c				\
 					parser/get_data.c				\
 					parser/get_map.c				\
@@ -59,7 +60,7 @@ INCLUDE			:=	-I $(INC_DIR)					\
 					-I $(DIR_MLX)/include/MLX42		\
 					-I $(DIR_MLX)/include
 
-LIB_FLAG		:=	-ldl -lglfw -pthread -lm
+LIB_FLAG		:=	-ldl -lglfw -lm
 
 CC				:=	cc
 # CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
@@ -110,10 +111,12 @@ clean:
 	@echo "$(RED)$(BOLD)CLEANING $(NAME)$(RESET)"
 	@$(RM) $(OBJ_DIR)
 
-fclean: clean 
-	@$(RM) $(NAME)
+lclean:
 	@$(RM) $(DIR_MLX)/build
 	@$(MAKE) fclean -C $(DIR_FT)
+
+fclean: clean
+	@$(RM) $(NAME)
 
 re: fclean all
 
@@ -127,7 +130,7 @@ run: all
 #========================================#
 
 $(LIB_MLX):
-	cmake $(if DEBUG=1,-DDEBUG=1) $(DIR_MLX) -B $(DIR_MLX)/build
+	cmake$(if $(DEBUG), -DDEBUG=1) $(DIR_MLX) -B $(DIR_MLX)/build
 	cmake --build $(DIR_MLX)/build
 
 $(LIB_FT):

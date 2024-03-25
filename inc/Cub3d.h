@@ -72,7 +72,8 @@ typedef struct s_parameters
 typedef struct s_raycaster
 {
 	mlx_t			*mlx;
-	mlx_image_t		*image;
+	mlx_image_t		*screen;
+	mlx_image_t		*minimap;
 	mlx_texture_t	*textures[4];
 	int32_t			col_fl;
 	int32_t			col_ce;
@@ -102,6 +103,13 @@ typedef struct s_cub3d
 bool	parser(int fd, t_cub3d *info);
 
 void	cbd_free_info(t_cub3d *info);
+
+// Functions to be Put in different Headers
+
+bool	get_mlx(t_cub3d *info); // move to raycaster struct
+
+// Functions to be removed:  TODO:
+
 void	print_info(t_cub3d *info);
 void	print_map(char **map);
 

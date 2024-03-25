@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "Cub3d.h"
-#include "MLX42.h"
-#include "libft.h"
 
 static int	validateinput(int argc, char **argv)
 {
@@ -41,5 +39,6 @@ int	main(int argc, char *argv[])
 	if (raycaster(&info) == FAILURE)
 		return (FAILURE);
 	mlx_terminate(info.raycaster->mlx);
+	cbd_free_info(&info);
 	return (SUCCESS);
 }

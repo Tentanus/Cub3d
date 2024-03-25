@@ -26,7 +26,7 @@ static bool	floodfill(t_map *chart, char **map, int x, int y)
 		return (SUCCESS);
 	if (map[y][x] == ' ' || x + 1 > chart->max_x || y + 1 > chart->max_y || x == 0 || y == 0)
 	{
-printf("\tMap Is Not Enclosed By Walls\n");
+	printf("\tMap Is Not Enclosed By Walls\n");
 		chart->map_invalid = true;
 		return (FAILURE);
 	}
@@ -74,7 +74,7 @@ static bool	flood_loop(t_map *chart, char **map)
 char	**copy_array(char **arr)
 {
 	char	**copy;
-	int	i;
+	int		i;
 
 	if (arr == NULL)
 		return (NULL);
