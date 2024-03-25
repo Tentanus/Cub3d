@@ -71,23 +71,23 @@ static bool	flood_loop(t_map *chart, char **map)
 	return (SUCCESS);
 }
 
-char	**copy_array(char **map)
+char	**copy_array(char **arr)
 {
 	char	**copy;
 	int	i;
 
-	if (map == NULL)
+	if (arr == NULL)
 		return (NULL);
 	i = 0;
-	while (map[i])
+	while (arr[i])
 		i++;
 	copy = ft_calloc(i + 1, sizeof(char *));
 	if (copy == NULL)
 		return (cbd_error(ERR_MEMORY), NULL);
 	i = 0;
-	while (map[i])
+	while (arr[i])
 	{
-		copy[i] = ft_strdup(map[i]);
+		copy[i] = ft_strdup(arr[i]);
 		if (copy[i] == NULL)
 		{
 			ft_split_free(copy);

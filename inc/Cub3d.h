@@ -77,6 +77,8 @@ typedef struct s_raycaster
 	int32_t			col_fl;
 	int32_t			col_ce;
 
+	char			**map;
+
 	t_vector_2d player_pos;
 	// t_vector_2d
 	// t_vector_2d

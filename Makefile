@@ -29,7 +29,7 @@ SRC				:=	\
 					parser/get_map.c				\
 					parser/parser.c					\
 					parser/parse_map.c				\
-					raycaster/get_mlx.c				\
+					raycaster/mlx_funcs.c			\
 					raycaster/raycaster.c			\
 					utils/logprinter.c				\
 					utils/free_info.c				\
@@ -62,8 +62,8 @@ INCLUDE			:=	-I $(INC_DIR)					\
 LIB_FLAG		:=	-ldl -lglfw -pthread -lm
 
 CC				:=	cc
-CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
-# CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors
+# CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
+CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors
 
 ifdef DEBUG
 CFL				+=	-g -fstandalone-debug
