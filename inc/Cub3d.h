@@ -41,10 +41,16 @@
 # define SUCCESS 0
 # define FAILURE 1
 
+typedef struct s_vector_2d
+{
+	double x;
+	double y;
+} t_vector_2d;
+
 typedef struct s_map
 {
 	char	**map;
-	int		px;
+	int		px;			// + 0.5 to centre in tile
 	int		py;
 	char	player_direction;
 	int		max_x;
@@ -71,12 +77,9 @@ typedef struct s_raycaster
 	int32_t			col_fl;
 	int32_t			col_ce;
 
-	double		px;
-	double		py;
-	// double		
-	// double		
-	// double		
-	// double		
+	t_vector_2d player_pos;
+	// t_vector_2d
+	// t_vector_2d
 }	t_raycaster;
 
 typedef struct s_ray
