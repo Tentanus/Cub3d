@@ -26,6 +26,7 @@
 
 # include "CBDerror.h"
 # include "CBDparser.h"
+# include "CBDraycaster.h"
 
 # define WINDOW_HEIGHT 720
 # define WINDOW_WIDTH 1280
@@ -42,14 +43,14 @@
 
 typedef struct s_map
 {
-	char	**map;				// lines are filled with ' ' to make the map rectangular
-	int		px;					// index, the 'x' of the player spawn
-	int		py;					// index, the 'y' of the player spawn
-	char	player_direction;	// the direction the player faces in at spawn
-	int		max_x;				// index, the length of the longest line in the map
-	int		max_y;				// index, the number of lines in the map
-	bool	map_invalid;		// set to true after floodfill confirms the map is not (fully) enclosed by walls
-	bool	map_complete;		// set to true when the map is fully floodfilled
+	char	**map;
+	int		px;
+	int		py;
+	char	player_direction;
+	int		max_x;
+	int		max_y;
+	bool	map_invalid;
+	bool	map_complete;
 }	t_map;
 
 typedef struct s_parameters
@@ -64,10 +65,11 @@ typedef struct s_parameters
 
 typedef struct s_raycaster
 {
-	mlx_t		*mlx;
-	mlx_image_t	*image;
-	int32_t		col_fl;
-	int32_t		col_ce;
+	mlx_t			*mlx;
+	mlx_image_t		*image;
+	mlx_texture_t	*textures[4];
+	int32_t			col_fl;
+	int32_t			col_ce;
 
 	double		px;
 	double		py;
@@ -75,14 +77,21 @@ typedef struct s_raycaster
 	// double		
 	// double		
 	// double		
-	
-}	t_raycast;
+}	t_raycaster;
+
+typedef struct s_ray
+{
+	double	start_x;
+	double	start_y;
+	double	angle;
+	double	dir_x;
+}	t_ray;
 
 typedef struct s_cub3d
 {
 	t_map		*chart;
-	t_param		*par;
-	t_raycast	*ray;
+	t_param		*param;
+	t_raycaster	*raycaster;
 }	t_cub3d;
 
 bool	parser(int fd, t_cub3d *info);

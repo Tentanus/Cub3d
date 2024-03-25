@@ -13,13 +13,13 @@
 #ifndef CBDPARSER_H
 # define CBDPARSER_H
 
+# include "Cub3d.h"
 # include <stdbool.h>
-#include <sys/types.h>
+# include <sys/types.h>
 
 # define MAP_CHARACTER " 01NSWE"
 // maps can only contain spaces, meaning no other whitespace characters;
 # define READ_CHUNK 10000 //or a cool number
-
 
 typedef enum e_type_id
 {
@@ -39,7 +39,6 @@ bool	parser(int fd, t_cub3d *info);
 
 bool	get_data(t_cub3d *info, char *lines, ssize_t *idx);
 bool	get_map(t_cub3d *info, char *line, ssize_t *idx);
-bool	get_mlx(t_cub3d *info); // move to raycaster struct
 
 bool	parse_map(t_map *chart);
 bool	check_path(t_map *chart);
