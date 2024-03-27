@@ -16,7 +16,6 @@
 
 bool	load_textures(t_raycaster *raycaster, const t_param param)
 {
-	mlx_texture_t	*texture;
 	int				i;
 
 	raycaster->textures[NORTH] = mlx_load_png(param.text_no);
@@ -36,8 +35,8 @@ bool	load_textures(t_raycaster *raycaster, const t_param param)
 
 bool	get_image(t_raycaster *raycaster)
 {
-	raycaster->image = mlx_new_image(raycaster->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!raycaster->image)
+	raycaster->screen = mlx_new_image(raycaster->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!raycaster->screen)
 		return (cbd_mlx_error(), mlx_terminate(raycaster->mlx), FAILURE);
 	return (SUCCESS);
 }

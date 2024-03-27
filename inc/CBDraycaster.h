@@ -17,6 +17,11 @@
 typedef struct s_raycaster	t_raycaster;
 typedef struct s_parameters	t_param;
 
+// double dirX = -1.0, dirY = 0.0; //initial direction vector: WEST
+// double dirX = 1.0, dirY = 0.0; //initial direction vector: EAST
+
+
+
 typedef enum e_textures
 {
 	NORTH,

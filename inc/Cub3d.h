@@ -81,16 +81,25 @@ typedef struct s_raycaster
 	char			**map;
 
 	t_vector_2d player_pos;
-	// t_vector_2d
+	t_vector_2d	player_dir;
+	t_vector_2d	plane;
 	// t_vector_2d
 }	t_raycaster;
 
 typedef struct s_ray
 {
-	double	start_x;
-	double	start_y;
-	double	angle;
-	double	dir_x;
+	t_vector_2d	start_pos;  //x and y start position
+	t_vector_2d	start_dir;	//initial direction vector
+	t_vector_2d	plane;		//the 2d raycaster version of camera plane
+	t_vector_2d	map; 		//which box of the map we're in
+	t_vector_2d side_dist;	//length of ray from current position to next x or y-side
+	t_vector_2d	delta_dist;	//length of ray from one x or y-side to next x or y-side
+	t_vector_2d	step;		//what direction to step in x or y-direction (either +1 or -1)
+
+	double		camera_x;
+	double		perp_dist;	//distance of perpendicular ray (Euclidean distance would give fisheye effect!)
+	bool		hit;		//was there a wall hit?
+	int			side;		//was a NS or a EW wall hit? (can be developed to figur out which side between NS/EW)
 }	t_ray;
 
 typedef struct s_cub3d
@@ -101,18 +110,16 @@ typedef struct s_cub3d
 }	t_cub3d;
 
 bool	parser(int fd, t_cub3d *info);
+bool	raycaster(t_cub3d *info);
 
 void	cbd_free_info(t_cub3d *info);
 
-// Functions to be Put in different Headers
 
-bool	get_mlx(t_cub3d *info); // move to raycaster struct
-
-// Functions to be removed:  TODO:
+// Functions to be removed: 
+// TODO:
 
 void	print_info(t_cub3d *info);
 void	print_map(char **map);
 
-bool	raycaster(t_cub3d *info);
 
 #endif // !CUB3D_H

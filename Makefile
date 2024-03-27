@@ -32,6 +32,7 @@ SRC				:=	\
 					parser/parse_map.c				\
 					raycaster/mlx_funcs.c			\
 					raycaster/raycaster.c			\
+					raycaster/illegal_math.c		\
 					utils/logprinter.c				\
 					utils/free_info.c				\
 
