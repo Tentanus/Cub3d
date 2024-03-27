@@ -30,8 +30,8 @@ int h = WINDOW_HEIGHT;
     {
       //calculate ray position and direction
       double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
-      double rayDirX = raycaster->player_dir.x + raycaster->plane.x*cameraX;
-      double rayDirY = raycaster->player_dir.y + raycaster->plane.y*cameraX;
+      double rayDirX = raycaster->player_dir.x + raycaster->plane.x * cameraX;
+      double rayDirY = raycaster->player_dir.y + raycaster->plane.y * cameraX;
 
       //which box of the map we're in
       int mapX = (int)raycaster->player_pos.x;
@@ -91,8 +91,8 @@ int h = WINDOW_HEIGHT;
           side = 1;
         }
         //Check if ray has hit a wall
-        // if(worldMap[mapX][mapY] > 0) hit = 1;
-        if(raycaster->map[mapY][mapX] == '1') hit = 1;
+        if(raycaster->map[mapY][mapX] == '1')
+			hit = 1;
       }
 
       //Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
@@ -103,13 +103,15 @@ int h = WINDOW_HEIGHT;
       int lineHeight = (int)(h / perpWallDist);
 
 
-      int pitch = 00; //figure out pitch
+      int pitch = 100; //figure out pitch
 
       //calculate lowest and highest pixel to fill in current stripe
-      int drawStart = -lineHeight / 2 + h / 2 + pitch;
-      if(drawStart < 0) drawStart = 0;
-      int drawEnd = lineHeight / 2 + h / 2 + pitch;
-      if(drawEnd >= h) drawEnd = h - 1;
+    	int drawStart = -lineHeight / 2 + h / 2 + pitch;
+    	if(drawStart < 0)
+			drawStart = 0;
+		int drawEnd = lineHeight / 2 + h / 2 + pitch;
+    	if(drawEnd >= h)
+			drawEnd = h - 1;
 
 int y = 0;
 while (y < drawStart)
@@ -117,7 +119,11 @@ while (y < drawStart)
 	mlx_put_pixel(raycaster->screen, x, y, raycaster->col_ce);
 	y++;
 }
-
+while (y <= drawEnd) //because here y == drawstart
+{
+	mlx_put_pixel(raycaster->screen, x, y, COLOUR); // to be textured data
+	y++;
+}
 y = WINDOW_HEIGHT - 1;
 while (y > drawEnd)
 {

@@ -47,16 +47,18 @@ static bool	load_raycaster_struct(t_cub3d *info)
 		return (cbd_error(ERR_MEMORY), NULL);
 	info->raycaster->col_ce = info->param->col_ce;
 	info->raycaster->col_fl = info->param->col_fl;
+	if (load_textures(info->raycaster, *info->param) == FAILURE)
+		return (FAILURE);
+	// free_param(info->param); //and set to NULL to avoid double free
 	info->raycaster->player_pos.x = info->chart->px + 0.5; //to centre in the square
 	info->raycaster->player_pos.y = info->chart->py + 0.5; //to centre in the square
 	load_player_direction(info->raycaster, info->chart->player_direction);
-	if (load_textures(info->raycaster, *info->param) == FAILURE)
-		return (FAILURE);
+	info->raycaster->move_speed = 0.117; //some safety needed here
 	info->raycaster->map = copy_array(info->chart->map);
-	// free_param(info->param);
-	// free_chart(info->chart);
+	if (!info->raycaster->map)
+		return (FAILURE);
+	// free_chart(info->chart); //and set to NULL to avoid double free
 	return (SUCCESS);
-	//other shit we need rn?
 }
 
 // static?
@@ -74,56 +76,38 @@ void	cub3d_key_hook(mlx_key_data_t keydata, void *param)
 	if ((keydata.key == MLX_KEY_W) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-
-    	// if(worldMap[int(posX + dirX * moveSpeed)][int(posY)] == false)
-		// 	posX += dirX * moveSpeed;
-    	// if(worldMap[int(posX)][int(posY + dirY * moveSpeed)] == false)
-	  	// 	posY += dirY * moveSpeed;
+		if(raycaster->map[(int)raycaster->player_pos.y][(int)(raycaster->player_pos.x + raycaster->player_dir.x * raycaster->move_speed)] != '1')
+			raycaster->player_pos.x += raycaster->player_dir.x * raycaster->move_speed;
+		if(raycaster->map[(int)(raycaster->player_pos.y + raycaster->player_dir.y * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
+			raycaster->player_pos.y += raycaster->player_dir.y * raycaster->move_speed;
     }
     //strafe left
 	if ((keydata.key == MLX_KEY_A) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
     {
-
+		if(raycaster->map[(int)(raycaster->player_pos.y - raycaster->player_dir.x * raycaster->move_speed)][(int)(raycaster->player_pos.x)] != '1')
+			raycaster->player_pos.y -= raycaster->player_dir.x * raycaster->move_speed;
+		if(raycaster->map[(int)(raycaster->player_pos.y)][(int)(raycaster->player_pos.x - raycaster->player_dir.y * raycaster->move_speed)] != '1')
+			raycaster->player_pos.x -= raycaster->player_dir.y * raycaster->move_speed;
     }
 	//move back
 	if ((keydata.key == MLX_KEY_S) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-    	// if(worldMap[int(posX - dirX * moveSpeed)][int(posY)] == false)
-	  	// 	posX -= dirX * moveSpeed;
-		// if(worldMap[int(posX)][int(posY - dirY * moveSpeed)] == false)
-	  	// 	posY -= dirY * moveSpeed;
+		if(raycaster->map[(int)raycaster->player_pos.y][(int)(raycaster->player_pos.x - raycaster->player_dir.x * raycaster->move_speed)] != '1')
+			raycaster->player_pos.x -= raycaster->player_dir.x * raycaster->move_speed;
+		if(raycaster->map[(int)(raycaster->player_pos.y - raycaster->player_dir.y * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
+			raycaster->player_pos.y -= raycaster->player_dir.y * raycaster->move_speed;
 	}
 	//strafe right
 	if ((keydata.key == MLX_KEY_D) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		
+		if(raycaster->map[(int)(raycaster->player_pos.y + raycaster->player_dir.x * raycaster->move_speed)][(int)(raycaster->player_pos.x)] != '1')
+			raycaster->player_pos.y += raycaster->player_dir.x * raycaster->move_speed;
+		if(raycaster->map[(int)(raycaster->player_pos.y)][(int)(raycaster->player_pos.x + raycaster->player_dir.y * raycaster->move_speed)] != '1')
+			raycaster->player_pos.x += raycaster->player_dir.y * raycaster->move_speed;
 	}
-	
-	// //rotate to the right
-    // if(keyDown(SDLK_RIGHT))
-    // {
-    //   //both camera direction and camera plane must be rotated
-    //   double oldDirX = dirX;
-    //   dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-    //   dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-    //   double oldPlaneX = planeX;
-    //   planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-    //   planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
-    // }
-    // //rotate to the left
-    // if(keyDown(SDLK_LEFT))
-    // {
-    //   //both camera direction and camera plane must be rotated
-    //   double oldDirX = dirX;
-    //   dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-    //   dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-    //   double oldPlaneX = planeX;
-    //   planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-    //   planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-    // }
 }
 
 // bool	draw_ceiling(const t_raycaster raycaster)

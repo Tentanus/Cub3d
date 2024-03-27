@@ -83,6 +83,7 @@ typedef struct s_raycaster
 	t_vector_2d player_pos;
 	t_vector_2d	player_dir;
 	t_vector_2d	plane;
+	double		move_speed;
 	// t_vector_2d
 }	t_raycaster;
 
