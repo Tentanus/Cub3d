@@ -16,33 +16,27 @@
 
 static void	load_player_direction(t_raycaster *raycaster, char player_dir)
 {
-	if (player_dir == 'N')
+	if (player_dir == 'N' || player_dir == 'S')
 	{
 		raycaster->player_dir.x = 0.0;
 		raycaster->player_dir.y = -1.0;
+		if (player_dir == 'S')
+			raycaster->player_dir.y = 1.0;
 		raycaster->plane.x = 0.66;
+		if (player_dir == 'S')
+			raycaster->plane.x = -0.66;
 		raycaster->plane.y = 0.0;
 	}
-	if (player_dir == 'E')
+	else if (player_dir == 'E' || player_dir == 'W')
 	{
 		raycaster->player_dir.x = 1.0;
+		if (player_dir == 'W')
+			raycaster->player_dir.x = -1.0;
 		raycaster->player_dir.y = 0.0;
 		raycaster->plane.x = 0.00;
 		raycaster->plane.y = 0.66;
-	}
-	if (player_dir == 'S')
-	{
-		raycaster->player_dir.x = 0.0;
-		raycaster->player_dir.y = 1.0;
-		raycaster->plane.x = 0.66;
-		raycaster->plane.y = 0.0;
-	}
-	if (player_dir == 'W')
-	{
-		raycaster->player_dir.x = -1.0;
-		raycaster->player_dir.y = 0.0;
-		raycaster->plane.x = 0.00;
-		raycaster->plane.y = 0.66;
+		if (player_dir == 'W')
+			raycaster->plane.y = -0.66;
 	}
 }
 
@@ -55,9 +49,6 @@ static bool	load_raycaster_struct(t_cub3d *info)
 	info->raycaster->col_fl = info->param->col_fl;
 	info->raycaster->player_pos.x = info->chart->px + 0.5; //to centre in the square
 	info->raycaster->player_pos.y = info->chart->py + 0.5; //to centre in the square
-	//gotta load in player direction properly
-	info->raycaster->player_dir.x = 1.0;
-	info->raycaster->player_dir.y = 0.0;
 	load_player_direction(info->raycaster, info->chart->player_direction);
 	if (load_textures(info->raycaster, *info->param) == FAILURE)
 		return (FAILURE);

@@ -18,7 +18,7 @@ void illegal_math(void *parameter)
 // raycaster->player_dir.x = 0.0;
 // raycaster->player_dir.y = -1.0;
 //the 2d raycaster version of camera plane
-// raycaster->plane.x = 0.66
+// raycaster->plane.x = 0.66;
 // raycaster->plane.y = 0.0;
 
   //start the main loop
