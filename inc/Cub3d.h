@@ -77,7 +77,8 @@ typedef struct s_minimap
 	mlx_image_t	*minimap;
 	uint32_t	tile_size;
 	uint32_t	player_size;
-	uint32_t	max_dimention;
+	uint32_t	dimention_x;
+	uint32_t	dimention_y;
 } t_minimap;
 
 typedef struct s_raycaster

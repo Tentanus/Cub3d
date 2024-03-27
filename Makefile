@@ -24,7 +24,9 @@ LIB_DIR			:=	lib
 SRC				:=	\
 					main.c							\
 					error/error.c					\
-					minimap/minimap.c				\
+					minimap/minimap_hook.c			\
+					minimap/minimap_player.c		\
+					minimap/minimap_utils.c			\
 					parser/check_path.c				\
 					parser/get_data.c				\
 					parser/get_map.c				\
