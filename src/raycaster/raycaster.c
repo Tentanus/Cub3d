@@ -55,8 +55,6 @@ static bool load_minimap_struct(t_cub3d *info)
 		info->minimap->tile_size += 1;
 	info->minimap->player_size = info->minimap->tile_size >> 2;
 	
-//	info->minimap->minimap = mlx_new_image(info->raycaster->mlx, \
-//										size_mm, size_mm);
 	info->minimap->minimap = mlx_new_image(info->raycaster->mlx, \
 		(chart->max_x + 1) * info->minimap->tile_size, \
 		(chart->max_y + 1) * info->minimap->tile_size);

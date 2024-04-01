@@ -45,7 +45,8 @@ void	fill_background(t_minimap *mini, char **map)
 		x = 0;
 		while (map[y][x] != '\0')
 		{
-			tile_to_window(mini, (tile * x) + (tile >> 1), \
+			if (ft_isdigit(map[y][x]) || ft_strchr("NSWE", map[y][x]))
+				tile_to_window(mini, (tile * x) + (tile >> 1), \
 					(tile * y) + (tile >> 1), 0x000000FF);
 			x++;
 		}
@@ -71,7 +72,10 @@ void	fill_tile(t_minimap *mini, char **map)
 			else if (map[y][x] == '0' || ft_strchr("NSWE", map[y][x]))
 				col = 0x05FF00FF; // GREEN
 			else
-				col = 0x000000FF;
+			{
+				x++;
+				continue;
+			}
 			b_tile_to_window(mini, (tile * x) + (tile >> 1), \
 					(tile * y) + (tile >> 1), col);
 			x++;
