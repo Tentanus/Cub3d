@@ -13,12 +13,30 @@
 #include "CBDminimap.h"
 #include "Cub3d.h"
 
+void	player_to_window(t_minimap *mini, double x, double y, double r)
+{
+	double	i;
+	double	j;
+
+	i = -r;
+	while (i <= r)
+	{
+		j = -r;
+		while (j <= r)
+		{
+			if ((i * i) + (j * j) <= (r * r))
+				mlx_put_pixel(mini->minimap, x + i, y + j, 0xFF0000FF);
+			j++;
+		}
+		i++;
+	}
+}
+
 void	fill_player(t_minimap *mini, t_raycaster *raycaster)
 {
-	//TODO: Remove the 0.5
 	const uint32_t	tile = mini->tile_size;
-	const double	mini_pos_x = ((raycaster->player_pos.x + 0.5) * tile);
-	const double	mini_pos_y = ((raycaster->player_pos.y + 0.5) * tile);
+	const double	mini_pos_x = ((raycaster->player_pos.x) * tile);
+	const double	mini_pos_y = ((raycaster->player_pos.y) * tile);
 
-	circle_to_window(mini, mini_pos_x, mini_pos_y, mini->player_size, 0xFF0000FF);
+	player_to_window(mini, mini_pos_x, mini_pos_y, mini->player_size);
 }
