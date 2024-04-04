@@ -7,6 +7,11 @@
 #define texWidth 64
 #define texHeight 64
 
+u_int32_t	 get_colour_from_pixel(u_int8_t *pixel)
+{
+	return (pixel[0] << 24 | pixel[1] << 16 | pixel[2] << 8 | pixel[3]);
+}
+
 void illegal_math(void *parameter)
 {
   t_raycaster	*raycaster = parameter;
@@ -24,6 +29,7 @@ void illegal_math(void *parameter)
   //start the main loop
 int w = WINDOW_WIDTH;
 int h = WINDOW_HEIGHT;
+int wall_dir = NORTH;
 //   while(1)
 //   {
     for(int x = 0; x < w; x++)
@@ -83,12 +89,18 @@ int h = WINDOW_HEIGHT;
           sideDistX += deltaDistX;
           mapX += stepX;
           side = 0;
+		  wall_dir = WEST;
+		  if (stepX > 0)
+		  	wall_dir = EAST;
         }
         else
         {
           sideDistY += deltaDistY;
           mapY += stepY;
           side = 1;
+		  wall_dir = NORTH;
+		  if (stepY > 0)
+		  	wall_dir = SOUTH;
         }
         //Check if ray has hit a wall
         if(raycaster->map[mapY][mapX] == '1')
@@ -96,14 +108,16 @@ int h = WINDOW_HEIGHT;
       }
 
       //Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
-      if(side == 0) perpWallDist = (sideDistX - deltaDistX);
-      else          perpWallDist = (sideDistY - deltaDistY);
+      if(side == 0)
+	  	perpWallDist = (sideDistX - deltaDistX);
+      else
+	  	perpWallDist = (sideDistY - deltaDistY);
 
       //Calculate height of line to draw on screen
       int lineHeight = (int)(h / perpWallDist);
 
 
-      int pitch = 100; //figure out pitch
+      int pitch = 00; // TODO: figure out pitch
 
       //calculate lowest and highest pixel to fill in current stripe
     	int drawStart = -lineHeight / 2 + h / 2 + pitch;
@@ -131,38 +145,43 @@ while (y > drawEnd)
 	y--;
 }
 
-/* (until ceiling/floor)
       //texturing calculations
     //   int texNum = worldMap[mapX][mapY] - 1; //1 subtracted from it so that texture 0 can be used!
-      int texNum = 0;
+    //   int texNum = 0; // needs to calculate whether the wall hit is N/E/S/W
 
       //calculate value of wallX
       double wallX; //where exactly the wall was hit
-      if(side == 0) wallX = raycaster->player_pos.y + perpWallDist * rayDirY;
-      else          wallX = raycaster->player_pos.x + perpWallDist * rayDirX;
-      wallX -= floor((wallX));
+      if (side == 0) // EW wall
+	  	wallX = raycaster->player_pos.y + perpWallDist * rayDirY;
+      else // NS wall
+	  	wallX = raycaster->player_pos.x + perpWallDist * rayDirX;
+      wallX -= floor((wallX)); // morph for
 
       //x coordinate on the texture
-      int texX = (int)(wallX * (double)texWidth);
-      if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-      if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+      int texX = (int)(wallX * (double)raycaster->textures[wall_dir]->width);
+      if(side == 0 && rayDirX > 0)
+	  	texX = raycaster->textures[wall_dir]->width - texX - 1;
+      else if(side == 1 && rayDirY < 0)
+	  	texX = raycaster->textures[wall_dir]->width - texX - 1;
 
-      // TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
       // How much to increase the texture coordinate per screen pixel
-      double step = 1.0 * texHeight / lineHeight;
+      double step = 1.0 * raycaster->textures[wall_dir]->height / lineHeight;
       // Starting texture coordinate
       double texPos = (drawStart - pitch - h / 2 + lineHeight / 2) * step;
-      for(int y = drawStart; y < drawEnd; y++)
+      for(int y = drawStart; y <= drawEnd; y++)
       {
-        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-        int texY = (int)texPos & (texHeight - 1);
+        // Cast the texture coordinate to integer, and mask with (raycaster->textures[wall_dir]->height - 1) in case of overflow
+        int texY = (int)texPos & (raycaster->textures[wall_dir]->height - 1);
         texPos += step;
-        // Uint32 color = texture[texNum][texHeight * texY + texX];
-        //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-        if(side == 1) color = (color >> 1) & 8355711;
-        buffer[y][x] = color;
+
+		uint32_t	colour;
+		colour = get_colour_from_pixel(&raycaster->textures[wall_dir]->pixels[(raycaster->textures[wall_dir]->height * texY + texX) * raycaster->textures[wall_dir]->bytes_per_pixel]);
+		mlx_put_pixel(raycaster->screen, x, y, colour);
+        // Uint32 color = texture[texNum][raycaster->textures[wall_dir]->height * texY + texX];
+        // //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+        // if(side == 1) color = (color >> 1) & 8355711;
+        // buffer[y][x] = color;
       }
-	*/
     }
 
     // drawBuffer(buffer[0]);

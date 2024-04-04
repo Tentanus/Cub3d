@@ -13,8 +13,3 @@
 #include "Cub3d.h"
 #include "MLX42.h"
 #include "libft.h"
-
-double	scalar_y()
-{
-	
-}

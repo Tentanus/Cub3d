@@ -81,7 +81,7 @@ void	cub3d_key_hook(mlx_key_data_t keydata, void *param)
 		if(raycaster->map[(int)(raycaster->player_pos.y + raycaster->player_dir.y * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
 			raycaster->player_pos.y += raycaster->player_dir.y * raycaster->move_speed;
     }
-    //strafe left
+    //strafe left (currently inverted)
 	if ((keydata.key == MLX_KEY_A) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
     {
@@ -99,7 +99,7 @@ void	cub3d_key_hook(mlx_key_data_t keydata, void *param)
 		if(raycaster->map[(int)(raycaster->player_pos.y - raycaster->player_dir.y * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
 			raycaster->player_pos.y -= raycaster->player_dir.y * raycaster->move_speed;
 	}
-	//strafe right
+	//strafe right (currently inverted)
 	if ((keydata.key == MLX_KEY_D) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
@@ -125,6 +125,7 @@ bool	raycaster(t_cub3d *info)
 		return (cbd_free_info(info), FAILURE);
 	if (get_image(info->raycaster) == FAILURE)
 		return (cbd_free_info(info), FAILURE);
+
 	// mlx_loop_hook(info->raycaster->mlx, &cub3d_math_hook, info->raycaster);	
 	mlx_loop_hook(info->raycaster->mlx, &illegal_math, info->raycaster);	
 	// illegal_math(*info->raycaster);
