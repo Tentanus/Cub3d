@@ -108,8 +108,29 @@ void	cub3d_key_hook(mlx_key_data_t keydata, void *param)
 		if(raycaster->map[(int)(raycaster->player_pos.y)][(int)(raycaster->player_pos.x + raycaster->player_dir.y * raycaster->move_speed)] != '1')
 			raycaster->player_pos.x += raycaster->player_dir.y * raycaster->move_speed;
 	}
+	//Rotate To left
+	if ((keydata.key == MLX_KEY_E) && \
+		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
+	{
+		double rotspeed = 0.0698131;
+		double  oldDirX = raycaster->player_dir.x;
+		raycaster->player_dir.x = oldDirX * cos(rotspeed) - raycaster->player_dir.y * sin(rotspeed);
+		raycaster->player_dir.y = oldDirX * sin(rotspeed) + raycaster->player_dir.y * cos(rotspeed);
+		double  oldplaneX = raycaster->plane.x;
+		raycaster->plane.x = oldplaneX * cos(rotspeed) - raycaster->plane.y * sin(rotspeed);
+		raycaster->plane.y = oldplaneX * sin(rotspeed) + raycaster->plane.y * cos(rotspeed);
+	}
 }
-
+/*
+{
+double oldDirX = dirX;
+dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
+dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
+double oldPlaneX = planeX;
+planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
+planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+}
+*/
 // bool	draw_ceiling(const t_raycaster raycaster)
 // {
 // 	while
