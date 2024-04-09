@@ -13,13 +13,21 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <math.h>
 # include <stdbool.h>
 # include <stdint.h>
 # include <fcntl.h>				//	open
 # include <stdio.h>				//	printf
 # include <stdlib.h>			//	malloc, free, exit
 # include <unistd.h>			//	close, read, write
-# include <math.h>
+
+// from math.h
+# define M_PI		3.14159265358979323846	/* pi */
+# define M_PI_2		1.57079632679489661923	/* pi/2 */
+# define M_PI_4		0.78539816339744830962	/* pi/4 */
+# define M_1_PI		0.31830988618379067154	/* 1/pi */
+# define M_2_PI		0.63661977236758134308	/* 2/pi */
+# define M_2_SQRTPI	1.12837916709551257390	/* 2/sqrt(pi) */
 
 # include "MLX42.h"
 # include "libft.h"

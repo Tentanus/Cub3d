@@ -15,14 +15,14 @@
 
 void minimap_hook(t_cub3d *info)
 {
-	t_raycast *ray;
-	const size_t tile;
-	const size_t mapsize;
+	// t_raycast *ray;
+	// const size_t tile;
+	// const size_t mapsize;
 
-	ray = info->ray;
-	mapsize = ray->minimap->width;
-	tile = 32;
-	fill_background(ray->minimap);
-	fill_map()
-	fill_player();
+	// ray = info->ray;
+	// mapsize = ray->minimap->width;
+	// tile = 32;
+	// fill_background(ray->minimap);
+	// fill_map()
+	// fill_player();
 }

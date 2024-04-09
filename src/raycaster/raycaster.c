@@ -85,10 +85,16 @@ void	cub3d_key_hook(mlx_key_data_t keydata, void *param)
 	if ((keydata.key == MLX_KEY_A) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
     {
-		if(raycaster->map[(int)(raycaster->player_pos.y - raycaster->player_dir.x * raycaster->move_speed)][(int)(raycaster->player_pos.x)] != '1')
-			raycaster->player_pos.y -= raycaster->player_dir.x * raycaster->move_speed;
-		if(raycaster->map[(int)(raycaster->player_pos.y)][(int)(raycaster->player_pos.x - raycaster->player_dir.y * raycaster->move_speed)] != '1')
-			raycaster->player_pos.x -= raycaster->player_dir.y * raycaster->move_speed;
+		double	rotspeed = M_PI_2;
+		double	tempDirX = raycaster->player_dir.x;
+		double	tempDirY = raycaster->player_dir.y;
+
+		tempDirX = raycaster->player_dir.x * cos(-rotspeed) - raycaster->player_dir.y * sin(-rotspeed);
+		tempDirY = raycaster->player_dir.x * sin(-rotspeed) + tempDirY * cos(-rotspeed);
+		if(raycaster->map[(int)raycaster->player_pos.y][(int)(raycaster->player_pos.x + tempDirX * raycaster->move_speed)] != '1')
+			raycaster->player_pos.x += tempDirX * raycaster->move_speed;
+		if(raycaster->map[(int)(raycaster->player_pos.y + tempDirY * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
+			raycaster->player_pos.y += tempDirY * raycaster->move_speed;
     }
 	//move back
 	if ((keydata.key == MLX_KEY_S) && \
@@ -103,10 +109,16 @@ void	cub3d_key_hook(mlx_key_data_t keydata, void *param)
 	if ((keydata.key == MLX_KEY_D) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
-		if(raycaster->map[(int)(raycaster->player_pos.y + raycaster->player_dir.x * raycaster->move_speed)][(int)(raycaster->player_pos.x)] != '1')
-			raycaster->player_pos.y += raycaster->player_dir.x * raycaster->move_speed;
-		if(raycaster->map[(int)(raycaster->player_pos.y)][(int)(raycaster->player_pos.x + raycaster->player_dir.y * raycaster->move_speed)] != '1')
-			raycaster->player_pos.x += raycaster->player_dir.y * raycaster->move_speed;
+		double	rotspeed = M_PI_2;
+		double	tempDirX = raycaster->player_dir.x;
+		double	tempDirY = raycaster->player_dir.y;
+
+		tempDirX = raycaster->player_dir.x * cos(rotspeed) - raycaster->player_dir.y * sin(rotspeed);
+		tempDirY = raycaster->player_dir.x * sin(rotspeed) + tempDirY * cos(rotspeed);
+		if(raycaster->map[(int)raycaster->player_pos.y][(int)(raycaster->player_pos.x + tempDirX * raycaster->move_speed)] != '1')
+			raycaster->player_pos.x += tempDirX * raycaster->move_speed;
+		if(raycaster->map[(int)(raycaster->player_pos.y + tempDirY * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
+			raycaster->player_pos.y += tempDirY * raycaster->move_speed;
 	}
 	//Rotate To right
 	if ((keydata.key == MLX_KEY_Q) && \
