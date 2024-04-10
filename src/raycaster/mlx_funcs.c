@@ -16,7 +16,7 @@
 
 bool	load_textures(t_raycaster *raycaster, const t_param param)
 {
-	int				i;
+	int	i;
 
 	raycaster->textures[NORTH] = mlx_load_png(param.text_no);
 	raycaster->textures[EAST] = mlx_load_png(param.text_ea);
@@ -26,7 +26,8 @@ bool	load_textures(t_raycaster *raycaster, const t_param param)
 	while (i < 4)
 	{
 		if (!raycaster->textures[i])
-			return (cbd_error(ERR_MEMORY), FAILURE);
+			return (cbd_error(ERR_MEMORY), \
+			cbd_free_texture(raycaster, i), FAILURE);
 		i++;
 	}
 	return (SUCCESS);

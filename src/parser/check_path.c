@@ -108,8 +108,9 @@ bool	check_path(t_map *chart)
 	map[chart->py][chart->px] = '0';
 	if (floodfill(chart, map, chart->px, chart->py) == FAILURE || \
 		chart->map_invalid)
-		return (FAILURE);
+		return (ft_split_free(map), FAILURE);
 	if (flood_loop(chart, map) == FAILURE)
-		return (FAILURE);
+		return (ft_split_free(map), FAILURE);
+	ft_split_free(map);
 	return (SUCCESS);
 }
