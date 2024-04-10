@@ -113,7 +113,6 @@ t_ray	ray_draw_colours(t_ray ray, const int x, const t_raycaster raycaster)
 	return (ray);
 }
 
-	// Cast the texture coordinate to integer, and mask with (raycaster.textures[ray.wall_dir]->height - 1) in case of overflow
 void	cub3d_math_hook(void *param)
 {
 	t_raycaster	*raycaster;
