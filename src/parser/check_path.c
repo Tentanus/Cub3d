@@ -15,8 +15,8 @@
 #include "Cub3d.h"
 #include "libft.h"
 
-// potential rendering optimization, by cutting out all parts of the map the player can't reach/see
-// potential clean map
+// potential rendering optimization, by cutting out all parts \
+// of the map the player can't reach/see potential clean map \
 // probs doesn't need to be a bool
 static bool	floodfill(t_map *chart, char **map, int x, int y)
 {
@@ -24,11 +24,11 @@ static bool	floodfill(t_map *chart, char **map, int x, int y)
 		return (FAILURE);
 	if (map[y][x] == '1')
 		return (SUCCESS);
-	if (map[y][x] == ' ' || x + 1 > chart->max_x || y + 1 > chart->max_y || x == 0 || y == 0)
+	if (map[y][x] == ' ' || x + 1 > chart->max_x || \
+		y + 1 > chart->max_y || x == 0 || y == 0)
 	{
-	printf("\tMap Is Not Enclosed By Walls\n");
 		chart->map_invalid = true;
-		return (FAILURE);
+		return (cbd_error(ERR_MAP_ENCLOSED), FAILURE);
 	}
 	if (map[y][x] == '0')
 	{
@@ -71,23 +71,23 @@ static bool	flood_loop(t_map *chart, char **map)
 	return (SUCCESS);
 }
 
-char	**copy_array(char **map)
+char	**copy_array(char **arr)
 {
 	char	**copy;
 	int		i;
 
-	if (map == NULL)
+	if (arr == NULL)
 		return (NULL);
 	i = 0;
-	while (map[i])
+	while (arr[i])
 		i++;
 	copy = ft_calloc(i + 1, sizeof(char *));
 	if (copy == NULL)
 		return (cbd_error(ERR_MEMORY), NULL);
 	i = 0;
-	while (map[i])
+	while (arr[i])
 	{
-		copy[i] = ft_strdup(map[i]);
+		copy[i] = ft_strdup(arr[i]);
 		if (copy[i] == NULL)
 		{
 			ft_split_free(copy);
@@ -102,14 +102,12 @@ bool	check_path(t_map *chart)
 {
 	char	**map;
 
-// printf("Player starts at (index) x=%d/y=%d\n", chart->px, chart->py);
-// printf("Map edges are at (index) x=%d/y=%d.\n", chart->max_x, chart->max_y);
-// write(1, "SEGGY?\n", 7);
 	map = copy_array(chart->map);
 	if (map == NULL)
 		return (FAILURE);
 	map[chart->py][chart->px] = '0';
-	if (floodfill(chart, map, chart->px, chart->py) == FAILURE || chart->map_invalid)
+	if (floodfill(chart, map, chart->px, chart->py) == FAILURE || \
+		chart->map_invalid)
 		return (FAILURE);
 	if (flood_loop(chart, map) == FAILURE)
 		return (FAILURE);

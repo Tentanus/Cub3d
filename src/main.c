@@ -36,8 +36,9 @@ int	main(int argc, char *argv[])
 
 	if (parser(validateinput(argc, argv), &info) == FAILURE)
 		return (FAILURE);
-	raycaster(&info);
-	mlx_terminate(info.ray->mlx);
+	if (raycaster(&info) == FAILURE)
+		return (FAILURE);
+	mlx_terminate(info.raycaster->mlx);
 	cbd_free_info(&info);
 	return (SUCCESS);
 }

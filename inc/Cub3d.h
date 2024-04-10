@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:46:31 by mweverli          #+#    #+#             */
-/*   Updated: 2024/02/13 19:46:33 by mweverli         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:48:34 by mweverli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,13 @@
 
 # include "CBDerror.h"
 # include "CBDparser.h"
+# include "CBDraycaster.h"
 
 # define WINDOW_HEIGHT 720
 # define WINDOW_WIDTH 1280
+
+# define MINIMAP_SIZE_MOD 1
+# define MINIMAP_BORDER 2
 
 # define DEF_TEXT_NO "./img/default/bloody_wall_01.png"
 # define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
@@ -40,16 +44,22 @@
 # define SUCCESS 0
 # define FAILURE 1
 
+typedef struct s_vector_2d
+{
+	double	x;
+	double	y;
+}	t_vector_2d;
+
 typedef struct s_map
 {
-	char	**map;				// lines are filled with ' ' to make the map rectangular
-	int		px;					// index, the 'x' of the player spawn
-	int		py;					// index, the 'y' of the player spawn
-	char	player_direction;	// the direction the player faces in at spawn
-	int		max_x;				// index, the length of the longest line in the map
-	int		max_y;				// index, the number of lines in the map
-	bool	map_invalid;		// set to true after floodfill confirms the map is not (fully) enclosed by walls
-	bool	map_complete;		// set to true when the map is fully floodfilled
+	char	**map;
+	int		px;			// + 0.5 to centre in tile
+	int		py;
+	char	player_direction;
+	int		max_x;
+	int		max_y;
+	bool	map_invalid;
+	bool	map_complete;
 }	t_map;
 
 typedef struct s_parameters
@@ -62,28 +72,44 @@ typedef struct s_parameters
 	int32_t		col_ce;
 }	t_param;
 
+typedef struct s_minimap
+{
+	mlx_image_t	*minimap;
+	uint32_t	tile_size;
+	uint32_t	player_size;
+	uint32_t	dimention_x;
+	uint32_t	dimention_y;
+}	t_minimap;
+
 typedef struct s_raycaster
 {
-	mlx_t		*mlx;
-	mlx_image_t	*screen;
-	mlx_image_t	*minimap;
-	int32_t		col_fl;
-	int32_t		col_ce;
+	mlx_t			*mlx;
+	mlx_image_t		*screen;
+	mlx_texture_t	*textures[4];
+	int32_t			col_fl;
+	int32_t			col_ce;
 
-	double		px;
-	double		py;
-	// double		
-	// double		
-	// double		
-	// double		
-	
-}	t_raycast;
+	char			**map;
+
+	t_vector_2d player_pos;
+	// t_vector_2d
+	// t_vector_2d
+}	t_raycaster;
+
+typedef struct s_ray
+{
+	double	start_x;
+	double	start_y;
+	double	angle;
+	double	dir_x;
+}	t_ray;
 
 typedef struct s_cub3d
 {
 	t_map		*chart;
-	t_param		*par;
-	t_raycast	*ray;
+	t_param		*param;
+	t_raycaster	*raycaster;
+	t_minimap	*minimap;
 }	t_cub3d;
 
 bool	parser(int fd, t_cub3d *info);
@@ -92,7 +118,7 @@ void	cbd_free_info(t_cub3d *info);
 
 // Functions to be Put in different Headers
 
-bool	get_mlx(t_cub3d *info); // move to raycaster struct
+void	minimap_hook(void *param);
 
 // Functions to be removed:  TODO:
 
