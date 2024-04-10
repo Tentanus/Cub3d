@@ -40,14 +40,7 @@
 # define WINDOW_WIDTH 1280
 
 # define MINIMAP_SIZE_MOD 2
-# define MINIMAP_BORDER 2
-
-# define DEF_TEXT_NO "./img/default/bloody_wall_01.png"
-# define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
-# define DEF_TEXT_WE "./img/default/brown_wall.png"
-# define DEF_TEXT_EA "./img/default/brown_wall_light_cropped.png"
-# define DEF_COL_FL 0x8C3B0CFF
-# define DEF_COL_CE 0x5BACF5FF
+# define MINIMAP_BORDER 1
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -108,19 +101,33 @@ typedef struct s_raycaster
 
 typedef struct s_ray
 {
-	t_vector_2d	start_pos;  //x and y start position
-	t_vector_2d	start_dir;	//initial direction vector
-	t_vector_2d	plane;		//the 2d raycaster version of camera plane
-	t_vector_2d	map; 		//which box of the map we're in
+	double		camera_x;
+	t_vector_2d	pos; 	//x and y start position
+	int			map_x;
+	int			map_y;
+	t_vector_2d	dir;	//initial direction vector
 	t_vector_2d side_dist;	//length of ray from current position to next x or y-side
 	t_vector_2d	delta_dist;	//length of ray from one x or y-side to next x or y-side
 	t_vector_2d	step;		//what direction to step in x or y-direction (either +1 or -1)
-
-	double		camera_x;
 	double		perp_dist;	//distance of perpendicular ray (Euclidean distance would give fisheye effect!)
-	bool		hit;		//was there a wall hit?
 	int			side;		//was a NS or a EW wall hit? (can be developed to figur out which side between NS/EW)
+	int			wall_dir;
+
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+
 }	t_ray;
+
+typedef struct s_texture_info
+{
+	double	wall_x;
+	double	step;
+	int		texture_x;
+	int		texture_y;
+	double	texture_pos;
+	int		pixel_index;
+}	t_texture_info;
 
 typedef struct s_cub3d
 {

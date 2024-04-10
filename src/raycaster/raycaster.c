@@ -188,6 +188,7 @@ planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
 // 	mlx_put_pixel()
 // }
 void illegal_math(void *parameter);
+void cub3d_math_hook(void *parameter);
 
 bool	raycaster(t_cub3d *info)
 {
@@ -198,13 +199,13 @@ bool	raycaster(t_cub3d *info)
 	if (get_image(info->raycaster) == FAILURE)
 		return (cbd_free_info(info), FAILURE);
 
-	// mlx_loop_hook(info->raycaster->mlx, &cub3d_math_hook, info->raycaster);	
-	mlx_loop_hook(info->raycaster->mlx, &illegal_math, info->raycaster);	
+	mlx_loop_hook(info->raycaster->mlx, &minimap_hook, info);
+	mlx_loop_hook(info->raycaster->mlx, &cub3d_math_hook, info->raycaster);	
+	// mlx_loop_hook(info->raycaster->mlx, &illegal_math, info->raycaster);	
 	mlx_key_hook(info->raycaster->mlx, &cub3d_key_hook, info->raycaster);	//translate turning and moving
 	
 	if (load_minimap_struct(info) == FAILURE)
 		return (cbd_free_info(info), FAILURE);
-	mlx_loop_hook(info->raycaster->mlx, &minimap_hook, info);
 	mlx_loop(info->raycaster->mlx);
 	return (SUCCESS);
 }

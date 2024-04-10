@@ -7,10 +7,7 @@
 #define texWidth 64
 #define texHeight 64
 
-u_int32_t	 get_colour_from_pixel(u_int8_t *pixel)
-{
-	return (pixel[0] << 24 | pixel[1] << 16 | pixel[2] << 8 | pixel[3]);
-}
+u_int32_t	 get_colour_from_pixel(u_int8_t *pixel);
 
 void illegal_math(void *parameter)
 {
@@ -127,17 +124,18 @@ int wall_dir = NORTH;
     	if(drawEnd >= h)
 			drawEnd = h - 1;
 
+// put ceiling and floor
 int y = 0;
 while (y < drawStart)
 {
 	mlx_put_pixel(raycaster->screen, x, y, raycaster->col_ce);
 	y++;
 }
-while (y <= drawEnd) //because here y == drawstart
-{
-	mlx_put_pixel(raycaster->screen, x, y, COLOUR); // to be textured data
-	y++;
-}
+// while (y <= drawEnd) //because here y == drawstart
+// {
+// 	mlx_put_pixel(raycaster->screen, x, y, COLOUR); // to be textured data
+// 	y++;
+// }
 y = WINDOW_HEIGHT - 1;
 while (y > drawEnd)
 {

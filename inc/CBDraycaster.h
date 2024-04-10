@@ -19,7 +19,7 @@
 typedef struct s_raycaster	t_raycaster;
 typedef struct s_parameters	t_param;
 
-# define COLOUR 0
+# define COLOUR 0 //removes
 
 typedef enum e_textures
 {
