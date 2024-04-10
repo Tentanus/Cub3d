@@ -18,6 +18,7 @@
 // # include "Cub3d.h"
 typedef struct s_raycaster	t_raycaster;
 typedef struct s_parameters	t_param;
+typedef struct s_ray		t_ray;
 
 # define COLOUR 0 //removes
 

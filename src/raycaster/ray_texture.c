@@ -19,7 +19,6 @@ static u_int32_t	get_colour_from_pixel(u_int8_t *pixel)
 	return (pixel[0] << 24 | pixel[1] << 16 | pixel[2] << 8 | pixel[3]);
 }
 
-
 // if Seggy, Look Here
 		//  tex_info.texture_y = (int)tex_info.texture_pos & \
 		// 	(raycaster.textures[ray.wall_dir]->height - 1);
@@ -32,15 +31,17 @@ static void	ray_texture_draw(t_ray ray,	\
 	y = ray.draw_start;
 	while (y <= ray.draw_end)
 	{
-		tex_info.texture_y = (int)tex_info.texture_pos;
+				 tex_info.texture_y = (int)tex_info.texture_pos & \
+			(raycaster.textures[ray.wall_dir]->height - 1);
+		// tex_info.texture_y = (int)tex_info.texture_pos;
 		tex_info.texture_pos += tex_info.step;
 		tex_info.pixel_index = (raycaster.textures[ray.wall_dir]->height * \
 			tex_info.texture_y + tex_info.texture_x) * \
 			raycaster.textures[ray.wall_dir]->bytes_per_pixel;
 		colour = get_colour_from_pixel(\
-		&raycaster.textures[ray.wall_dir]->pixels[tex_info.pixel_index]);
-		mlx_put_pixel(raycaster.screen, x, y, colour); //some issues here
-		// mlx_put_pixel(raycaster.screen, x, y, COLOUR); //some issues here
+		&raycaster.textures[ray.wall_dir]->pixels[tex_info.pixel_index]); //some issues here
+		mlx_put_pixel(raycaster.screen, x, y, colour);
+		// mlx_put_pixel(raycaster.screen, x, y, COLOUR);
 		y++;
 	}
 }
@@ -68,4 +69,3 @@ void	ray_texture_calc(t_ray ray, const int x, const t_raycaster raycaster)
 	(ray.draw_start - WINDOW_HEIGHT / 2 + ray.line_height / 2) * tex_info.step;
 	ray_texture_draw(ray, tex_info, x, raycaster);
 }
-

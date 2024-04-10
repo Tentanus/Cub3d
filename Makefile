@@ -33,9 +33,10 @@ SRC				:=	\
 					parser/get_map.c				\
 					parser/parser.c					\
 					parser/parse_map.c				\
+					raycaster/legal_math.c			\
 					raycaster/mlx_funcs.c			\
 					raycaster/raycaster.c			\
-					raycaster/legal_math.c			\
+					raycaster/ray_texture.c			\
 					utils/logprinter.c				\
 					utils/key_hook.c				\
 					utils/free_info.c				\
@@ -68,8 +69,8 @@ INCLUDE			:=	-I $(INC_DIR)					\
 LIB_FLAG		:=	-ldl -lglfw -lm
 
 CC				:=	cc
-# CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
-CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors -fsanitize=address,undefined
+CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
+# CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors -fsanitize=address,undefined
 
 ifdef DEBUG
 CFL				+=	-g -fstandalone-debug
