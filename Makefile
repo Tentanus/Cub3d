@@ -29,6 +29,7 @@ SRC				:=	\
 					minimap/minimap_utils.c			\
 					parser/check_path.c				\
 					parser/get_data.c				\
+					parser/get_data_utils.c			\
 					parser/get_map.c				\
 					parser/parser.c					\
 					parser/parse_map.c				\
