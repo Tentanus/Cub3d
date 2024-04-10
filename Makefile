@@ -33,12 +33,13 @@ SRC				:=	\
 					parser/get_map.c				\
 					parser/parser.c					\
 					parser/parse_map.c				\
+					raycaster/legal_math.c			\
 					raycaster/mlx_funcs.c			\
 					raycaster/raycaster.c			\
-					raycaster/legal_math.c			\
-					utils/logprinter.c				\
-					utils/key_hook.c				\
+					raycaster/ray_texture.c			\
 					utils/free_info.c				\
+					utils/logprinter.c				\
+					utils/key_hook.c
 
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -69,7 +70,7 @@ LIB_FLAG		:=	-ldl -lglfw -lm
 
 CC				:=	cc
 # CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
-CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors -fsanitize=address,undefined
+CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors
 
 ifdef DEBUG
 CFL				+=	-g -fstandalone-debug
