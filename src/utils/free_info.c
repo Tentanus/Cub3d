@@ -14,15 +14,6 @@
 #include "MLX42.h"
 #include "libft.h"
 
-void	cbd_free_texture(t_raycaster *raycaster, int idx)
-{
-	while (idx--)
-	{
-		mlx_delete_texture(raycaster->textures[idx]);
-		raycaster->textures[idx] = NULL;
-	}
-}
-
 void	cbd_free_chart(t_cub3d *info)
 {
 	ft_split_free(info->chart->map);

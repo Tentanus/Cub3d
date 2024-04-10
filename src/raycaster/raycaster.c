@@ -79,7 +79,7 @@ static bool	load_minimap_struct(t_cub3d *info)
 			chart->max_x > chart->max_y, chart->max_x, chart->max_y) + 1);
 	if (info->minimap->tile_size % 2 == 0)
 		info->minimap->tile_size += 1;
-	info->minimap->player_size = info->minimap->tile_size >> 2;
+	info->minimap->player_size = info->minimap->tile_size / 3;
 	info->minimap->minimap = mlx_new_image(info->raycaster->mlx, \
 		(chart->max_x + 1) * info->minimap->tile_size, \
 		(chart->max_y + 1) * info->minimap->tile_size);

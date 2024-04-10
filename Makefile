@@ -111,7 +111,7 @@ $(NAME): $(LIB_MLX) $(LIB_FT) $(OBJ)
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 	@echo "$(CYAN)COMPILE $(INFO_FL) $(notdir $<)$(RESET)"
-	@$(COMPILE) $(INCLUDE) -MMD -D NAME=\"$(NAME)\" -o $@ -c $<
+	@$(COMPILE) $(INCLUDE) -MMD -o $@ -c $<
 
 clean:
 	@echo "$(RED)$(BOLD)CLEANING $(NAME)$(RESET)"

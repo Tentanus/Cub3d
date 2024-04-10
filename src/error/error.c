@@ -32,8 +32,7 @@ void	cbd_error(t_errnum errnum)
 {
 	if (errnum == ERR_SUCCESS)
 		return ;
-	ft_putstr_fd(NAME, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd("ERROR\n", STDERR_FILENO);
 	ft_putendl_fd(g_err_msg[errnum], STDERR_FILENO);
 }
 

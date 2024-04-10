@@ -15,6 +15,15 @@
 #include "CBDraycaster.h"
 #include "MLX42.h"
 
+void	cbd_free_texture(t_raycaster *raycaster, int idx)
+{
+	while (idx--)
+	{
+		mlx_delete_texture(raycaster->textures[idx]);
+		raycaster->textures[idx] = NULL;
+	}
+}
+
 bool	load_textures(t_raycaster *raycaster, const t_param param)
 {
 	int	i;
