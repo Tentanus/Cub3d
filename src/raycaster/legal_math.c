@@ -137,7 +137,8 @@ void	ray_texture_draw(t_ray ray,	\
 			raycaster.textures[ray.wall_dir]->bytes_per_pixel;
 		colour = get_colour_from_pixel(\
 		&raycaster.textures[ray.wall_dir]->pixels[tex_info.pixel_index]);
-		mlx_put_pixel(raycaster.screen, x, y, colour);
+		mlx_put_pixel(raycaster.screen, x, y, colour); //some issues here
+		// mlx_put_pixel(raycaster.screen, x, y, COLOUR); //some issues here
 		y++;
 	}
 }

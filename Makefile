@@ -69,7 +69,7 @@ LIB_FLAG		:=	-ldl -lglfw -lm
 
 CC				:=	cc
 # CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
-CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors
+CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors -fsanitize=address,undefined
 
 ifdef DEBUG
 CFL				+=	-g -fstandalone-debug

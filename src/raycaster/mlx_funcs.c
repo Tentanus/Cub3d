@@ -29,13 +29,13 @@ bool	load_textures(t_raycaster *raycaster, const t_param param)
 			return (cbd_error(ERR_MEMORY), FAILURE);
 		i++;
 	}
-// mlx_delete_texture(texture);
 	return (SUCCESS);
 }
 
 bool	get_image(t_raycaster *raycaster)
 {
-	raycaster->screen = mlx_new_image(raycaster->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	raycaster->screen = \
+		mlx_new_image(raycaster->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!raycaster->screen)
 		return (cbd_mlx_error(), mlx_terminate(raycaster->mlx), FAILURE);
 	return (SUCCESS);
