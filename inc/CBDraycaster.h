@@ -32,5 +32,6 @@ typedef enum e_textures
 bool	get_mlx(t_raycaster *raycaster);
 bool	get_image(t_raycaster *raycaster);
 bool	load_textures(t_raycaster *raycaster, const t_param param);
+void	cub3d_math_hook(void *parameter);
 
 #endif // !CBDRAYCASTER_H

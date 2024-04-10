@@ -50,10 +50,10 @@ static bool	load_raycaster_struct(t_cub3d *info)
 	if (load_textures(info->raycaster, *info->param) == FAILURE)
 		return (FAILURE);
 	// free_param(info->param); //and set to NULL to avoid double free
-	info->raycaster->player_pos.x = info->chart->px + 0.5; //to centre in the square
-	info->raycaster->player_pos.y = info->chart->py + 0.5; //to centre in the square
+	info->raycaster->player_pos.x = info->chart->px + 0.5;
+	info->raycaster->player_pos.y = info->chart->py + 0.5;
 	load_player_direction(info->raycaster, info->chart->player_direction);
-	info->raycaster->move_speed = 0.117; //some safety needed here
+	info->raycaster->move_speed = 0.117;
 	info->raycaster->map = copy_array(info->chart->map);
 	if (!info->raycaster->map)
 		return (FAILURE);
@@ -61,26 +61,24 @@ static bool	load_raycaster_struct(t_cub3d *info)
 	return (SUCCESS);
 }
 
-static bool load_minimap_struct(t_cub3d *info)
+static bool	load_minimap_struct(t_cub3d *info)
 {
-	const t_map *chart = info->chart;
-	const size_t size_mm = \
+	const t_map		*chart = info->chart;
+	const size_t	size_mm = \
 		((WINDOW_WIDTH >> MINIMAP_SIZE_MOD) + \
 		(WINDOW_HEIGHT >> MINIMAP_SIZE_MOD)) >> 1;
-	
+
 	info->minimap = ft_calloc(1, sizeof(t_minimap));
 	if (info->minimap == NULL)
 		return (cbd_error(ERR_MEMORY), NULL);
-
 	info->minimap->dimention_x = chart->max_x;
 	info->minimap->dimention_y = chart->max_y;
-		
 	info->minimap->tile_size = size_mm / \
-		(ft_ternary(chart->max_x > chart->max_y, chart->max_x, chart->max_y) + 1);
+		(ft_ternary(\
+			chart->max_x > chart->max_y, chart->max_x, chart->max_y) + 1);
 	if (info->minimap->tile_size % 2 == 0)
 		info->minimap->tile_size += 1;
 	info->minimap->player_size = info->minimap->tile_size >> 2;
-	
 	info->minimap->minimap = mlx_new_image(info->raycaster->mlx, \
 		(chart->max_x + 1) * info->minimap->tile_size, \
 		(chart->max_y + 1) * info->minimap->tile_size);
@@ -88,9 +86,6 @@ static bool load_minimap_struct(t_cub3d *info)
 		return (cbd_mlx_error(), mlx_terminate(info->raycaster->mlx), FAILURE);
 	return (SUCCESS);
 }
-
-void illegal_math(void *parameter);
-void cub3d_math_hook(void *parameter);
 
 bool	raycaster(t_cub3d *info)
 {
@@ -103,7 +98,7 @@ bool	raycaster(t_cub3d *info)
 	if (load_minimap_struct(info) == FAILURE)
 		return (cbd_free_info(info), FAILURE);
 	mlx_loop_hook(info->raycaster->mlx, &minimap_hook, info);
-	mlx_loop_hook(info->raycaster->mlx, &cub3d_math_hook, info->raycaster);	
+	mlx_loop_hook(info->raycaster->mlx, &cub3d_math_hook, info->raycaster);
 	mlx_key_hook(info->raycaster->mlx, &cub3d_key_hook, info);
 	mlx_loop(info->raycaster->mlx);
 	return (SUCCESS);
