@@ -31,8 +31,8 @@ SRC				:=	\
 					parser/get_data.c				\
 					parser/get_data_utils.c			\
 					parser/get_map.c				\
-					parser/parser.c					\
 					parser/parse_map.c				\
+					parser/parser.c					\
 					raycaster/legal_math.c			\
 					raycaster/mlx_funcs.c			\
 					raycaster/raycaster.c			\

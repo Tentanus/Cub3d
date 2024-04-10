@@ -10,14 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "CBDraycaster.h"
 #include "Cub3d.h"
 #include "MLX42.h"
 #include "libft.h"
 
+void	cbd_free_texture(t_raycaster *raycaster, int idx)
+{
+	while (idx--)
+	{
+		mlx_delete_texture(raycaster->textures[idx]);
+		raycaster->textures[idx] = NULL;
+	}
+}
+
 void	cbd_free_chart(t_cub3d *info)
 {
 	ft_split_free(info->chart->map);
+	free(info->chart);
 	info->chart = NULL;
 }
 
@@ -27,29 +36,22 @@ void	cbd_free_param(t_cub3d *info)
 	free(info->param->text_so);
 	free(info->param->text_we);
 	free(info->param->text_ea);
+	free(info->param);
 	info->param = NULL;
 }
 
 void	cbd_free_raycaster(t_cub3d *info)
 {
+	cbd_free_texture(info->raycaster, 4);
 	ft_split_free(info->raycaster->map);
-		
+	free(info->raycaster);
 	info->raycaster = NULL;
 }
 
 void	cbd_free_minimap(t_cub3d *info)
 {
-
+	free(info->minimap);
 	info->minimap = NULL;
-}
-
-void	cbd_free_texture(t_raycaster *raycaster, int idx)
-{
-	while (idx--)
-	{
-		mlx_delete_texture(raycaster->textures[idx]);
-		raycaster->textures[idx] = NULL;
-	}
 }
 
 void	cbd_free_info(t_cub3d *info)

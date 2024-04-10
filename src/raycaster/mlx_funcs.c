@@ -12,6 +12,7 @@
 
 // #include "CBDerror.h"
 #include "Cub3d.h"
+#include "CBDraycaster.h"
 #include "MLX42.h"
 
 bool	load_textures(t_raycaster *raycaster, const t_param param)
