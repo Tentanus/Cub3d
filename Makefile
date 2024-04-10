@@ -35,7 +35,6 @@ SRC				:=	\
 					parser/parse_map.c				\
 					raycaster/mlx_funcs.c			\
 					raycaster/raycaster.c			\
-					raycaster/illegal_math.c		\
 					raycaster/legal_math.c			\
 					utils/logprinter.c				\
 					utils/key_hook.c				\

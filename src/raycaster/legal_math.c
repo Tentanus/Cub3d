@@ -117,6 +117,7 @@ t_ray	ray_draw_colours(t_ray ray, const int x, const t_raycaster raycaster)
 	}
 	return (ray);
 }
+
 // if Seggy, Look Here
 		//  tex_info.texture_y = (int)tex_info.texture_pos & \
 		// 	(raycaster.textures[ray.wall_dir]->height - 1);
