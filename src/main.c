@@ -38,7 +38,6 @@ int	main(int argc, char *argv[])
 	if (raycaster(&info) == FAILURE)
 		return (FAILURE);
 	mlx_terminate(info.raycaster->mlx);
-	// TODO: free textures
 	cbd_free_info(&info);
 	return (SUCCESS);
 // All errors must be formatted as Error\n + explicit error message
