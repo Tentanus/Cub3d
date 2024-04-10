@@ -35,11 +35,14 @@ typedef enum e_type_id
 typedef struct s_cub3d	t_cub3d;
 typedef struct s_map	t_map;
 
-bool	get_data(t_cub3d *info, char *lines, ssize_t *idx);
-bool	get_map(t_cub3d *info, char *line, ssize_t *idx);
+char		*get_texture(char *str, ssize_t *idx, int *err);
+uint32_t	get_colour(char *str, ssize_t *idx, int *err);
 
-bool	parse_map(t_map *chart);
-bool	check_path(t_map *chart);
-char	**copy_array(char **arr);
+bool		get_data(t_cub3d *info, char *lines, ssize_t *idx);
+bool		get_map(t_cub3d *info, char *line, ssize_t *idx);
+
+bool		parse_map(t_map *chart);
+bool		check_path(t_map *chart);
+char		**copy_array(char **arr);
 
 #endif // !CBDPARSER_H

@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 19:46:31 by mweverli          #+#    #+#             */
-/*   Updated: 2024/02/13 19:46:33 by mweverli         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:48:34 by mweverli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define WINDOW_HEIGHT 720
 # define WINDOW_WIDTH 1280
 
+# define MINIMAP_SIZE_MOD 2
+# define MINIMAP_BORDER 2
+
 # define DEF_TEXT_NO "./img/default/bloody_wall_01.png"
 # define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
 # define DEF_TEXT_WE "./img/default/brown_wall.png"
@@ -51,9 +54,9 @@
 
 typedef struct s_vector_2d
 {
-	double x;
-	double y;
-} t_vector_2d;
+	double	x;
+	double	y;
+}	t_vector_2d;
 
 typedef struct s_map
 {
@@ -77,11 +80,19 @@ typedef struct s_parameters
 	int32_t		col_ce;
 }	t_param;
 
+typedef struct s_minimap
+{
+	mlx_image_t	*minimap;
+	uint32_t	tile_size;
+	uint32_t	player_size;
+	uint32_t	dimention_x;
+	uint32_t	dimention_y;
+}	t_minimap;
+
 typedef struct s_raycaster
 {
 	mlx_t			*mlx;
 	mlx_image_t		*screen;
-	mlx_image_t		*minimap;
 	mlx_texture_t	*textures[4];
 	int32_t			col_fl;
 	int32_t			col_ce;
@@ -116,6 +127,7 @@ typedef struct s_cub3d
 	t_map		*chart;
 	t_param		*param;
 	t_raycaster	*raycaster;
+	t_minimap	*minimap;
 }	t_cub3d;
 
 bool	parser(int fd, t_cub3d *info);
@@ -123,10 +135,9 @@ bool	raycaster(t_cub3d *info);
 
 void	cbd_free_info(t_cub3d *info);
 
+// Functions to be removed:  TODO:
 
-// Functions to be removed: 
-// TODO:
-
+void	minimap_hook(void *param);
 void	print_info(t_cub3d *info);
 void	print_map(char **map);
 

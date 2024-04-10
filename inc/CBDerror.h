@@ -25,6 +25,7 @@ typedef enum e_errnum
 	ERR_PARSE_RGB,
 	ERR_PARSE_TRAIL,
 	ERR_PARSE_FILLED,
+	ERR_MAP_ENCLOSED,
 	ERR_SIZE
 }	t_errnum;
 

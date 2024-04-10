@@ -12,65 +12,9 @@
 
 #include "Cub3d.h"
 #include "CBDparser.h"
-
 #include "libft.h"
 
 #include <sys/types.h>
-
-static const char	*g_id_str[TYPE_ID_MAX] = {
-[TYPE_ID_NORTH] = "NO",
-[TYPE_ID_SOUTH] = "SO",
-[TYPE_ID_WEST] = "WE",
-[TYPE_ID_EAST] = "EA",
-[TYPE_ID_FLOOR] = "F",
-[TYPE_ID_CEILING] = "C"};
-
-static uint32_t	get_colour(char *str, ssize_t *idx, int *err)
-{
-	size_t		start;
-	int			i;
-	uint32_t	val;
-	uint32_t	ret;
-
-	start = ft_strskipis(&str[*idx], ft_isspace);
-	i = 2;
-	ret = 255;
-	while (i >= 0 && *err == SUCCESS)
-	{
-		val = ft_atoi(&str[*idx + start]);
-		if (val < 0 || val > 255)
-			*err = ERR_PARSE_RGB;
-		ret += (val << (8 * (i + 1)));
-		start += ft_strskipis(&str[*idx + start], ft_isdigit);
-		if (i != 0 && str[*idx + start] != ',')
-			*err = ERR_PARSE_FORMAT;
-		start++;
-		i--;
-	}
-	*idx = ft_strskipset(&str[*idx], "1234567890,") - str;
-#ifdef LOG
-	ft_printf("get_colour: %X\n", ret);
-#endif
-	return (ret);
-}
-
-static char	*get_texture(char *str, ssize_t *idx, int *err)
-{
-	size_t	start;
-	size_t	end;
-	char	*ret;
-
-	start = ft_strskipis(&str[*idx], ft_isspace);
-	end = ft_strskipis(&str[*idx + start], ft_ispath);
-	ret = ft_substr(&str[*idx], start, end - start);
-	if (!ret)
-		*err = ERR_MEMORY;
-	*idx += ft_strskipis(&str[*idx], ft_ispath);
-#ifdef LOG
-	ft_printf("get_texture: %s\n", ret);
-#endif
-	return (ret);
-}
 
 static bool	check_filled(t_cub3d *info, t_type_id id)
 {
@@ -117,18 +61,25 @@ static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str, ssize_t *idx)
 
 static t_type_id	get_identifier(char *str, ssize_t *idx)
 {
-	ssize_t	id_idx;
+	const char	*id_array[TYPE_ID_MAX] = {
+	[TYPE_ID_NORTH] = "NO",
+	[TYPE_ID_SOUTH] = "SO",
+	[TYPE_ID_WEST] = "WE",
+	[TYPE_ID_EAST] = "EA",
+	[TYPE_ID_FLOOR] = "F",
+	[TYPE_ID_CEILING] = "C"};
+	ssize_t		id_idx;
 
 	id_idx = TYPE_ID_NORTH;
 	while (id_idx != TYPE_ID_MAX)
 	{
-		if (!ft_strncmp(&str[*idx], g_id_str[id_idx],
-				ft_strlen(g_id_str[id_idx])))
+		if (!ft_strncmp(&str[*idx], id_array[id_idx],
+				ft_strlen(id_array[id_idx])))
 			break ;
 		id_idx++;
 	}
-	if (g_id_str[id_idx] != NULL)
-		*idx += ft_strlen(g_id_str[id_idx]);
+	if (id_array[id_idx] != NULL)
+		*idx += ft_strlen(id_array[id_idx]);
 	return (id_idx);
 }
 
@@ -155,5 +106,7 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 		*idx = ft_strchr(&lines[*idx], '\n') - lines;
 		data_idx++;
 	}
+	if (data_idx != 6 && !lines[*idx])
+		return (cbd_error(ERR_PARSE_FORMAT), FAILURE);
 	return (SUCCESS);
 }

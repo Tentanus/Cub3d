@@ -24,9 +24,12 @@ LIB_DIR			:=	lib
 SRC				:=	\
 					main.c							\
 					error/error.c					\
-					minimap/minimap.c				\
+					minimap/minimap_hook.c			\
+					minimap/minimap_player.c		\
+					minimap/minimap_utils.c			\
 					parser/check_path.c				\
 					parser/get_data.c				\
+					parser/get_data_utils.c			\
 					parser/get_map.c				\
 					parser/parser.c					\
 					parser/parse_map.c				\
@@ -106,7 +109,7 @@ $(NAME): $(LIB_MLX) $(LIB_FT) $(OBJ)
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 	@echo "$(CYAN)COMPILE $(INFO_FL) $(notdir $<)$(RESET)"
-	@$(COMPILE) $(INCLUDE) -MMD -o $@ -c $< 
+	@$(COMPILE) $(INCLUDE) -MMD -D NAME=\"$(NAME)\" -o $@ -c $<
 
 clean:
 	@echo "$(RED)$(BOLD)CLEANING $(NAME)$(RESET)"
