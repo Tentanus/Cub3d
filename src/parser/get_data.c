@@ -106,5 +106,7 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 		*idx = ft_strchr(&lines[*idx], '\n') - lines;
 		data_idx++;
 	}
+	if (data_idx != 6 && !lines[*idx])
+		return (cbd_error(ERR_PARSE_FORMAT), FAILURE);
 	return (SUCCESS);
 }

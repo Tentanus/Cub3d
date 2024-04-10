@@ -63,7 +63,5 @@ bool	parser(int fd, t_cub3d *info)
 		return (print_info(info), cbd_free_info(info), FAILURE);
 	if (check_path(info->chart) == FAILURE)
 		return (print_info(info), cbd_free_info(info), FAILURE);
-// print_info(info);
-// print_map(info->chart->map);
 	return (SUCCESS);
 }

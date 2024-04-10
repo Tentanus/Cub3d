@@ -46,9 +46,9 @@
 
 typedef struct s_vector_2d
 {
-	double x;
-	double y;
-} t_vector_2d;
+	double	x;
+	double	y;
+}	t_vector_2d;
 
 typedef struct s_map
 {
@@ -79,7 +79,7 @@ typedef struct s_minimap
 	uint32_t	player_size;
 	uint32_t	dimention_x;
 	uint32_t	dimention_y;
-} t_minimap;
+}	t_minimap;
 
 typedef struct s_raycaster
 {
