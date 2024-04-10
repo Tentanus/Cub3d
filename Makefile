@@ -37,9 +37,9 @@ SRC				:=	\
 					raycaster/mlx_funcs.c			\
 					raycaster/raycaster.c			\
 					raycaster/ray_texture.c			\
-					utils/logprinter.c				\
-					utils/key_hook.c				\
 					utils/free_info.c				\
+					utils/logprinter.c				\
+					utils/key_hook.c
 
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
