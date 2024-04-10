@@ -67,7 +67,6 @@ static bool load_minimap_struct(t_cub3d *info)
 	const size_t size_mm = \
 		((WINDOW_WIDTH >> MINIMAP_SIZE_MOD) + \
 		(WINDOW_HEIGHT >> MINIMAP_SIZE_MOD)) >> 1;
-		// TODO: MINIMAP_SIZE DEFAULT SHOULD BE SET TO 3
 	
 	info->minimap = ft_calloc(1, sizeof(t_minimap));
 	if (info->minimap == NULL)
@@ -90,103 +89,6 @@ static bool load_minimap_struct(t_cub3d *info)
 	return (SUCCESS);
 }
 
-// static?
-void	cub3d_key_hook(mlx_key_data_t keydata, void *param)
-{
-	t_raycaster	*raycaster;
-
-	raycaster = param;
-	if (keydata.key == MLX_KEY_ESCAPE)
-	{
-		mlx_close_window(raycaster->mlx);
-		return ;
-	}
-	//move forward
-	if ((keydata.key == MLX_KEY_W) && \
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		if(raycaster->map[(int)raycaster->player_pos.y][(int)(raycaster->player_pos.x + raycaster->player_dir.x * raycaster->move_speed)] != '1')
-			raycaster->player_pos.x += raycaster->player_dir.x * raycaster->move_speed;
-		if(raycaster->map[(int)(raycaster->player_pos.y + raycaster->player_dir.y * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
-			raycaster->player_pos.y += raycaster->player_dir.y * raycaster->move_speed;
-    }
-    //strafe left (currently inverted)
-	if ((keydata.key == MLX_KEY_A) && \
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-    {
-		double	rotspeed = M_PI_2;
-		double	tempDirX = raycaster->player_dir.x;
-		double	tempDirY = raycaster->player_dir.y;
-
-		tempDirX = raycaster->player_dir.x * cos(-rotspeed) - raycaster->player_dir.y * sin(-rotspeed);
-		tempDirY = raycaster->player_dir.x * sin(-rotspeed) + tempDirY * cos(-rotspeed);
-		if(raycaster->map[(int)raycaster->player_pos.y][(int)(raycaster->player_pos.x + tempDirX * raycaster->move_speed)] != '1')
-			raycaster->player_pos.x += tempDirX * raycaster->move_speed;
-		if(raycaster->map[(int)(raycaster->player_pos.y + tempDirY * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
-			raycaster->player_pos.y += tempDirY * raycaster->move_speed;
-    }
-	//move back
-	if ((keydata.key == MLX_KEY_S) && \
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		if(raycaster->map[(int)raycaster->player_pos.y][(int)(raycaster->player_pos.x - raycaster->player_dir.x * raycaster->move_speed)] != '1')
-			raycaster->player_pos.x -= raycaster->player_dir.x * raycaster->move_speed;
-		if(raycaster->map[(int)(raycaster->player_pos.y - raycaster->player_dir.y * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
-			raycaster->player_pos.y -= raycaster->player_dir.y * raycaster->move_speed;
-	}
-	//strafe right (currently inverted)
-	if ((keydata.key == MLX_KEY_D) && \
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		double	rotspeed = M_PI_2;
-		double	tempDirX = raycaster->player_dir.x;
-		double	tempDirY = raycaster->player_dir.y;
-
-		tempDirX = raycaster->player_dir.x * cos(rotspeed) - raycaster->player_dir.y * sin(rotspeed);
-		tempDirY = raycaster->player_dir.x * sin(rotspeed) + tempDirY * cos(rotspeed);
-		if(raycaster->map[(int)raycaster->player_pos.y][(int)(raycaster->player_pos.x + tempDirX * raycaster->move_speed)] != '1')
-			raycaster->player_pos.x += tempDirX * raycaster->move_speed;
-		if(raycaster->map[(int)(raycaster->player_pos.y + tempDirY * raycaster->move_speed)][(int)raycaster->player_pos.x] != '1')
-			raycaster->player_pos.y += tempDirY * raycaster->move_speed;
-	}
-	//Rotate To right
-	if ((keydata.key == MLX_KEY_Q) && \
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		double  oldDirX = raycaster->player_dir.x;
-		raycaster->player_dir.x = oldDirX * cos(-0.0698131) - raycaster->player_dir.y * sin(-0.0698131);
-		raycaster->player_dir.y = oldDirX * sin(-0.0698131) + raycaster->player_dir.y * cos(-0.0698131);
-		double  oldplaneX = raycaster->plane.x;
-		raycaster->plane.x = oldplaneX * cos(-0.0698131) - raycaster->plane.y * sin(-0.0698131);
-		raycaster->plane.y = oldplaneX * sin(-0.0698131) + raycaster->plane.y * cos(-0.0698131);
-	}
-	//Rotate To left
-	if ((keydata.key == MLX_KEY_E) && \
-		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
-	{
-		double  oldDirX = raycaster->player_dir.x;
-		raycaster->player_dir.x = oldDirX * cos(0.0698131) - raycaster->player_dir.y * sin(0.0698131);
-		raycaster->player_dir.y = oldDirX * sin(0.0698131) + raycaster->player_dir.y * cos(0.0698131);
-		double  oldplaneX = raycaster->plane.x;
-		raycaster->plane.x = oldplaneX * cos(0.0698131) - raycaster->plane.y * sin(0.0698131);
-		raycaster->plane.y = oldplaneX * sin(0.0698131) + raycaster->plane.y * cos(0.0698131);
-	}
-}
-/*
-{
-double oldDirX = dirX;
-dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-double oldPlaneX = planeX;
-planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
-}
-*/
-// bool	draw_ceiling(const t_raycaster raycaster)
-// {
-// 	while
-// 	mlx_put_pixel()
-// }
 void illegal_math(void *parameter);
 
 bool	raycaster(t_cub3d *info)
@@ -199,18 +101,12 @@ bool	raycaster(t_cub3d *info)
 		return (cbd_free_info(info), FAILURE);
 
 	// mlx_loop_hook(info->raycaster->mlx, &cub3d_math_hook, info->raycaster);	
+	mlx_loop_hook(info->raycaster->mlx, &minimap_hook, info);
 	mlx_loop_hook(info->raycaster->mlx, &illegal_math, info->raycaster);	
-	mlx_key_hook(info->raycaster->mlx, &cub3d_key_hook, info->raycaster);	//translate turning and moving
+	mlx_key_hook(info->raycaster->mlx, &cub3d_key_hook, info);	//translate turning and moving
 	
 	if (load_minimap_struct(info) == FAILURE)
 		return (cbd_free_info(info), FAILURE);
-	mlx_loop_hook(info->raycaster->mlx, &minimap_hook, info);
 	mlx_loop(info->raycaster->mlx);
 	return (SUCCESS);
 }
-
-// mlx_image_to_window(info->raycaster->mlx, mlx_texture_to_image(info->raycaster->mlx, info->raycaster->textures[NORTH]), 0, 0);
-	// if (draw_ceiling(*info->raycaster) == FAILURE)
-	// 	return (cbd_free_info(info), FAILURE);
-	// if (draw_floor(*info->raycaster) == FAILURE)
-	// 	return (cbd_free_info(info), FAILURE);

@@ -133,6 +133,8 @@ typedef struct s_cub3d
 bool	parser(int fd, t_cub3d *info);
 bool	raycaster(t_cub3d *info);
 
+void	cub3d_key_hook(mlx_key_data_t keydata, void *param);
+
 void	cbd_free_info(t_cub3d *info);
 
 // Functions to be removed:  TODO:

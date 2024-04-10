@@ -37,6 +37,7 @@ SRC				:=	\
 					raycaster/raycaster.c			\
 					raycaster/illegal_math.c		\
 					utils/logprinter.c				\
+					utils/key_hook.c				\
 					utils/free_info.c				\
 
 

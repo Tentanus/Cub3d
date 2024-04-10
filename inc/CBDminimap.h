@@ -15,6 +15,9 @@
 
 # include "Cub3d.h"
 
+// KEY_HOOK
+void	minimap_key_hook(mlx_key_data_t keydata, void *param);
+
 // PLAYER
 void	fill_player(t_minimap *mini, t_raycaster *raycaster);
 
