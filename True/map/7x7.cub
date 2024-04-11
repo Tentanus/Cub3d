@@ -1,0 +1,16 @@
+
+NO ./img/default/bloody_wall_01.png
+SO ./img/default/bloody_wall_02.png
+WE ./img/default/brown_wall.png
+EA ./img/default/brown_wall_light_cropped.png
+
+F 128,128,128
+C 255,255,255
+
+1111111
+1000001
+100N001
+1000001
+1000001
+1000001
+1111111
