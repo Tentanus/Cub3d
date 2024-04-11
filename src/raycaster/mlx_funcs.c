@@ -17,10 +17,15 @@
 
 void	cbd_free_texture(t_raycaster *raycaster, int idx)
 {
-	while (idx--)
+	
+	while (idx >= 0)
 	{
-		mlx_delete_texture(raycaster->textures[idx]);
-		raycaster->textures[idx] = NULL;
+		if (raycaster->textures[idx])
+		{
+			mlx_delete_texture(raycaster->textures[idx]);
+			raycaster->textures[idx] = NULL;
+		}
+		idx--;
 	}
 }
 
@@ -37,7 +42,7 @@ bool	load_textures(t_raycaster *raycaster, const t_param param)
 	{
 		if (!raycaster->textures[i])
 			return (cbd_error(ERR_MEMORY), \
-			cbd_free_texture(raycaster, i), FAILURE);
+				cbd_free_texture(raycaster, i), FAILURE);
 		i++;
 	}
 	return (SUCCESS);
