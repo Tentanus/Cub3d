@@ -21,11 +21,12 @@ void	rotation_key_hook(mlx_key_data_t keydata, t_raycaster *raycaster)
 	if ((keydata.key == MLX_KEY_Q || keydata.key == MLX_KEY_LEFT) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		rotation = -0.078539816;
-	else if ((keydata.key == MLX_KEY_E || keydata.key == MLX_KEY_RIGHT) && \
+	if ((keydata.key == MLX_KEY_E || keydata.key == MLX_KEY_RIGHT) && \
 		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 		rotation = 0.078539816;
-	if ((keydata.key == MLX_KEY_Q || keydata.key == MLX_KEY_LEFT) || \
-		(keydata.key == MLX_KEY_E || keydata.key == MLX_KEY_RIGHT))
+	if (((keydata.key == MLX_KEY_Q || keydata.key == MLX_KEY_LEFT) || \
+		(keydata.key == MLX_KEY_E || keydata.key == MLX_KEY_RIGHT)) && \
+		(keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT))
 	{
 		raycaster->player_dir.x = x_dir_old * cos(rotation) - \
 			raycaster->player_dir.y * sin(rotation);
