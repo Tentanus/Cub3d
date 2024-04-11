@@ -103,7 +103,8 @@ bool	check_path(t_map *chart)
 		while (map[i][j])
 		{
 			if (check_square(*chart, map, i, j) == FAILURE)
-				return (ft_split_free(map), cbd_error(ERR_MAP_ENCLOSED), FAILURE);
+				return (ft_split_free(map), \
+					cbd_error(ERR_MAP_ENCLOSED), FAILURE);
 			j++;
 		}
 		i++;

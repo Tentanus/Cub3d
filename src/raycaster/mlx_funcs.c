@@ -17,7 +17,6 @@
 
 void	cbd_free_texture(t_raycaster *raycaster, int idx)
 {
-	
 	while (idx >= 0)
 	{
 		if (raycaster->textures[idx])
