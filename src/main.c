@@ -40,5 +40,4 @@ int	main(int argc, char *argv[])
 	mlx_terminate(info.raycaster->mlx);
 	cbd_free_info(&info);
 	return (SUCCESS);
-// All errors must be formatted as Error\n + explicit error message
 }
