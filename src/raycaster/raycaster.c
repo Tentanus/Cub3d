@@ -50,7 +50,7 @@ static bool	load_raycaster_struct(t_cub3d *info)
 	info->raycaster->col_fl = info->param->col_fl;
 	if (load_textures(info->raycaster, *info->param) == FAILURE)
 		return (FAILURE);
-	// free_param(info->param); //and set to NULL to avoid double free
+	cbd_free_param(info);
 	info->raycaster->player_pos.x = info->chart->px + 0.5;
 	info->raycaster->player_pos.y = info->chart->py + 0.5;
 	load_player_direction(info->raycaster, info->chart->player_direction);
@@ -58,7 +58,6 @@ static bool	load_raycaster_struct(t_cub3d *info)
 	info->raycaster->map = copy_array(info->chart->map);
 	if (!info->raycaster->map)
 		return (FAILURE);
-	// free_chart(info->chart); //and set to NULL to avoid double free
 	return (SUCCESS);
 }
 
@@ -85,6 +84,7 @@ static bool	load_minimap_struct(t_cub3d *info)
 		(chart->max_y + 1) * info->minimap->tile_size);
 	if (!info->minimap->minimap)
 		return (cbd_mlx_error(), mlx_terminate(info->raycaster->mlx), FAILURE);
+	cbd_free_chart(info);
 	return (SUCCESS);
 }
 
