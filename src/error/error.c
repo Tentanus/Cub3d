@@ -32,12 +32,12 @@ void	cbd_error(t_errnum errnum)
 {
 	if (errnum == ERR_SUCCESS)
 		return ;
-	ft_putstr_fd("ERROR\n", STDERR_FILENO);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putendl_fd(g_err_msg[errnum], STDERR_FILENO);
 }
 
 void	cbd_mlx_error(void)
 {
-	ft_putstr_fd("cub3D: ", STDERR_FILENO);
+	ft_putstr_fd("Error\nmlx: ", STDERR_FILENO);
 	ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO);
 }
