@@ -16,27 +16,36 @@
 
 void	cbd_free_chart(t_cub3d *info)
 {
-	ft_split_free(info->chart->map);
-	free(info->chart);
-	info->chart = NULL;
+	if (info->chart)
+	{
+		ft_split_free(info->chart->map);
+		free(info->chart);
+		info->chart = NULL;
+	}
 }
 
 void	cbd_free_param(t_cub3d *info)
 {
-	free(info->param->text_no);
-	free(info->param->text_so);
-	free(info->param->text_we);
-	free(info->param->text_ea);
-	free(info->param);
-	info->param = NULL;
+	if (info->param)
+	{
+		free(info->param->text_no);
+		free(info->param->text_so);
+		free(info->param->text_we);
+		free(info->param->text_ea);
+		free(info->param);
+		info->param = NULL;
+	}
 }
 
 void	cbd_free_raycaster(t_cub3d *info)
 {
-	cbd_free_texture(info->raycaster, 4);
-	ft_split_free(info->raycaster->map);
-	free(info->raycaster);
-	info->raycaster = NULL;
+	if (info->raycaster)
+	{
+		cbd_free_texture(info->raycaster, 4);
+		ft_split_free(info->raycaster->map);
+		free(info->raycaster);
+		info->raycaster = NULL;
+	}
 }
 
 void	cbd_free_minimap(t_cub3d *info)
