@@ -56,12 +56,8 @@ void	cbd_free_minimap(t_cub3d *info)
 
 void	cbd_free_info(t_cub3d *info)
 {
-	if (info->chart)
-		cbd_free_chart(info);
-	if (info->param)
-		cbd_free_param(info);
-	if (info->raycaster)
-		cbd_free_raycaster(info);
-	if (info->minimap)
-		cbd_free_minimap(info);
+	cbd_free_chart(info);
+	cbd_free_param(info);
+	cbd_free_raycaster(info);
+	cbd_free_minimap(info);
 }
