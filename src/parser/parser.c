@@ -58,9 +58,9 @@ bool	parser(int fd, t_cub3d *info)
 	ft_bzero(info, sizeof(t_cub3d));
 	idx = 0;
 	if (get_data(info, fileline, &idx))
-		return (cbd_free_info(info), FAILURE);
+		return (free(fileline), cbd_free_info(info), FAILURE);
 	if (get_map(info, fileline, &idx))
-		return (cbd_free_info(info), FAILURE);
+		return (free(fileline), cbd_free_info(info), FAILURE);
 	free(fileline);
 	if (parse_map(info->chart) == FAILURE)
 		return (cbd_free_info(info), FAILURE);
