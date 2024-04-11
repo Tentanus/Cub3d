@@ -28,10 +28,14 @@ void	cbd_free_param(t_cub3d *info)
 {
 	if (info->param)
 	{
-		free(info->param->text_no);
-		free(info->param->text_so);
-		free(info->param->text_we);
-		free(info->param->text_ea);
+		if (info->param->text_no)
+			free(info->param->text_no);
+		if (info->param->text_so)
+			free(info->param->text_so);
+		if (info->param->text_we)
+			free(info->param->text_we);
+		if (info->param->text_ea)
+			free(info->param->text_ea);
 		free(info->param);
 		info->param = NULL;
 	}
