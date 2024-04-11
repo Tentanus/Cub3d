@@ -111,7 +111,6 @@ bool	check_path(t_map *chart)
 		return (ft_split_free(map), FAILURE);
 	if (flood_loop(chart, map) == FAILURE)
 		return (ft_split_free(map), FAILURE);
-print_map(map);
 	ft_split_free(map);
 	return (SUCCESS);
 }
