@@ -139,6 +139,8 @@ bool	raycaster(t_cub3d *info);
 void	cub3d_key_hook(mlx_key_data_t keydata, void *param);
 void	cbd_free_info(t_cub3d *info);
 void	cbd_free_texture(t_raycaster *raycaster, int idx);
+void	cbd_free_param(t_cub3d *info);
+void	cbd_free_chart(t_cub3d *info);
 
 // Functions to be removed:  TODO:
 
