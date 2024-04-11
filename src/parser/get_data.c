@@ -97,16 +97,16 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 		*idx += ft_strskipis(&lines[*idx], ft_isspace);
 		type_id = get_identifier(lines, idx);
 		if (type_id == TYPE_ID_MAX)
-			return (cbd_error(ERR_PARSE_ID), FAILURE);
+			return (cbd_free_param(info), cbd_error(ERR_PARSE_ID), FAILURE);
 		*idx += ft_strskipis(&lines[*idx], ft_isspace);
 		if (set_infovalue(info, type_id, lines, idx))
 			return (FAILURE);
 		if (lines[*idx] != '\n')
-			return (cbd_error(ERR_PARSE_TRAIL), FAILURE);
+			return (cbd_free_param(info), cbd_error(ERR_PARSE_TRAIL), FAILURE);
 		*idx = ft_strchr(&lines[*idx], '\n') - lines;
 		data_idx++;
 	}
 	if (data_idx != 6 && !lines[*idx])
-		return (cbd_error(ERR_PARSE_FORMAT), FAILURE);
+		return (cbd_free_param(info), cbd_error(ERR_PARSE_FORMAT), FAILURE);
 	return (SUCCESS);
 }
