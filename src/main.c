@@ -40,4 +40,5 @@ int	main(int argc, char *argv[])
 	mlx_terminate(info.raycaster->mlx);
 	cbd_free_info(&info);
 	return (SUCCESS);
+	// TODO?: remove printing info
 }

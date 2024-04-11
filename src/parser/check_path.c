@@ -24,7 +24,7 @@ static bool	floodfill(t_map *chart, char **map, int x, int y)
 		return (FAILURE);
 	if (map[y][x] == '1')
 		return (SUCCESS);
-	if (map[y][x] == ' ' || x + 1 > chart->max_x || \
+	if (!map[y][x] || map[y][x] == ' ' || x + 1 > chart->max_x || \
 		y + 1 > chart->max_y || x == 0 || y == 0)
 	{
 		chart->map_invalid = true;
@@ -111,6 +111,7 @@ bool	check_path(t_map *chart)
 		return (ft_split_free(map), FAILURE);
 	if (flood_loop(chart, map) == FAILURE)
 		return (ft_split_free(map), FAILURE);
+print_map(map);
 	ft_split_free(map);
 	return (SUCCESS);
 }
