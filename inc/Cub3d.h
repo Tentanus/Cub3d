@@ -85,30 +85,26 @@ typedef struct s_raycaster
 	mlx_texture_t	*textures[4];
 	int32_t			col_fl;
 	int32_t			col_ce;
-
 	char			**map;
-
-	t_vector_2d player_pos;
-	t_vector_2d	player_dir;
-	t_vector_2d	plane;
-	double		move_speed;
-	// t_vector_2d
+	t_vector_2d		player_pos;
+	t_vector_2d		player_dir;
+	t_vector_2d		plane;
+	double			move_speed;
 }	t_raycaster;
 
 typedef struct s_ray
 {
 	double		camera_x;
-	t_vector_2d	pos; 	//x and y start position
+	t_vector_2d	pos;
 	int			map_x;
 	int			map_y;
-	t_vector_2d	dir;	//initial direction vector
-	t_vector_2d side_dist;	//length of ray from current position to next x or y-side
-	t_vector_2d	delta_dist;	//length of ray from one x or y-side to next x or y-side
-	t_vector_2d	step;		//what direction to step in x or y-direction (either +1 or -1)
-	double		perp_dist;	//distance of perpendicular ray (Euclidean distance would give fisheye effect!)
-	int			side;		//was a NS or a EW wall hit? (can be developed to figur out which side between NS/EW)
+	t_vector_2d	dir;
+	t_vector_2d	side_dist;
+	t_vector_2d	delta_dist;
+	t_vector_2d	step;
+	double		perp_dist;
+	int			side;
 	int			wall_dir;
-
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
@@ -147,6 +143,5 @@ void	cbd_free_chart(t_cub3d *info);
 void	minimap_hook(void *param);
 void	print_info(t_cub3d *info);
 void	print_map(char **map);
-
 
 #endif // !CUB3D_H

@@ -1,15 +1,15 @@
-NO./textures/diamond.png
+NO ./img/default/bloody_wall_01.png
 
 
 
-SO./textures/wood.png
+SO ./img/default/brick.png
 
 
 
-WE ./textures/stone.png
+WE ./img/default/brown_wall.png
 
 
-EA ./textures/gold.png
+EA ./img/default/brown_wall_light_cropped.png
 
 F 255,0,0
 C 0,255,0
