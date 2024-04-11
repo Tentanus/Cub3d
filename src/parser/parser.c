@@ -22,7 +22,7 @@ static char	*read_fd(int fd)
 
 	line = ft_calloc(READ_CHUNK, sizeof(char));
 	if (line == NULL)
-		return (cbd_error(ERR_MEMORY), NULL);
+		return (cbd_error(ERR_MEMORY), close(fd), NULL);
 	if (read(fd, line, READ_CHUNK) != READ_CHUNK)
 	{
 		close(fd);
@@ -35,7 +35,7 @@ static char	*read_fd(int fd)
 	{
 		line = ft_strjoin_fs1(line, tmp);
 		if (line == NULL)
-			return (cbd_error(ERR_MEMORY), NULL);
+			return (cbd_error(ERR_MEMORY), close(fd), NULL);
 	}
 	close(fd);
 	free(tmp);
@@ -60,8 +60,8 @@ bool	parser(int fd, t_cub3d *info)
 		return (cbd_free_info(info), FAILURE);
 	free(fileline);
 	if (parse_map(info->chart) == FAILURE)
-		return (print_info(info), cbd_free_info(info), FAILURE);
+		return (cbd_free_info(info), FAILURE);
 	if (check_path(info->chart) == FAILURE)
-		return (print_info(info), cbd_free_info(info), FAILURE);
+		return (cbd_free_info(info), FAILURE);
 	return (SUCCESS);
 }
