@@ -61,13 +61,14 @@ static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str, ssize_t *idx)
 
 static t_type_id	get_identifier(char *str, ssize_t *idx)
 {
-	const char	*id_array[TYPE_ID_MAX] = {
+	const char	*id_array[TYPE_ID_MAX + 1] = {
 	[TYPE_ID_NORTH] = "NO",
 	[TYPE_ID_SOUTH] = "SO",
 	[TYPE_ID_WEST] = "WE",
 	[TYPE_ID_EAST] = "EA",
 	[TYPE_ID_FLOOR] = "F",
-	[TYPE_ID_CEILING] = "C"};
+	[TYPE_ID_CEILING] = "C",
+	[TYPE_ID_MAX] = NULL};
 	ssize_t		id_idx;
 
 	id_idx = TYPE_ID_NORTH;
@@ -97,16 +98,16 @@ bool	get_data(t_cub3d *info, char *lines, ssize_t *idx)
 		*idx += ft_strskipis(&lines[*idx], ft_isspace);
 		type_id = get_identifier(lines, idx);
 		if (type_id == TYPE_ID_MAX)
-			return (cbd_error(ERR_PARSE_ID), FAILURE);
+			return (cbd_free_param(info), cbd_error(ERR_PARSE_ID), FAILURE);
 		*idx += ft_strskipis(&lines[*idx], ft_isspace);
 		if (set_infovalue(info, type_id, lines, idx))
 			return (FAILURE);
 		if (lines[*idx] != '\n')
-			return (cbd_error(ERR_PARSE_TRAIL), FAILURE);
+			return (cbd_free_param(info), cbd_error(ERR_PARSE_TRAIL), FAILURE);
 		*idx = ft_strchr(&lines[*idx], '\n') - lines;
 		data_idx++;
 	}
 	if (data_idx != 6 && !lines[*idx])
-		return (cbd_error(ERR_PARSE_FORMAT), FAILURE);
+		return (cbd_free_param(info), cbd_error(ERR_PARSE_FORMAT), FAILURE);
 	return (SUCCESS);
 }

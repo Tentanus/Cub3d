@@ -13,33 +13,30 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <math.h>
 # include <stdbool.h>
 # include <stdint.h>
 # include <fcntl.h>				//	open
 # include <stdio.h>				//	printf
 # include <stdlib.h>			//	malloc, free, exit
 # include <unistd.h>			//	close, read, write
-# include <math.h>
+
+// from math.h
+# define M_PI		3.14159265358979323846	/* pi */
+# define M_PI_2		1.57079632679489661923	/* pi/2 */
+# define M_PI_4		0.78539816339744830962	/* pi/4 */
 
 # include "MLX42.h"
 # include "libft.h"
 
 # include "CBDerror.h"
 # include "CBDparser.h"
-# include "CBDraycaster.h"
 
 # define WINDOW_HEIGHT 720
 # define WINDOW_WIDTH 1280
 
-# define MINIMAP_SIZE_MOD 1
-# define MINIMAP_BORDER 2
-
-# define DEF_TEXT_NO "./img/default/bloody_wall_01.png"
-# define DEF_TEXT_SO "./img/default/bloody_wall_02.png"
-# define DEF_TEXT_WE "./img/default/brown_wall.png"
-# define DEF_TEXT_EA "./img/default/brown_wall_light_cropped.png"
-# define DEF_COL_FL 0x8C3B0CFF
-# define DEF_COL_CE 0x5BACF5FF
+# define MINIMAP_SIZE_MOD 2
+# define MINIMAP_BORDER 1
 
 # define SUCCESS 0
 # define FAILURE 1
@@ -88,21 +85,41 @@ typedef struct s_raycaster
 	mlx_texture_t	*textures[4];
 	int32_t			col_fl;
 	int32_t			col_ce;
-
 	char			**map;
-
-	t_vector_2d player_pos;
-	// t_vector_2d
-	// t_vector_2d
+	t_vector_2d		player_pos;
+	t_vector_2d		player_dir;
+	t_vector_2d		plane;
+	double			move_speed;
 }	t_raycaster;
 
 typedef struct s_ray
 {
-	double	start_x;
-	double	start_y;
-	double	angle;
-	double	dir_x;
+	double		camera_x;
+	t_vector_2d	pos;
+	int			map_x;
+	int			map_y;
+	t_vector_2d	dir;
+	t_vector_2d	side_dist;
+	t_vector_2d	delta_dist;
+	t_vector_2d	step;
+	double		perp_dist;
+	int			side;
+	int			wall_dir;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+
 }	t_ray;
+
+typedef struct s_texture_info
+{
+	double	wall_x;
+	double	step;
+	int		texture_x;
+	int		texture_y;
+	double	texture_pos;
+	int		pixel_index;
+}	t_texture_info;
 
 typedef struct s_cub3d
 {
@@ -113,18 +130,18 @@ typedef struct s_cub3d
 }	t_cub3d;
 
 bool	parser(int fd, t_cub3d *info);
+bool	raycaster(t_cub3d *info);
 
+void	cub3d_key_hook(mlx_key_data_t keydata, void *param);
 void	cbd_free_info(t_cub3d *info);
-
-// Functions to be Put in different Headers
-
-void	minimap_hook(void *param);
+void	cbd_free_texture(t_raycaster *raycaster, int idx);
+void	cbd_free_param(t_cub3d *info);
+void	cbd_free_chart(t_cub3d *info);
 
 // Functions to be removed:  TODO:
 
+void	minimap_hook(void *param);
 void	print_info(t_cub3d *info);
 void	print_map(char **map);
-
-bool	raycaster(t_cub3d *info);
 
 #endif // !CUB3D_H

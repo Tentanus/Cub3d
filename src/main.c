@@ -31,7 +31,6 @@ static int	validateinput(int argc, char **argv)
 
 int	main(int argc, char *argv[])
 {
-// All errors must be formatted as Error\n + explicit error message
 	t_cub3d	info;
 
 	if (parser(validateinput(argc, argv), &info) == FAILURE)

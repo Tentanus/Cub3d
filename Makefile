@@ -31,12 +31,15 @@ SRC				:=	\
 					parser/get_data.c				\
 					parser/get_data_utils.c			\
 					parser/get_map.c				\
-					parser/parser.c					\
 					parser/parse_map.c				\
+					parser/parser.c					\
+					raycaster/legal_math.c			\
 					raycaster/mlx_funcs.c			\
 					raycaster/raycaster.c			\
-					utils/logprinter.c				\
+					raycaster/ray_texture.c			\
 					utils/free_info.c				\
+					utils/logprinter.c				\
+					utils/key_hook.c
 
 
 OBJ				:=	$(SRC:%.c=$(OBJ_DIR)/%.o)
@@ -66,8 +69,8 @@ INCLUDE			:=	-I $(INC_DIR)					\
 LIB_FLAG		:=	-ldl -lglfw -lm
 
 CC				:=	cc
-# CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
-CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors
+CFL				:=	-Wall -Werror -Wextra -Wpedantic -Wfatal-errors
+# CFL				:=	-Wall -Wextra -Wpedantic -Wfatal-errors -fsanitize=address,undefined
 
 ifdef DEBUG
 CFL				+=	-g -fstandalone-debug
@@ -108,7 +111,7 @@ $(NAME): $(LIB_MLX) $(LIB_FT) $(OBJ)
 
 $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 	@echo "$(CYAN)COMPILE $(INFO_FL) $(notdir $<)$(RESET)"
-	@$(COMPILE) $(INCLUDE) -MMD -D NAME=\"$(NAME)\" -o $@ -c $<
+	@$(COMPILE) $(INCLUDE) -MMD -o $@ -c $<
 
 clean:
 	@echo "$(RED)$(BOLD)CLEANING $(NAME)$(RESET)"

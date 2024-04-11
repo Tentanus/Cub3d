@@ -26,19 +26,19 @@ static const char	*g_err_msg[ERR_SIZE + 1] = {
 [ERR_PARSE_TRAIL] = "unable to parse due to line with trailing characters",
 [ERR_PARSE_FILLED] = "unable to parse due to multiple similar identifier",
 [ERR_MAP_ENCLOSED] = "map is not enclosed by walls [1]",
+[ERR_MAP] = "map is not formatted correctly",
 [ERR_SIZE] = "END ERROR MESSAGES"};
 
 void	cbd_error(t_errnum errnum)
 {
 	if (errnum == ERR_SUCCESS)
 		return ;
-	ft_putstr_fd(NAME, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd("Error\n", STDERR_FILENO);
 	ft_putendl_fd(g_err_msg[errnum], STDERR_FILENO);
 }
 
 void	cbd_mlx_error(void)
 {
-	ft_putstr_fd("cub3D: ", STDERR_FILENO);
+	ft_putstr_fd("Error\nmlx: ", STDERR_FILENO);
 	ft_putendl_fd(mlx_strerror(mlx_errno), STDERR_FILENO);
 }

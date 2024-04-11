@@ -12,11 +12,25 @@
 
 // #include "CBDerror.h"
 #include "Cub3d.h"
+#include "CBDraycaster.h"
 #include "MLX42.h"
+
+void	cbd_free_texture(t_raycaster *raycaster, int idx)
+{
+	while (idx >= 0)
+	{
+		if (raycaster->textures[idx])
+		{
+			mlx_delete_texture(raycaster->textures[idx]);
+			raycaster->textures[idx] = NULL;
+		}
+		idx--;
+	}
+}
 
 bool	load_textures(t_raycaster *raycaster, const t_param param)
 {
-	int				i;
+	int	i;
 
 	raycaster->textures[NORTH] = mlx_load_png(param.text_no);
 	raycaster->textures[EAST] = mlx_load_png(param.text_ea);
@@ -26,16 +40,17 @@ bool	load_textures(t_raycaster *raycaster, const t_param param)
 	while (i < 4)
 	{
 		if (!raycaster->textures[i])
-			return (cbd_error(ERR_MEMORY), FAILURE);
+			return (cbd_error(ERR_MEMORY), \
+				cbd_free_texture(raycaster, i), FAILURE);
 		i++;
 	}
-// mlx_delete_texture(texture);
 	return (SUCCESS);
 }
 
 bool	get_image(t_raycaster *raycaster)
 {
-	raycaster->screen= mlx_new_image(raycaster->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	raycaster->screen = \
+		mlx_new_image(raycaster->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!raycaster->screen)
 		return (cbd_mlx_error(), mlx_terminate(raycaster->mlx), FAILURE);
 	return (SUCCESS);

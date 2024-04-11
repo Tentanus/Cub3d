@@ -62,7 +62,7 @@ static char	**get_map_line(char *line, ssize_t *idx)
 	line_count = get_map_count_lines(line, idx);
 	ret = ft_calloc(line_count + 1, sizeof (char *));
 	if (ret == NULL)
-		return (cbd_error(ERR_MEMORY), NULL);
+		return (NULL);
 	i = 0;
 	while (i < line_count)
 	{

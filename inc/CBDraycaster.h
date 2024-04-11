@@ -18,6 +18,9 @@
 // # include "Cub3d.h"
 typedef struct s_raycaster	t_raycaster;
 typedef struct s_parameters	t_param;
+typedef struct s_ray		t_ray;
+
+# define COLOUR 0 //removes
 
 typedef enum e_textures
 {
@@ -30,5 +33,7 @@ typedef enum e_textures
 bool	get_mlx(t_raycaster *raycaster);
 bool	get_image(t_raycaster *raycaster);
 bool	load_textures(t_raycaster *raycaster, const t_param param);
+void	cub3d_math_hook(void *parameter);
+void	ray_texture_calc(t_ray ray, const int x, const t_raycaster raycaster);
 
 #endif // !CBDRAYCASTER_H

@@ -11,22 +11,58 @@
 /* ************************************************************************** */
 
 #include "Cub3d.h"
+#include "MLX42.h"
 #include "libft.h"
 
-void	cbd_free_info(t_cub3d *info)
+void	cbd_free_chart(t_cub3d *info)
 {
 	if (info->chart)
 	{
-		if (info->chart->map)
-			ft_split_free(info->chart->map);
+		ft_split_free(info->chart->map);
 		free(info->chart);
+		info->chart = NULL;
 	}
-	if (info->param->text_no)
-		free(info->param->text_no);
-	if (info->param->text_so)
-		free(info->param->text_so);
-	if (info->param->text_we)
-		free(info->param->text_we);
-	if (info->param->text_ea)
-		free(info->param->text_ea);
+}
+
+void	cbd_free_param(t_cub3d *info)
+{
+	if (info->param)
+	{
+		if (info->param->text_no)
+			free(info->param->text_no);
+		if (info->param->text_so)
+			free(info->param->text_so);
+		if (info->param->text_we)
+			free(info->param->text_we);
+		if (info->param->text_ea)
+			free(info->param->text_ea);
+		free(info->param);
+		info->param = NULL;
+	}
+}
+
+void	cbd_free_raycaster(t_cub3d *info)
+{
+	if (info->raycaster)
+	{
+		cbd_free_texture(info->raycaster, 3);
+		if (info->raycaster->map)
+			ft_split_free(info->raycaster->map);
+		free(info->raycaster);
+		info->raycaster = NULL;
+	}
+}
+
+void	cbd_free_minimap(t_cub3d *info)
+{
+	free(info->minimap);
+	info->minimap = NULL;
+}
+
+void	cbd_free_info(t_cub3d *info)
+{
+	cbd_free_chart(info);
+	cbd_free_param(info);
+	cbd_free_raycaster(info);
+	cbd_free_minimap(info);
 }

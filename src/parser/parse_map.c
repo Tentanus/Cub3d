@@ -86,15 +86,15 @@ bool	parse_map(t_map *chart)
 	while (chart->map[i])
 	{
 		if (ft_strskipchar(chart->map[i], ' ') == ft_strlen(chart->map[i]))
-			return (FAILURE);
+			return (cbd_error(ERR_MAP), FAILURE);
 		if (ft_strsubset(chart->map[i], MAP_CHARACTER))
-			return (FAILURE);
+			return (cbd_error(ERR_MAP), FAILURE);
 		i++;
 	}
 	if (set_player_values(chart) == FAILURE)
-		return (FAILURE);
+		return (cbd_error(ERR_MAP), FAILURE);
 	if (set_map_values(chart) == FAILURE)
-		return (FAILURE);
+		return (cbd_error(ERR_MAP), FAILURE);
 	chart->map_invalid = false;
 	chart->map_complete = false;
 	return (SUCCESS);
