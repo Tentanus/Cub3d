@@ -9,7 +9,7 @@ SO ./textures/diamond.png
 WE ./textures/diamond.png
 
 
-EA./textures/diamond.png
+EA ./textures/diamond.png
 
             1111111111111111111111111  
             1000000000110000000000001

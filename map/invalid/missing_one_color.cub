@@ -9,7 +9,7 @@ SO ./textures/wood.png
 WE ./textures/stone.png
 
 
-EA./textures/gold.png
+EA ./textures/gold.png
 
 C     225,3,4
 

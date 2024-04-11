@@ -61,13 +61,14 @@ static bool	set_infovalue(t_cub3d *info, t_type_id id, char *str, ssize_t *idx)
 
 static t_type_id	get_identifier(char *str, ssize_t *idx)
 {
-	const char	*id_array[TYPE_ID_MAX] = {
+	const char	*id_array[TYPE_ID_MAX + 1] = {
 	[TYPE_ID_NORTH] = "NO",
 	[TYPE_ID_SOUTH] = "SO",
 	[TYPE_ID_WEST] = "WE",
 	[TYPE_ID_EAST] = "EA",
 	[TYPE_ID_FLOOR] = "F",
-	[TYPE_ID_CEILING] = "C"};
+	[TYPE_ID_CEILING] = "C",
+	[TYPE_ID_MAX] = NULL};
 	ssize_t		id_idx;
 
 	id_idx = TYPE_ID_NORTH;

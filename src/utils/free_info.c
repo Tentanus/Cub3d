@@ -46,7 +46,8 @@ void	cbd_free_raycaster(t_cub3d *info)
 	if (info->raycaster)
 	{
 		cbd_free_texture(info->raycaster, 3);
-		ft_split_free(info->raycaster->map);
+		if (info->raycaster->map)
+			ft_split_free(info->raycaster->map);
 		free(info->raycaster);
 		info->raycaster = NULL;
 	}

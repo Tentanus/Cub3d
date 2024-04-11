@@ -9,7 +9,7 @@ SO./textures/gold.png
 WE ./textures/stone.png
 
 
-EA./textures/wood.png
+EA ./textures/wood.png
 
 F 0,0,255
 C 255,0,0

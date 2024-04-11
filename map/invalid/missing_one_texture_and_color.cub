@@ -8,7 +8,7 @@ SO ./textures/wood.png
 
 
 
-EA./textures/gold.png
+EA ./textures/gold.png
 
 C     225,3,4
 
