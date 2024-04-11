@@ -19,26 +19,28 @@ static char	*read_fd(int fd)
 {
 	char	*line;
 	char	*tmp;
+	int		r;
 
-	line = ft_calloc(READ_CHUNK, sizeof(char));
+	line = ft_calloc(READ_CHUNK + 1, sizeof(char));
 	if (line == NULL)
-		return (cbd_error(ERR_MEMORY), close(fd), NULL);
-	if (read(fd, line, READ_CHUNK) != READ_CHUNK)
-	{
-		close(fd);
-		return (line);
-	}
-	tmp = ft_calloc(READ_CHUNK, sizeof(char));
-	if (tmp == NULL)
 		return (cbd_error(ERR_MEMORY), NULL);
-	while (read(fd, tmp, READ_CHUNK) == READ_CHUNK)
+	tmp = ft_calloc(READ_CHUNK + 1, sizeof(char));
+	if (tmp == NULL)
+		return (free(line), cbd_error(ERR_MEMORY), NULL);
+	r = read(fd, line, READ_CHUNK);
+	while (r == READ_CHUNK)
 	{
+		r = read(fd, tmp, READ_CHUNK);
+		if (r == -1)
+			break ;
+		tmp[r] = '\0';
 		line = ft_strjoin_fs1(line, tmp);
 		if (line == NULL)
-			return (cbd_error(ERR_MEMORY), close(fd), NULL);
+			return (free(tmp), cbd_error(ERR_MEMORY), NULL);
 	}
-	close(fd);
 	free(tmp);
+	if (r == -1)
+		return (free(line), cbd_error(ERR_READ), NULL);
 	return (line);
 }
 
@@ -50,8 +52,9 @@ bool	parser(int fd, t_cub3d *info)
 	if (fd == -1)
 		return (FAILURE);
 	fileline = read_fd(fd);
+	close(fd);
 	if (fileline == NULL)
-		return (cbd_error(ERR_MEMORY), FAILURE);
+		return (FAILURE);
 	ft_bzero(info, sizeof(t_cub3d));
 	idx = 0;
 	if (get_data(info, fileline, &idx))
