@@ -37,14 +37,16 @@ static void	direction_to_window(t_minimap *mini, double x, double y, \
 								t_vector_2d d)
 {
 	int			i;
-	const int	len = mini->tile_size;
+	const int	len = mini->tile_size - MINIMAP_BORDER - 1;
 
 	i = 0;
 	while (i <= len)
 	{
 		mlx_put_pixel(mini->minimap, x + (d.x * i), y + (d.y * i), \
 				0xFF0000FF);
-		mlx_put_pixel(mini->minimap, x + (d.x * i) + 1, y + (d.y * i) + 1, \
+		mlx_put_pixel(mini->minimap, x + (d.x * i), y + (d.y * i) + 1, \
+				0xFF0000FF);
+		mlx_put_pixel(mini->minimap, x + (d.x * i) + 1, y + (d.y * i), \
 				0xFF0000FF);
 		i++;
 	}

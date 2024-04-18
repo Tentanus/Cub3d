@@ -96,6 +96,7 @@ bool	check_path(t_map *chart)
 	map = copy_array_padded(chart->map, chart->max_x + 1);
 	if (map == NULL)
 		return (FAILURE);
+	map[chart->py][chart->px] = '0';
 	i = 0;
 	while (map[i])
 	{

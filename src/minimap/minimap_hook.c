@@ -53,9 +53,9 @@ void	minimap_hook(void *param)
 	const t_cub3d	*info = ((t_cub3d *) param);
 	t_minimap		*map;
 
+	if (info->minimap->minimap->enabled == false)
+		return ;
 	map = info->minimap;
 	fill_tile(map, info->raycaster->map);
 	fill_player(map, info->raycaster);
-	mlx_image_to_window(info->raycaster->mlx, map->minimap, 0, 0);
 }
-//TODO: this can be done before loop is started mlx_image_to_window

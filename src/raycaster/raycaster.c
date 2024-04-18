@@ -98,8 +98,10 @@ bool	raycaster(t_cub3d *info)
 		return (cbd_free_info(info), FAILURE);
 	if (load_minimap_struct(info) == FAILURE)
 		return (cbd_free_info(info), FAILURE);
-	mlx_loop_hook(info->raycaster->mlx, &minimap_hook, info);
+	mlx_image_to_window(info->raycaster->mlx, info->raycaster->screen, 0, 0);
+	mlx_image_to_window(info->raycaster->mlx, info->minimap->minimap, 0, 0);
 	mlx_loop_hook(info->raycaster->mlx, &cub3d_math_hook, info->raycaster);
+	mlx_loop_hook(info->raycaster->mlx, &minimap_hook, info);
 	mlx_key_hook(info->raycaster->mlx, &cub3d_key_hook, info);
 	mlx_loop(info->raycaster->mlx);
 	return (SUCCESS);

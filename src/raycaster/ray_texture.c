@@ -50,7 +50,7 @@ void	ray_texture_calc(t_ray ray, const int x, const t_raycaster raycaster)
 		tex_info.wall_x = ray.pos.y + ray.perp_dist * ray.dir.y;
 	else
 		tex_info.wall_x = ray.pos.x + ray.perp_dist * ray.dir.x;
-	tex_info.wall_x -= floor((tex_info.wall_x));
+	tex_info.wall_x = -tex_info.wall_x + floor(tex_info.wall_x) + 1;
 	tex_info.texture_x = \
 	(int)(tex_info.wall_x * (double)raycaster.textures[ray.wall_dir]->width);
 	if (ray.side == 0 && ray.dir.x > 0)
@@ -61,7 +61,7 @@ void	ray_texture_calc(t_ray ray, const int x, const t_raycaster raycaster)
 		raycaster.textures[ray.wall_dir]->width - tex_info.texture_x - 1;
 	tex_info.step = \
 	1.0 * raycaster.textures[ray.wall_dir]->height / ray.line_height;
-	tex_info.texture_pos = \
-	(ray.draw_start - WINDOW_HEIGHT / 2 + ray.line_height / 2) * tex_info.step;
+	tex_info.texture_pos = (ray.draw_start - (WINDOW_HEIGHT >> 1) + \
+		(ray.line_height >> 1)) * tex_info.step;
 	ray_texture_draw(ray, tex_info, x, raycaster);
 }

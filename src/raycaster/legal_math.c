@@ -135,5 +135,4 @@ void	cub3d_math_hook(void *param)
 		ray_texture_calc(ray, x, *raycaster);
 		x++;
 	}
-	mlx_image_to_window(raycaster->mlx, raycaster->screen, 0, 0);
 }

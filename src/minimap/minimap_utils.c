@@ -58,7 +58,7 @@ void	minimap_key_hook(mlx_key_data_t keydata, void *param)
 	t_minimap	*mini;
 
 	mini = (t_minimap *) param;
-	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_TAB && keydata.action == MLX_PRESS)
 		mini->minimap->enabled = \
 			ft_ternary(mini->minimap->enabled, false, true);
 }
